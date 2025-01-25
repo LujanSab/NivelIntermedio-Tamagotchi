@@ -59,10 +59,16 @@ class MascotaEntity:
     """
 
     def dibujar(self, window):
+        '''
+        funcion para dibujar la mascota en la pantalla
+        '''
         window.blit(self.imagen, self.forma)
         pygame.draw.rect(window, (255,255,255), self.forma, width=1)
 
     def limpiar(self):
+        '''
+        logica de animacion de limpieza
+        '''
         cooldown_animation = 50
 
         if self.comer_frame_index >= len(self.animaciones[2]):
@@ -75,6 +81,9 @@ class MascotaEntity:
             self.actualizar_tiempo = pygame.time.get_ticks()
     
     def comer(self):
+        '''
+        logica de animacion de comer
+        '''
         cooldown_animation = 50
 
         if self.comer_frame_index >= len(self.animaciones[2]):
@@ -87,6 +96,9 @@ class MascotaEntity:
             self.actualizar_tiempo = pygame.time.get_ticks()
     
     def dormir(self):
+        '''
+        logica de animacion de dormir
+        '''
         cooldown_animation = 50
 
         if self.comer_frame_index >= len(self.animaciones[2]):
