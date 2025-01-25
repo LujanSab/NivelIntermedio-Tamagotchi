@@ -1,7 +1,7 @@
 import pygame
 
 
-def scale_img(image, scale = 1.0):
+def scale_img(image, scale: float):
     """
     La función `scale_img` toma una imagen y la escala según un factor específico utilizando el método
     `transform.scale` de Pygame.
