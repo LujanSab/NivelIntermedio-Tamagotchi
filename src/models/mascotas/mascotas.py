@@ -82,15 +82,15 @@ class Mascota(ABC):
         self.felicidad += valor
 
 class Perro(Mascota):
-    def __init__(self, nombre_dueño, nombre_perro, tipo):
+    def __init__(self, nombre_dueño, nombre_perro, tipo='perro'):
         super().__init__(nombre_dueño, nombre_perro, tipo)
 
     def ladrar(self):
         pass
     
 class Gato(Mascota):
-    def __init__(self, nombre_dueño, nombre_gato):
-        super().__init__(nombre_dueño, nombre_gato)
+    def __init__(self, nombre_dueño, nombre_mascota, tipo='gato'):
+        super().__init__(nombre_dueño, nombre_mascota, tipo)
 
     def maullar(self):
         pass
