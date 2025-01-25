@@ -1,0 +1,11 @@
+coloredlogs==15.0.1
+flatbuffers==25.1.21
+humanfriendly==10.0
+onnxruntime==1.20.1
+opencv-python-headless==4.11.0.86
+pooch==1.8.2
+PyMatting==1.1.13
+pyreadline3==3.5.4
+rembg==2.0.61
+setuptools==75.1.0
+wheel==0.44.0
