@@ -4,7 +4,7 @@ from src.config import Styles
 from src.models.mascotas.mascotas import Mascota
 
 
-class MascotaEntity(ABC):
+class MascotaEntity:
     """
     MascotaEntity es una clase abstracta que se ocupa de crear los metodos y definir
     los atributos de las entidades hijas
@@ -33,7 +33,6 @@ class MascotaEntity(ABC):
         - getters: encargados de devolver la informacion de la mascota a la vista
         - setters: encargados de enviar informacion a la clase Mascota para almacenarla en la base de datos
     """
-    @abstractmethod
     def __init__(self, x, y, imagen, animaciones, nombre_dueño, nombre_mascota, tipo):
         self.forma = pygame.Rect(0, 0, Styles.MASCOTA_WIDTH, Styles.MASCOTA_HEIGHT)
         self.forma.center = (x,y)
@@ -59,7 +58,10 @@ class MascotaEntity(ABC):
     ------------------------------------------------------------------------------------
     """
 
-    @abstractmethod
+    def dibujar(self, window):
+        window.blit(self.imagen, self.forma)
+        pygame.draw.rect(window, (255,255,255), self.forma, width=1)
+
     def limpiar(self):
         cooldown_animation = 50
 
@@ -72,7 +74,6 @@ class MascotaEntity(ABC):
             self.comer_frame_index += 1
             self.actualizar_tiempo = pygame.time.get_ticks()
     
-    @abstractmethod
     def comer(self):
         cooldown_animation = 50
 
@@ -85,7 +86,6 @@ class MascotaEntity(ABC):
             self.comer_frame_index += 1
             self.actualizar_tiempo = pygame.time.get_ticks()
     
-    @abstractmethod
     def dormir(self):
         cooldown_animation = 50
 
@@ -105,57 +105,47 @@ class MascotaEntity(ABC):
     """
     
     @property
-    @abstractmethod
     def get_nombre(self):
         return Mascota.get_nombre()
 
     @get_nombre.setter
-    @abstractmethod
     def set_nombre(nombre):
         Mascota.set_nombre_mascota(nombre)
     
     @property
-    @abstractmethod
     def get_limpieza(self):
         return Mascota.get_limpieza()
 
     @get_limpieza.setter
-    @abstractmethod
     def set_limpieza(limpieza):
         Mascota.set_limpieza(limpieza)
 
     @property
-    @abstractmethod
     def get_hambre(self):
         return Mascota.get_hambre()
 
     @get_hambre.setter
-    @abstractmethod
     def set_hambre(limpieza):
         Mascota.set_hambre(limpieza)
     
     @property
-    @abstractmethod
     def get_felicidad(self):
         return Mascota.get_felicidad()
 
     @get_felicidad.setter
-    @abstractmethod
     def set_felicidad(felicidad):
         Mascota.set_felicidad(felicidad)
 
     @property
-    @abstractmethod
     def get_energia(self):
         return Mascota.get_energia()
 
     @get_energia.setter
-    @abstractmethod
     def set_energia(energia):
         Mascota.set_energia(energia)
 
 
-class Perro(Mascota):
+class PerroEntity(MascotaEntity):
     """
     Entidad Perro que hereda de MascotaEntity, de tipo 'perro'
     """
@@ -163,7 +153,7 @@ class Perro(Mascota):
         super().__init__(x, y, imagen, animaciones, nombre_dueño, nombre_mascota, tipo)
 
 
-class Gato(Mascota):
+class GatoEntity(MascotaEntity):
     """
     Entidad Gato que hereda de MascotaEntity, de tipo 'gato'
     """
