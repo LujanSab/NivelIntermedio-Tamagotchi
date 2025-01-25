@@ -38,7 +38,7 @@ class MascotaEntity(ABC):
         self.forma = pygame.Rect(0, 0, Styles.MASCOTA_WIDTH, Styles.MASCOTA_HEIGHT)
         self.forma.center = (x,y)
         self.imagen = imagen
-        self.animaciones = animaciones[0] # lista con las animaciones para estar quieto, limpiar, comer y dormir
+        self.animaciones = animaciones[0]
         self.actualizar_tiempo = pygame.time.get_ticks()
 
         self.comer_frame_index = 0
