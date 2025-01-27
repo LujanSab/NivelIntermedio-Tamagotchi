@@ -70,7 +70,7 @@ class MascotaDAO:
         except Exception as error:
             return error
 
-    def extrar_datos_mascota(self, nombremascota):
+    def extraer_datos_mascota(self, nombremascota):
         """_summary_
         -
         Extrae los datos de una sola mascota. 
@@ -82,14 +82,16 @@ class MascotaDAO:
         sql = "SELECT * FROM mascotas WHERE nombremascota = ?"
         try:
             self.cursor.execute(sql, data)
-            self.con.commit()
+            result = self.cursor.fetchall()
+            return result
         except Exception as error:
             return error
 
-    def extrar_datos_mascotas(self):
+    def extraer_datos_mascotas(self):
         sql = "SELECT * FROM mascotas"
         try:
             self.cursor.execute(sql)
-            self.con.commit()
+            result = self.cursor.fetchall()
+            return result
         except Exception as error:
             return error
