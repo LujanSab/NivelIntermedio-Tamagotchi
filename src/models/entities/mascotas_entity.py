@@ -121,7 +121,7 @@ class MascotaEntity:
         return Mascota.get_nombre()
 
     @get_nombre.setter
-    def set_nombre(nombre):
+    def set_nombre(nombre: str):
         Mascota.set_nombre_mascota(nombre)
     
     @property
@@ -129,7 +129,7 @@ class MascotaEntity:
         return Mascota.get_limpieza()
 
     @get_limpieza.setter
-    def set_limpieza(limpieza):
+    def set_limpieza(limpieza: int):
         Mascota.set_limpieza(limpieza)
 
     @property
@@ -137,15 +137,15 @@ class MascotaEntity:
         return Mascota.get_hambre()
 
     @get_hambre.setter
-    def set_hambre(limpieza):
-        Mascota.set_hambre(limpieza)
+    def set_hambre(hambre: int):
+        Mascota.set_hambre(hambre)
     
     @property
     def get_felicidad(self):
         return Mascota.get_felicidad()
 
     @get_felicidad.setter
-    def set_felicidad(felicidad):
+    def set_felicidad(felicidad: int):
         Mascota.set_felicidad(felicidad)
 
     @property
@@ -153,7 +153,7 @@ class MascotaEntity:
         return Mascota.get_energia()
 
     @get_energia.setter
-    def set_energia(energia):
+    def set_energia(energia: int):
         Mascota.set_energia(energia)
 
 
