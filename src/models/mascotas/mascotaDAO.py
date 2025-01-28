@@ -1,9 +1,11 @@
 import sqlite3
+from src.config import DATABASE_NAME
 
 class MascotaDAO:
     def __init__(self):
         try:
             self.con = self.conexion()
+            self.cursor = self.crear_cursor()
             self.crear_tabla()
         except ConnectionError as error:
             print(error)
@@ -17,15 +19,16 @@ class MascotaDAO:
             _Connection_ : Con esta podemos crear una variable y utilizarla durante las
             consultas, porque hace la conexión con la BD.
         """
-        return sqlite3.connect("database/mascotas.db")
+        return sqlite3.connect(DATABASE_NAME)
     
     def crear_cursor(self):
         """_summary_
         -
-        Crea la variable self.cursor. Esto hará que se puedan recorrer los datos
-        fila por fila, leerlos y posibilitar la ejecución de la consulta SQL. 
+        Returns:
+            self.con.cursor : el cursor de la conexion. Esto hará que se puedan recorrer los datos
+            fila por fila, leerlos y posibilitar la ejecución de la consulta SQL. 
         """
-        self.cursor = self.con.cursor()
+        return self.con.cursor()
 
     def crear_tabla(self):
         sql = """CREATE TABLE IF NOT EXISTS mascotas(
