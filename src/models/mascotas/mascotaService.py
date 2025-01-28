@@ -16,9 +16,8 @@ class MascotaService:
             self.mascota.hambre
         )
 
-    def actualizar(self, nombre, energia=None, limpieza=None, hambre=None, felicidad=None):
+    def actualizar(self, energia=None, limpieza=None, hambre=None, felicidad=None):
         campos = []
-        valores = ()
 
         if energia is not None:
             campos.append("energia = ?")
@@ -41,7 +40,7 @@ class MascotaService:
             print("No se proporcionaron valores para actualizar.")
 
         campos_str = ', '.join(campos)
-        valores.append(nombre)
+        valores = (self.mascota.nombre, )
 
         self.dao.actualizar_estado_mascota(campos=campos_str, valores=valores)
     
