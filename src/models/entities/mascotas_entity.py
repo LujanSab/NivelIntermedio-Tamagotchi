@@ -107,13 +107,13 @@ class PerroEntity(MascotaEntity):
     """
     Entidad Perro que hereda de MascotaEntity, de tipo 'perro'
     """
-    def __init__(self, x, y, imagen, animaciones, nombre_dueño, nombre_mascota, tipo='perro'):
-        super().__init__(x, y, imagen, animaciones, nombre_dueño, nombre_mascota, tipo)
+    def __init__(self, x, y, imagen, animaciones):
+        super().__init__(x, y, imagen, animaciones)
 
 
 class GatoEntity(MascotaEntity):
     """
     Entidad Gato que hereda de MascotaEntity, de tipo 'gato'
     """
-    def __init__(self, x, y, imagen, animaciones, nombre_dueño, nombre_mascota, tipo='gato'):
-        super().__init__(x, y, imagen, animaciones, nombre_dueño, nombre_mascota, tipo)
+    def __init__(self, x, y, imagen, animaciones):
+        super().__init__(x, y, imagen, animaciones)
