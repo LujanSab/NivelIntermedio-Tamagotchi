@@ -1,13 +1,13 @@
 
 class Mascota:
     def __init__(self, nombre_dueño, nombre_mascota, tipo):
-        self.dueño = nombre_dueño
-        self.nombre = nombre_mascota
-        self.tipo = tipo
-        self.energia = 50
-        self.limpieza = 50
-        self.hambre = 50
-        self.felicidad = 50
+        self._dueño = nombre_dueño
+        self._nombre = nombre_mascota
+        self._tipo = tipo
+        self._energia = 50
+        self._limpieza = 50
+        self._hambre = 50
+        self._felicidad = 50
 
     @property
     def nombre_dueño(self):
@@ -65,16 +65,12 @@ class Mascota:
     def felicidad(self, valor):
         self.felicidad += valor
 
-class Perro(Mascota):
-    def __init__(self, nombre_dueño, nombre_perro, tipo='perro'):
-        super().__init__(nombre_dueño, nombre_perro, tipo)
 
-    def ladrar(self):
-        pass
+class Perro(Mascota):
+    def __init__(self, nombre_dueño, nombre_mascota, tipo='perro'):
+        super().__init__(nombre_dueño, nombre_mascota, tipo)
+
     
 class Gato(Mascota):
     def __init__(self, nombre_dueño, nombre_mascota, tipo='gato'):
         super().__init__(nombre_dueño, nombre_mascota, tipo)
-
-    def maullar(self):
-        pass
