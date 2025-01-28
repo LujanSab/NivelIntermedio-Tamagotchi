@@ -55,17 +55,20 @@ class MascotaService:
 
     def obtener_datos_mascota(self):
         nombre = self.mascota.nombre
-        mascota = self.dao.extraer_datos_mascota(nombre)
-        data = {
-            "nombre" : mascota.nombre,
-            "dueño" : mascota.dueño,
-            "tipo" : mascota.tipo,
-            "energia" : mascota.energia,
-            "limpieza" : mascota.limpieza,
-            "hambre" : mascota.hambre,
-            "felicidad" : mascota.felicidad
-        }
-        return data
+        if not nombre:
+            return "Los campos no deben estar en blanco. Intente nuevamente"
+        else:
+            mascota = self.dao.extraer_datos_mascota(nombre)
+            data = {
+                "nombre" : mascota.nombre,
+                "dueño" : mascota.dueño,
+                "tipo" : mascota.tipo,
+                "energia" : mascota.energia,
+                "limpieza" : mascota.limpieza,
+                "hambre" : mascota.hambre,
+                "felicidad" : mascota.felicidad
+            }
+            return data
     
     def obtener_todas_las_mascotas(self):
         mascotas = self.dao.extraer_datos_mascotas()
