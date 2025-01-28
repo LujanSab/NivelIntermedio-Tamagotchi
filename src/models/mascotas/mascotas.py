@@ -10,59 +10,59 @@ class Mascota:
         self.felicidad = 50
 
     @property
-    def get_nombre_dueño(self):
+    def nombre_dueño(self):
         return self.dueño
     
-    @get_nombre_dueño.setter
-    def set_nombre_dueño(self, nombre_dueño):
+    @nombre_dueño.setter
+    def nombre_dueño(self, nombre_dueño):
         self.dueño = nombre_dueño
 
     @property
-    def get_nombre_mascota(self):
+    def nombre_mascota(self):
         return self.nombre
     
-    @get_nombre_mascota.setter
-    def set_nombre_mascota(self, nombre_mascota):
+    @nombre_mascota.setter
+    def nombre_mascota(self, nombre_mascota):
         self.nombre = nombre_mascota
     
     @property
-    def get_tipo_de_mascota(self):
+    def tipo_de_mascota(self):
         return self.tipo
     
-    @get_tipo_de_mascota.setter
-    def set_tipo_de_mascota(self, tipo):
+    @tipo_de_mascota.setter
+    def tipo_de_mascota(self, tipo):
         self.tipo = tipo
     
     @property
-    def get_energia(self):
+    def energia(self):
         return self.energia
     
-    @get_energia.setter
-    def set_energia(self, valor):
+    @energia.setter
+    def energia(self, valor):
         self.energia += valor
 
     @property
-    def get_limpieza(self):
+    def limpieza(self):
         return self.limpieza
 
-    @get_limpieza.setter
-    def set_limpieza(self, valor):
+    @limpieza.setter
+    def limpieza(self, valor):
         self.limpieza += valor
 
     @property
-    def get_hambre(self):
+    def hambre(self):
         return self.hambre
     
-    @get_hambre.setter
-    def set_hambre(self, valor):
+    @hambre.setter
+    def hambre(self, valor):
         self.hambre += valor
 
     @property
-    def get_felicidad(self):
+    def felicidad(self):
         return self.felicidad
 
-    @get_felicidad.setter
-    def set_felicidad(self, valor):
+    @felicidad.setter
+    def felicidad(self, valor):
         self.felicidad += valor
 
 class Perro(Mascota):
