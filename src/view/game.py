@@ -52,8 +52,6 @@ def main():
                     y=Styles.WINDOW_HEIGHT/2, 
                     imagen=dog_image, 
                     animaciones=animaciones, 
-                    nombre_dueño='emi', 
-                    nombre_mascota='luna'
                 )
     
     firu = Perro(nombre_dueño='emi', nombre_perro='firu', tipo='perro')
