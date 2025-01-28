@@ -53,15 +53,19 @@ class MascotaDAO:
         except Exception as error:
             return error
 
-    def actualizar_estado_mascota(self, energia, limpieza, hambre, felicidad, nombremascota):
-        data = (energia, limpieza, hambre, felicidad, nombremascota)
-        sql = "UPDATE mascotas SET energia = ?, limpieza = ?, hambre = ?, felicidad = ?  WHERE nombre = ?"
+    def actualizar_estado_mascota(self, campos: str, valores: list):
+        if not valores:
+            raise ValueError('Se necesitan valores para actualizar.')
+
+        sql = f"UPDATE mascotas SET {campos} WHERE nombre = ?"
+
         try:
-            self.cursor.execute(sql, data)
+            self.cursor.execute(sql, valores)
             self.con.commit()
             return "Se actualizó el estado de la mascota."
         except Exception as error:
-            return error
+            return f"Error: {error}"
+
 
     def eliminar_mascota(self, nombredueño, nombremascota):
         data = (nombredueño, nombremascota, )
