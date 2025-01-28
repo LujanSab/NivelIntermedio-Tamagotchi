@@ -33,7 +33,7 @@ class MascotaEntity:
         - getters: encargados de devolver la informacion de la mascota a la vista
         - setters: encargados de enviar informacion a la clase Mascota para almacenarla en la base de datos
     """
-    def __init__(self, x, y, imagen, animaciones, nombre_dueño, nombre_mascota, tipo):
+    def __init__(self, x, y, imagen, animaciones):
         self.forma = pygame.Rect(0, 0, Styles.MASCOTA_WIDTH, Styles.MASCOTA_HEIGHT)
         self.forma.center = (x,y)
         self.imagen = imagen
@@ -43,14 +43,6 @@ class MascotaEntity:
         self.comer_frame_index = 0
         self.limpiar_frame_index = 0
         self.dormir_frame_index = 0
-        
-        self.tipo = tipo
-        self.dueño = nombre_dueño
-        self.nombre = nombre_mascota
-        self.limpieza = 50
-        self.hambre = 50
-        self.felicidad = 50
-        self.energia = 50
 
     """
     ------------------------------------------------------------------------------------
@@ -110,53 +102,7 @@ class MascotaEntity:
             self.comer_frame_index += 1
             self.actualizar_tiempo = pygame.time.get_ticks()
     
-    """
-    ------------------------------------------------------------------------------------
-    GETTERS Y SETTERS
-    ------------------------------------------------------------------------------------
-    """
     
-    @property
-    def get_nombre(self):
-        return Mascota.get_nombre()
-
-    @get_nombre.setter
-    def set_nombre(nombre: str):
-        Mascota.set_nombre_mascota(nombre)
-    
-    @property
-    def get_limpieza(self):
-        return Mascota.get_limpieza()
-
-    @get_limpieza.setter
-    def set_limpieza(limpieza: int):
-        Mascota.set_limpieza(limpieza)
-
-    @property
-    def get_hambre(self):
-        return Mascota.get_hambre()
-
-    @get_hambre.setter
-    def set_hambre(hambre: int):
-        Mascota.set_hambre(hambre)
-    
-    @property
-    def get_felicidad(self):
-        return Mascota.get_felicidad()
-
-    @get_felicidad.setter
-    def set_felicidad(felicidad: int):
-        Mascota.set_felicidad(felicidad)
-
-    @property
-    def get_energia(self):
-        return Mascota.get_energia()
-
-    @get_energia.setter
-    def set_energia(energia: int):
-        Mascota.set_energia(energia)
-
-
 class PerroEntity(MascotaEntity):
     """
     Entidad Perro que hereda de MascotaEntity, de tipo 'perro'
