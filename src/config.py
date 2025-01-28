@@ -5,7 +5,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 
-DATABASES = 'tamagochi.db'
+DATABASE_NAME = 'tamagochi.db'
 
 STATIC_UTL = f'{BASE_DIR}//assets'
 
