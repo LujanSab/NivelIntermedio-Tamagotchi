@@ -1,6 +1,8 @@
 import pygame
 from src.config import Styles
 from src.models.entities.mascotas_entity import PerroEntity
+from src.models.mascotas.mascotas import Perro
+from src.models.mascotas.mascotaService import MascotaService
 from src.controller.utils import scale_img
 from src.controller.logger import log
 import traceback
@@ -45,14 +47,23 @@ def main():
     
     dog_image = Styles.DOG_IMAGE
 
-    firulais = PerroEntity(
+    firu_entity = PerroEntity(
                     x=(Styles.WINDOW_WIDTH/2), 
                     y=Styles.WINDOW_HEIGHT/2, 
                     imagen=dog_image, 
                     animaciones=animaciones, 
-                    nombre_dueño='emi', 
-                    nombre_mascota='luna'
                 )
+    
+    firu = Perro(nombre_dueño='emi', nombre_perro='firu', tipo='perro')
+    
+    firu_servicio = MascotaService(firu)
+    lista = firu_servicio.obtener_por_nombre('firu')
+
+    if not lista[0]:
+        firu_servicio.crear()
+    else:
+        mi_perro = lista[0]
+        firu = Perro(*mi_perro)
 
     run = True
 
@@ -67,19 +78,22 @@ def main():
                 
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if boton_limpiar.collidepoint(pygame.mouse.get_pos()):
-                        # firulais.set_limpieza((+25))
+                        firu.limpieza += 25
+                        firu_servicio.actualizar(nombre=firu.nombre, limpieza=firu.limpieza)
                         print('limpiar')
-                        # firulais.limpiar()
+                        # firu_entity.limpiar()
                     elif boton_alimentar.collidepoint(pygame.mouse.get_pos()):
-                        # firulais.set_hambre((-25))
+                        firu.hambre -= 25
+                        firu_servicio.actualizar(nombre=firu.nombre, hambre=firu.hambre)
                         print('alimentar')
-                        # firulais.comer()
+                        # firu_entity.comer()
                     elif boton_dormir.collidepoint(pygame.mouse.get_pos()):
-                        # firulais.set_hambre((-25))
+                        firu.energia += 25
+                        firu_servicio.actualizar(nombre=firu.nombre, energia=firu.energia)
                         print('dormir')
-                        # firulais.comer()
+                        # firu_entity.comer()
             
-            firulais.dibujar(window=window)
+            firu_entity.dibujar(window=window)
 
             pygame.draw.rect(window, (0,0,0), boton_limpiar)
             pygame.draw.rect(window, (0,0,0), boton_alimentar)
