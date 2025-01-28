@@ -55,9 +55,15 @@ def main():
                 )
     
     firu = Perro(nombre_dueño='emi', nombre_perro='firu', tipo='perro')
-
+    
     firu_servicio = MascotaService(firu)
-    firu_servicio.crear()
+    lista = firu_servicio.obtener_por_nombre('firu')
+
+    if not lista[0]:
+        firu_servicio.crear()
+    else:
+        mi_perro = lista[0]
+        firu = Perro(*mi_perro)
 
     run = True
 
@@ -73,14 +79,17 @@ def main():
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if boton_limpiar.collidepoint(pygame.mouse.get_pos()):
                         firu.limpieza += 25
+                        firu_servicio.actualizar(nombre=firu.nombre, limpieza=firu.limpieza)
                         print('limpiar')
                         # firu_entity.limpiar()
                     elif boton_alimentar.collidepoint(pygame.mouse.get_pos()):
                         firu.hambre -= 25
+                        firu_servicio.actualizar(nombre=firu.nombre, hambre=firu.hambre)
                         print('alimentar')
                         # firu_entity.comer()
                     elif boton_dormir.collidepoint(pygame.mouse.get_pos()):
                         firu.energia += 25
+                        firu_servicio.actualizar(nombre=firu.nombre, energia=firu.energia)
                         print('dormir')
                         # firu_entity.comer()
             
