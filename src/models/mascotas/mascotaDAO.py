@@ -53,7 +53,7 @@ class MascotaDAO:
         except Exception as error:
             return error
 
-    def actualizar_estado_mascota(self, campos: str, valores: list):
+    def actualizar_estado_mascota(self, campos: str, valores: tuple):
         if not valores:
             raise ValueError('Se necesitan valores para actualizar.')
 
@@ -66,9 +66,8 @@ class MascotaDAO:
         except Exception as error:
             return f"Error: {error}"
 
-
-    def eliminar_mascota(self, nombredueño, nombremascota):
-        data = (nombredueño, nombremascota, )
+    def eliminar_mascota(self, nombremascota, nombredueño):
+        data = (nombremascota, nombredueño)
         sql = "DELETE FROM mascotas WHERE nombre = ?, dueño = ?"
         try:
             self.cursor.execute(sql, data)
