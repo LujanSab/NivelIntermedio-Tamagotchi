@@ -1,9 +1,10 @@
+from src.models.mascotas.mascotas import Mascota
 from src.models.mascotas.mascotaDAO import MascotaDAO
 from src.controller.logger import log
 
 class MascotaService:
     def __init__(self, mascota):
-        self.mascota = mascota
+        self.mascota: Mascota = mascota
         self.dao = MascotaDAO()
 
     def crear(self):
@@ -17,7 +18,8 @@ class MascotaService:
         )
 
     def actualizar(self, energia=None, limpieza=None, hambre=None, felicidad=None):
-        campos = []
+        campos: list
+        valores: tuple
 
         if energia is not None:
             campos.append("energia = ?")
@@ -38,11 +40,11 @@ class MascotaService:
         if not campos:
             log("No se proporcionaron valores para actualizar.")
             print("No se proporcionaron valores para actualizar.")
+        else:
+            campos_str = ', '.join(campos)
+            valores.append(self.mascota.nombre_mascota)
 
-        campos_str = ', '.join(campos)
-        valores = (self.mascota.nombre, )
-
-        self.dao.actualizar_estado_mascota(campos=campos_str, valores=valores)
+            self.dao.actualizar_estado_mascota(campos=campos_str, valores=valores)
     
     def eliminar(self):
         nombre = self.mascota.nombre
