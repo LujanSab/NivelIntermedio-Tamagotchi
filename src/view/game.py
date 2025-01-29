@@ -62,7 +62,7 @@ def main():
     if not perro_dict:
         firu_servicio.crear()
     else:
-        firu = Perro(**perro_dict)
+        firu = Perro(nombre_mascota=perro_dict['nombre_mascota'], nombre_dueño=perro_dict['nombre_dueño'], tipo=perro_dict['tipo'])
 
     run = True
 
@@ -78,17 +78,17 @@ def main():
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if boton_limpiar.collidepoint(pygame.mouse.get_pos()):
                         firu.limpieza += 25
-                        firu_servicio.actualizar(nombre=firu.nombre, limpieza=firu.limpieza)
+                        firu_servicio.actualizar(limpieza=firu.limpieza)
                         print('limpiar')
                         # firu_entity.limpiar()
                     elif boton_alimentar.collidepoint(pygame.mouse.get_pos()):
                         firu.hambre -= 25
-                        firu_servicio.actualizar(nombre=firu.nombre, hambre=firu.hambre)
+                        firu_servicio.actualizar(hambre=firu.hambre)
                         print('alimentar')
                         # firu_entity.comer()
                     elif boton_dormir.collidepoint(pygame.mouse.get_pos()):
                         firu.energia += 25
-                        firu_servicio.actualizar(nombre=firu.nombre, energia=firu.energia)
+                        firu_servicio.actualizar(energia=firu.energia)
                         print('dormir')
                         # firu_entity.comer()
             
@@ -106,7 +106,7 @@ def main():
 
         except:
             log(f'{__file__} - {traceback.format_exc()}')
-            pygame.quit()
+            run = False
 
     pygame.quit()
 

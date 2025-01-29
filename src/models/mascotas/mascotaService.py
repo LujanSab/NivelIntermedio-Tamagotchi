@@ -18,8 +18,8 @@ class MascotaService:
         )
 
     def actualizar(self, energia=None, limpieza=None, hambre=None, felicidad=None):
-        campos: list
-        valores: tuple
+        campos: list = []
+        valores: tuple = []
 
         if energia is not None:
             campos.append("energia = ?")
@@ -37,7 +37,7 @@ class MascotaService:
             campos.append("felicidad = ?")
             valores.append(felicidad)
 
-        if not campos:
+        if not campos[0]:
             log("No se proporcionaron valores para actualizar.")
             print("No se proporcionaron valores para actualizar.")
         else:
@@ -63,7 +63,7 @@ class MascotaService:
             data = {
                 "nombre_mascota" : nombre,
                 "nombre_dueño" : self.mascota.nombre_dueño,
-                "tipo_de_mascota" : self.mascota.tipo_de_mascota,
+                "tipo" : self.mascota.tipo_de_mascota,
                 "energia" : self.mascota.energia,
                 "limpieza" : self.mascota.limpieza,
                 "hambre" : self.mascota.hambre,
