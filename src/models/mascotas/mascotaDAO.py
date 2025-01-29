@@ -1,5 +1,5 @@
 import sqlite3
-from src.config import DATABASE_NAME
+from config import DATABASE_NAME
 
 class MascotaDAO:
     def __init__(self):
