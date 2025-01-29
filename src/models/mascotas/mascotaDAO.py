@@ -54,10 +54,11 @@ class MascotaDAO:
             return error
 
     def actualizar_estado_mascota(self, campos: str, valores: tuple):
+        data = (valor for valor in valores)
         sql = f"UPDATE mascotas SET {campos} WHERE nombre = ?"
 
         try:
-            self.cursor.execute(sql, valores)
+            self.cursor.execute(sql, data)
             self.con.commit()
             return "Se actualizó el estado de la mascota."
         except Exception as error:
