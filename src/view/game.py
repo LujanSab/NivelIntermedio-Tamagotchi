@@ -57,13 +57,12 @@ def main():
     firu = Perro(nombre_dueño='emi', nombre_mascota='firu', tipo='perro')
     
     firu_servicio = MascotaService(firu)
-    lista = firu_servicio.obtener_datos_mascota()
-    print(lista)
-    if not lista[0]:
+    perro_dict = firu_servicio.obtener_datos_mascota()
+    print(perro_dict)
+    if not perro_dict:
         firu_servicio.crear()
     else:
-        mi_perro = lista[0]
-        firu = Perro(*mi_perro)
+        firu = Perro(**perro_dict)
 
     run = True
 
