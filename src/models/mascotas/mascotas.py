@@ -11,15 +11,15 @@ class Mascota:
 
     @property
     def nombre_dueño(self):
-        return self.dueño
+        return self._dueño
     
     @nombre_dueño.setter
     def nombre_dueño(self, nombre_dueño):
-        self.dueño = nombre_dueño
+        self._dueño = nombre_dueño
 
     @property
     def nombre_mascota(self):
-        return self.nombre
+        return self._nombre
     
     @nombre_mascota.setter
     def nombre_mascota(self, nombre_mascota):
@@ -27,43 +27,43 @@ class Mascota:
     
     @property
     def tipo_de_mascota(self):
-        return self.tipo
+        return self._tipo
     
     @tipo_de_mascota.setter
     def tipo_de_mascota(self, tipo):
-        self.tipo = tipo
+        self._tipo = tipo
     
     @property
     def energia(self):
-        return self.energia
+        return self._energia
     
     @energia.setter
     def energia(self, valor):
-        self.energia += valor
+        self._energia += valor
 
     @property
     def limpieza(self):
-        return self.limpieza
+        return self._limpieza
 
     @limpieza.setter
     def limpieza(self, valor):
-        self.limpieza += valor
+        self._limpieza += valor
 
     @property
     def hambre(self):
-        return self.hambre
+        return self._hambre
     
     @hambre.setter
     def hambre(self, valor):
-        self.hambre += valor
+        self._hambre += valor
 
     @property
     def felicidad(self):
-        return self.felicidad
+        return self._felicidad
 
     @felicidad.setter
     def felicidad(self, valor):
-        self.felicidad += valor
+        self._felicidad += valor
 
 
 class Perro(Mascota):
