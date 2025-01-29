@@ -61,9 +61,9 @@ class MascotaService:
             return "Los campos no deben estar en blanco. Intente nuevamente"
         else:
             data = {
-                "nombre" : nombre,
-                "dueño" : self.mascota.nombre_dueño,
-                "tipo" : self.mascota.tipo_de_mascota,
+                "nombre_mascota" : nombre,
+                "nombre_dueño" : self.mascota.nombre_dueño,
+                "tipo_de_mascota" : self.mascota.tipo_de_mascota,
                 "energia" : self.mascota.energia,
                 "limpieza" : self.mascota.limpieza,
                 "hambre" : self.mascota.hambre,
