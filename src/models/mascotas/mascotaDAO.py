@@ -82,7 +82,7 @@ class MascotaDAO:
             nombremascota (str)
         """
         data = (nombremascota, )
-        sql = "SELECT * FROM mascotas WHERE nombremascota = ?"
+        sql = "SELECT * FROM mascotas WHERE nombre = ?"
         try:
             self.cursor.execute(sql, data)
             result = self.cursor.fetchall()
