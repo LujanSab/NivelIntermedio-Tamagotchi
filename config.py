@@ -7,12 +7,12 @@ BASE_DIR = Path(__file__).resolve().parent
 
 DATABASE_NAME = 'tamagochi.db'
 
-STATIC_UTL = f'{BASE_DIR}//assets'
+ASSETS_UTL = f'{BASE_DIR}//assets'
 
 FPS = 60
 
 @dataclass
-class Styles:
+class Config:
 
     WINDOW_HEIGHT = 800
     WINDOW_WIDTH = 1500

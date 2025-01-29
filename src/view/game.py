@@ -1,5 +1,6 @@
 import pygame
-from src.config import Styles
+from config import Config
+from config import ASSETS_UTL
 from src.models.entities.mascotas_entity import PerroEntity
 from src.models.mascotas.mascotas import Perro
 from src.models.mascotas.mascotaService import MascotaService
@@ -11,28 +12,28 @@ import traceback
 def main():
     pygame.init()
 
-    window = pygame.display.set_mode((Styles.WINDOW_WIDTH, Styles.WINDOW_HEIGHT))
+    window = pygame.display.set_mode((Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT))
     window.fill((200,200,200))
 
     boton_limpiar = pygame.Rect(
-        (Styles.WINDOW_WIDTH - Styles.BTN_LIMPIAR_WIDTH) - 30,
-        (Styles.WINDOW_HEIGHT - Styles.BTN_LIMPIAR_HEIGHT) - 30,
-        Styles.BTN_LIMPIAR_WIDTH,
-        Styles.BTN_LIMPIAR_HEIGHT
+        (Config.WINDOW_WIDTH - Config.BTN_LIMPIAR_WIDTH) - 30,
+        (Config.WINDOW_HEIGHT - Config.BTN_LIMPIAR_HEIGHT) - 30,
+        Config.BTN_LIMPIAR_WIDTH,
+        Config.BTN_LIMPIAR_HEIGHT
     )
 
     boton_alimentar = pygame.Rect(
-        (Styles.WINDOW_WIDTH - Styles.BTN_LIMPIAR_WIDTH) - 30,
+        (Config.WINDOW_WIDTH - Config.BTN_LIMPIAR_WIDTH) - 30,
         30,
-        Styles.BTN_LIMPIAR_WIDTH,
-        Styles.BTN_LIMPIAR_HEIGHT
+        Config.BTN_LIMPIAR_WIDTH,
+        Config.BTN_LIMPIAR_HEIGHT
     )
 
     boton_dormir = pygame.Rect(
         30,
-        (Styles.WINDOW_HEIGHT - Styles.BTN_LIMPIAR_HEIGHT) - 30,
-        Styles.BTN_LIMPIAR_WIDTH,
-        Styles.BTN_LIMPIAR_HEIGHT
+        (Config.WINDOW_HEIGHT - Config.BTN_LIMPIAR_HEIGHT) - 30,
+        Config.BTN_LIMPIAR_WIDTH,
+        Config.BTN_LIMPIAR_HEIGHT
     )
     
     fuente = pygame.font.Font(None,30)
@@ -41,15 +42,23 @@ def main():
     texto_alimentar = fuente.render('Alimentar', True, (255,255,255))
     texto_dormir = fuente.render('Dormir', True, (255,255,255))
 
+    hambre_emote = []
+
+    for i in range(2):
+        img = pygame.image.load(f'{ASSETS_UTL}\emotes\hambre\HAMBRE{i+1}.png')
+        img_scaled = scale_img(img, 1.8)
+        hambre_emote.append(img_scaled)
+
     animaciones = [
-        Styles.DOG_IMAGE
+        Config.DOG_IMAGE,
+        hambre_emote,
     ]
     
-    dog_image = Styles.DOG_IMAGE
+    dog_image = Config.DOG_IMAGE
 
     firu_entity = PerroEntity(
-                    x=(Styles.WINDOW_WIDTH/2), 
-                    y=Styles.WINDOW_HEIGHT/2, 
+                    x=(Config.WINDOW_WIDTH/2), 
+                    y=Config.WINDOW_HEIGHT/2, 
                     imagen=dog_image, 
                     animaciones=animaciones, 
                 )
@@ -58,7 +67,7 @@ def main():
     
     firu_servicio = MascotaService(firu)
     perro_dict = firu_servicio.obtener_datos_mascota()
-    print(perro_dict)
+
     if not perro_dict:
         firu_servicio.crear()
     else:
@@ -85,7 +94,7 @@ def main():
                         firu.hambre -= 25
                         firu_servicio.actualizar(hambre=firu.hambre)
                         print('alimentar')
-                        # firu_entity.comer()
+                        firu_entity.comer()
                     elif boton_dormir.collidepoint(pygame.mouse.get_pos()):
                         firu.energia += 25
                         firu_servicio.actualizar(energia=firu.energia)

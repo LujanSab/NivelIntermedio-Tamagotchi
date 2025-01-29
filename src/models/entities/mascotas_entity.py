@@ -1,7 +1,5 @@
 import pygame
-from abc import ABC, abstractmethod
-from src.config import Styles
-from src.models.mascotas.mascotas import Mascota
+from config import Config
 
 
 class MascotaEntity:
@@ -34,10 +32,10 @@ class MascotaEntity:
         - setters: encargados de enviar informacion a la clase Mascota para almacenarla en la base de datos
     """
     def __init__(self, x, y, imagen, animaciones):
-        self.forma = pygame.Rect(0, 0, Styles.MASCOTA_WIDTH, Styles.MASCOTA_HEIGHT)
+        self.forma = pygame.Rect(0, 0, Config.MASCOTA_WIDTH, Config.MASCOTA_HEIGHT)
         self.forma.center = (x,y)
         self.imagen = imagen
-        self.animaciones = animaciones[0]
+        self.animaciones = animaciones
         self.actualizar_tiempo = pygame.time.get_ticks()
 
         self.comer_frame_index = 0
@@ -78,10 +76,10 @@ class MascotaEntity:
         '''
         cooldown_animation = 50
 
-        if self.comer_frame_index >= len(self.animaciones[2]):
+        if self.comer_frame_index >= len(self.animaciones[1]):
             self.comer_frame_index = 0
         
-        self.imagen = self.animaciones[2][self.comer_frame_index]
+        self.imagen = self.animaciones[1][self.comer_frame_index]
         
         if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
             self.comer_frame_index += 1

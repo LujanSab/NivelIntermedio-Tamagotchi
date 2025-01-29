@@ -1,6 +1,6 @@
 import logging
 import os
-from src.config import BASE_DIR
+from config import BASE_DIR
 
 log_directory = os.path.join(BASE_DIR, 'logs')
 

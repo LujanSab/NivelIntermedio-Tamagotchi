@@ -11,7 +11,7 @@ def scale_img(image, scale: float):
         - image: El parámetro `image` es la imagen que desea escalar. Normalmente es un objeto de superficie
         que representa una imagen en Pygame
         - scale: El parámetro `scale` en la función `scale_img` se utiliza para determinar el factor
-        por el cual se debe escalar la imagen. De manera predeterminada, está configurado en `Styles.DOG_IMAGE`, lo que sugiere que
+        por el cual se debe escalar la imagen. De manera predeterminada, está configurado en `Config.DOG_IMAGE`, lo que sugiere que
         la imagen se escalará según un valor de escala predefinido para una imagen de perro. Puede
     
     return:
