@@ -54,11 +54,11 @@ def main():
                     animaciones=animaciones, 
                 )
     
-    firu = Perro(nombre_dueño='emi', nombre_perro='firu', tipo='perro')
+    firu = Perro(nombre_dueño='emi', nombre_mascota='firu', tipo='perro')
     
     firu_servicio = MascotaService(firu)
     lista = firu_servicio.obtener_por_nombre('firu')
-
+    print(lista)
     if not lista[0]:
         firu_servicio.crear()
     else:
