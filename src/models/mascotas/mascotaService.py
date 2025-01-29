@@ -63,7 +63,7 @@ class MascotaService:
             data = {
                 "nombre" : nombre,
                 "dueño" : self.mascota.nombre_dueño,
-                "tipo" : self.mascota.tipo,
+                "tipo" : self.mascota.tipo_de_mascota,
                 "energia" : self.mascota.energia,
                 "limpieza" : self.mascota.limpieza,
                 "hambre" : self.mascota.hambre,
