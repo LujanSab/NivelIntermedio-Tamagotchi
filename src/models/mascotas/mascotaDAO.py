@@ -54,9 +54,6 @@ class MascotaDAO:
             return error
 
     def actualizar_estado_mascota(self, campos: str, valores: tuple):
-        if not valores:
-            raise ValueError('Se necesitan valores para actualizar.')
-
         sql = f"UPDATE mascotas SET {campos} WHERE nombre = ?"
 
         try:
