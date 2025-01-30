@@ -45,12 +45,13 @@ def main():
     hambre_emote = []
 
     for i in range(2):
-        img = pygame.image.load(f'{ASSETS_UTL}\emotes\hambre\HAMBRE{i+1}.png')
-        img_scaled = scale_img(img, 1.8)
-        hambre_emote.append(img_scaled)
+        hambre_emote.append(Config.HAMBRE_IMG)
 
-    animaciones = [
+    animaciones_mascotas = [
         Config.DOG_IMAGE,
+    ]
+
+    animaciones_emotes = [
         hambre_emote,
     ]
     
@@ -60,7 +61,7 @@ def main():
                     x=(Config.WINDOW_WIDTH/2), 
                     y=Config.WINDOW_HEIGHT/2, 
                     imagen=dog_image, 
-                    animaciones=animaciones, 
+                    animaciones=animaciones_mascotas, 
                 )
     
     firu = Perro(nombre_dueño='emi', nombre_mascota='firu', tipo='perro')
@@ -86,7 +87,7 @@ def main():
                 
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if boton_limpiar.collidepoint(pygame.mouse.get_pos()):
-                        firu.limpieza += 25
+                        firu.hambre += 25
                         firu_servicio.actualizar(limpieza=firu.limpieza)
                         print('limpiar')
                         # firu_entity.limpiar()
