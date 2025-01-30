@@ -42,17 +42,32 @@ def main():
     texto_alimentar = fuente.render('Alimentar', True, (255,255,255))
     texto_dormir = fuente.render('Dormir', True, (255,255,255))
 
+    dormir_emote = []
+    feliz_emote = []
     hambre_emote = []
+    limpiar_emote = []
+
+    for i in range(2):
+        dormir_emote.append(Config.DORMIR_IMG)
+
+    for i in range(3):
+        feliz_emote.append(Config.FELIZ_IMG)
 
     for i in range(2):
         hambre_emote.append(Config.HAMBRE_IMG)
+
+    for i in range(2):
+        limpiar_emote.append(Config.LIMPIAR_IMG)
 
     animaciones_mascotas = [
         Config.DOG_IMAGE,
     ]
 
     animaciones_emotes = [
+        dormir_emote,
+        feliz_emote,
         hambre_emote,
+        limpiar_emote
     ]
     
     dog_image = Config.DOG_IMAGE

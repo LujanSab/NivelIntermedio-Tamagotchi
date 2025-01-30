@@ -23,8 +23,17 @@ class Config:
     MASCOTA_WIDTH = DOG_IMAGE.get_width()
     MASCOTA_HEIGHT = DOG_IMAGE.get_height()
 
+    dormir_emote = pygame.image.load(f'{ASSETS_UTL}//emotes//durmiendo//DORMIR1.png')
+    DORMIR_IMG = scale_img(dormir_emote, 1.8)
+
+    feliz_emote = pygame.image.load(f'{ASSETS_UTL}//emotes//felicidad//FELICIDAD1.png')
+    FELIZ_IMG = scale_img(feliz_emote, 1.8)
+
     hambre_emote = pygame.image.load(f'{ASSETS_UTL}//emotes//hambre//HAMBRE1.png')
     HAMBRE_IMG = scale_img(hambre_emote, 1.8)
+
+    limpiar_emote = pygame.image.load(f'{ASSETS_UTL}//emotes//limpiar//LIMPIAR1.png')
+    LIMPIAR_IMG = scale_img(limpiar_emote, 1.8)
 
     BTN_LIMPIAR_WIDTH = 150
     BTN_LIMPIAR_HEIGHT = 50
