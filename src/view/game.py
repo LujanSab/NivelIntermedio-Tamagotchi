@@ -1,99 +1,160 @@
 import pygame
-from src.config import Styles
+
+from config import Config
+from config import ASSETS_UTL
+
 from src.models.entities.mascotas_entity import PerroEntity
+from src.models.entities.emote_entity import EmoteEntity
+from src.models.mascotas.mascotas import Perro
+from src.models.mascotas.mascotaService import MascotaService
+
 from src.controller.utils import scale_img
 from src.controller.logger import log
+
 import traceback
 
 
-def main():
-    pygame.init()
+class Game:
 
-    window = pygame.display.set_mode((Styles.WINDOW_WIDTH, Styles.WINDOW_HEIGHT))
-    window.fill((200,200,200))
+    def __init__(self):
+        pygame.init()
 
-    boton_limpiar = pygame.Rect(
-        (Styles.WINDOW_WIDTH - Styles.BTN_LIMPIAR_WIDTH) - 30,
-        (Styles.WINDOW_HEIGHT - Styles.BTN_LIMPIAR_HEIGHT) - 30,
-        Styles.BTN_LIMPIAR_WIDTH,
-        Styles.BTN_LIMPIAR_HEIGHT
-    )
+        self.window = pygame.display.set_mode((Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT))
+        self.window.fill((200,200,200))
 
-    boton_alimentar = pygame.Rect(
-        (Styles.WINDOW_WIDTH - Styles.BTN_LIMPIAR_WIDTH) - 30,
-        30,
-        Styles.BTN_LIMPIAR_WIDTH,
-        Styles.BTN_LIMPIAR_HEIGHT
-    )
+        self.boton_limpiar = pygame.Rect(
+            (Config.WINDOW_WIDTH - Config.BTN_LIMPIAR_WIDTH) - 30,
+            (Config.WINDOW_HEIGHT - Config.BTN_LIMPIAR_HEIGHT) - 30,
+            Config.BTN_LIMPIAR_WIDTH,
+            Config.BTN_LIMPIAR_HEIGHT
+        )
 
-    boton_dormir = pygame.Rect(
-        30,
-        (Styles.WINDOW_HEIGHT - Styles.BTN_LIMPIAR_HEIGHT) - 30,
-        Styles.BTN_LIMPIAR_WIDTH,
-        Styles.BTN_LIMPIAR_HEIGHT
-    )
-    
-    fuente = pygame.font.Font(None,30)
+        self.boton_alimentar = pygame.Rect(
+            (Config.WINDOW_WIDTH - Config.BTN_LIMPIAR_WIDTH) - 30,
+            30,
+            Config.BTN_LIMPIAR_WIDTH,
+            Config.BTN_LIMPIAR_HEIGHT
+        )
 
-    texto_limpiar = fuente.render('Limpiar', True, (255,255,255))
-    texto_alimentar = fuente.render('Alimentar', True, (255,255,255))
-    texto_dormir = fuente.render('Dormir', True, (255,255,255))
+        self.boton_dormir = pygame.Rect(
+            30,
+            (Config.WINDOW_HEIGHT - Config.BTN_LIMPIAR_HEIGHT) - 30,
+            Config.BTN_LIMPIAR_WIDTH,
+            Config.BTN_LIMPIAR_HEIGHT
+        )
+        
+        self.fuente = pygame.font.Font(None,30)
 
-    animaciones = [
-        Styles.DOG_IMAGE
-    ]
-    
-    dog_image = Styles.DOG_IMAGE
+        self.texto_limpiar = self.fuente.render('Limpiar', True, (255,255,255))
+        self.texto_alimentar = self.fuente.render('Alimentar', True, (255,255,255))
+        self.texto_dormir = self.fuente.render('Dormir', True, (255,255,255))
 
-    firulais = PerroEntity(
-                    x=(Styles.WINDOW_WIDTH/2), 
-                    y=Styles.WINDOW_HEIGHT/2, 
-                    imagen=dog_image, 
-                    animaciones=animaciones, 
-                    nombre_dueño='emi', 
-                    nombre_mascota='luna'
-                )
+        self.dormir_emote = []
+        self.feliz_emote = []
+        self.hambre_emote = []
+        self.limpiar_emote = []
 
-    run = True
+        for i in range(2):
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//durmiendo//DORMIR{i+1}.png'), 1.8)
+            self.dormir_emote.append(new_img)
 
-    while run:
-        """
-        main loop of the game
-        """
-        try:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    run = False
+        for i in range(3):
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//felicidad//FELICIDAD{i+1}.png'), 1.8)
+            self.feliz_emote.append(new_img)
+
+        for i in range(2):
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//hambre//HAMBRE{i+1}.png'), 1.8)
+            self.hambre_emote.append(new_img)
+
+        for i in range(2):
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//limpiar//LIMPIAR{i+1}.png'), 1.8)
+            self.limpiar_emote.append(new_img)
+
+        self.animaciones_mascotas = [
+            Config.DOG_IMAGE,
+        ]
+
+        self.animaciones_emotes = [
+            self.dormir_emote,
+            self.feliz_emote,
+            self.hambre_emote,
+            self.limpiar_emote
+        ]
+
+        self.dog_image = Config.DOG_IMAGE
+
+        self.firu_entity = PerroEntity(
+                        x=(Config.WINDOW_WIDTH/2), 
+                        y=Config.WINDOW_HEIGHT/2, 
+                        imagen=self.dog_image, 
+                        animaciones=self.animaciones_mascotas, 
+                    )
+        
+        self.emote_entity = EmoteEntity(
+                        animaciones=self.animaciones_emotes,
+                        window=self.window
+                    )
+        
+        self.firu = Perro(nombre_dueño='emi', nombre_mascota='firu', tipo='perro')
+        
+        self.firu_servicio = MascotaService(self.firu)
+        self.perro_dict = self.firu_servicio.obtener_datos_mascota()
+
+        if not self.perro_dict:
+            self.firu_servicio.crear()
+        else:
+            self.firu = Perro(nombre_mascota=self.perro_dict['nombre_mascota'], nombre_dueño=self.perro_dict['nombre_dueño'], tipo=self.perro_dict['tipo'])
+
+    def run(self):
+
+        run = True
+
+        while run:
+            """
+            main loop of the game
+            """
+            try:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        run = False
+                    
+                    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                        if self.boton_limpiar.collidepoint(pygame.mouse.get_pos()):
+                            self.firu.limpieza += 25
+                            self.firu_servicio.actualizar(limpieza=self.firu.limpieza)
+                            print('limpiar')
+                            self.emote_entity.iniciar_animacion('limpiar')
+
+                        elif self.boton_alimentar.collidepoint(pygame.mouse.get_pos()):
+                            self.firu.hambre -= 25
+                            self.firu_servicio.actualizar(hambre=self.firu.hambre)
+                            print('alimentar')
+                            self.emote_entity.iniciar_animacion('hambre')
+
+                        elif self.boton_dormir.collidepoint(pygame.mouse.get_pos()):
+                            self.firu.energia += 25
+                            self.firu_servicio.actualizar(energia=self.firu.energia)
+                            print('dormir')
+                            self.emote_entity.iniciar_animacion('dormir')
                 
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    if boton_limpiar.collidepoint(pygame.mouse.get_pos()):
-                        # firulais.set_limpieza((+25))
-                        print('limpiar')
-                        # firulais.limpiar()
-                    elif boton_alimentar.collidepoint(pygame.mouse.get_pos()):
-                        # firulais.set_hambre((-25))
-                        print('alimentar')
-                        # firulais.comer()
-                    elif boton_dormir.collidepoint(pygame.mouse.get_pos()):
-                        # firulais.set_hambre((-25))
-                        print('dormir')
-                        # firulais.comer()
-            
-            firulais.dibujar(window=window)
+                self.window.fill((200, 200, 200))
+                
+                self.firu_entity.dibujar(window=self.window)
+                self.emote_entity.actualizar_animacion()
 
-            pygame.draw.rect(window, (0,0,0), boton_limpiar)
-            pygame.draw.rect(window, (0,0,0), boton_alimentar)
-            pygame.draw.rect(window, (0,0,0), boton_dormir)
+                pygame.draw.rect(self.window, (0,0,0), self.boton_limpiar)
+                pygame.draw.rect(self.window, (0,0,0), self.boton_alimentar)
+                pygame.draw.rect(self.window, (0,0,0), self.boton_dormir)
 
-            window.blit(texto_limpiar, (boton_limpiar.x + (boton_limpiar.width - texto_limpiar.get_width())/2, boton_limpiar.y + (boton_limpiar.height - texto_limpiar.get_height())/2))
-            window.blit(texto_alimentar, (boton_alimentar.x + (boton_alimentar.width - texto_alimentar.get_width())/2, boton_alimentar.y + (boton_alimentar.height - texto_alimentar.get_height())/2))
-            window.blit(texto_dormir, (boton_dormir.x + (boton_dormir.width - texto_dormir.get_width())/2, boton_dormir.y + (boton_dormir.height - texto_dormir.get_height())/2))
+                self.window.blit(self.texto_limpiar, (self.boton_limpiar.x + (self.boton_limpiar.width - self.texto_limpiar.get_width())/2, self.boton_limpiar.y + (self.boton_limpiar.height - self.texto_limpiar.get_height())/2))
+                self.window.blit(self.texto_alimentar, (self.boton_alimentar.x + (self.boton_alimentar.width - self.texto_alimentar.get_width())/2, self.boton_alimentar.y + (self.boton_alimentar.height - self.texto_alimentar.get_height())/2))
+                self.window.blit(self.texto_dormir, (self.boton_dormir.x + (self.boton_dormir.width - self.texto_dormir.get_width())/2, self.boton_dormir.y + (self.boton_dormir.height - self.texto_dormir.get_height())/2))
 
-            pygame.display.update()
+                pygame.display.update()
 
-        except:
-            log(f'{__file__} - {traceback.format_exc()}')
-            pygame.quit()
+            except:
+                log(f'{__file__} - {traceback.format_exc()}')
+                run = False
 
-    pygame.quit()
+        pygame.quit()
 

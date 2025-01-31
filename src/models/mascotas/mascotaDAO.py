@@ -1,5 +1,5 @@
 import sqlite3
-from src.config import DATABASE_NAME
+from config import DATABASE_NAME
 
 class MascotaDAO:
     def __init__(self):
@@ -44,8 +44,8 @@ class MascotaDAO:
         self.con.commit()
 
     def guardar_mascota(self, *args):
-        sql = """INSERT INTO mascotas(nombre, dueño, tipo, energia, limpieza, hambre) 
-        VALUES(?, ?, ?, ?, ?, ?)"""
+        sql = """INSERT INTO mascotas(nombre, dueño, tipo, energia, limpieza, hambre, felicidad) 
+        VALUES(?, ?, ?, ?, ?, ?, ?)"""
         try:
             self.cursor.execute(sql, args)
             self.con.commit()
@@ -54,21 +54,18 @@ class MascotaDAO:
             return error
 
     def actualizar_estado_mascota(self, campos: str, valores: list):
-        if not valores:
-            raise ValueError('Se necesitan valores para actualizar.')
-
+        data = (valor for valor in valores)
         sql = f"UPDATE mascotas SET {campos} WHERE nombre = ?"
 
         try:
-            self.cursor.execute(sql, valores)
+            self.cursor.execute(sql, data)
             self.con.commit()
             return "Se actualizó el estado de la mascota."
         except Exception as error:
             return f"Error: {error}"
 
-
-    def eliminar_mascota(self, nombredueño, nombremascota):
-        data = (nombredueño, nombremascota, )
+    def eliminar_mascota(self, nombremascota, nombredueño):
+        data = (nombremascota, nombredueño)
         sql = "DELETE FROM mascotas WHERE nombre = ?, dueño = ?"
         try:
             self.cursor.execute(sql, data)
@@ -86,7 +83,7 @@ class MascotaDAO:
             nombremascota (str)
         """
         data = (nombremascota, )
-        sql = "SELECT * FROM mascotas WHERE nombremascota = ?"
+        sql = "SELECT * FROM mascotas WHERE nombre = ?"
         try:
             self.cursor.execute(sql, data)
             result = self.cursor.fetchall()

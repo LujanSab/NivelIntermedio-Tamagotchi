@@ -1,7 +1,5 @@
 import pygame
-from abc import ABC, abstractmethod
-from src.config import Styles
-from src.models.mascotas.mascotas import Mascota
+from config import Config
 
 
 class MascotaEntity:
@@ -37,7 +35,7 @@ class MascotaEntity:
         self.forma = pygame.Rect(0, 0, Styles.MASCOTA_WIDTH, Styles.MASCOTA_HEIGHT)
         self.forma.center = (x,y)
         self.imagen = imagen
-        self.animaciones = animaciones[0]
+        self.animaciones = animaciones
         self.actualizar_tiempo = pygame.time.get_ticks()
 
         self.comer_frame_index = 0
@@ -55,7 +53,7 @@ class MascotaEntity:
         funcion para dibujar la mascota en la pantalla
         '''
         window.blit(self.imagen, self.forma)
-        pygame.draw.rect(window, (255,255,255), self.forma, width=1)
+        # pygame.draw.rect(window, (255,255,255), self.forma, width=1)
 
     def limpiar(self):
         '''
@@ -78,10 +76,10 @@ class MascotaEntity:
         '''
         cooldown_animation = 50
 
-        if self.comer_frame_index >= len(self.animaciones[2]):
+        if self.comer_frame_index >= len(self.animaciones[1]):
             self.comer_frame_index = 0
         
-        self.imagen = self.animaciones[2][self.comer_frame_index]
+        self.imagen = self.animaciones[1][self.comer_frame_index]
         
         if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
             self.comer_frame_index += 1
@@ -107,13 +105,13 @@ class PerroEntity(MascotaEntity):
     """
     Entidad Perro que hereda de MascotaEntity, de tipo 'perro'
     """
-    def __init__(self, x, y, imagen, animaciones, nombre_dueño, nombre_mascota, tipo='perro'):
-        super().__init__(x, y, imagen, animaciones, nombre_dueño, nombre_mascota, tipo)
+    def __init__(self, x, y, imagen, animaciones):
+        super().__init__(x, y, imagen, animaciones)
 
 
 class GatoEntity(MascotaEntity):
     """
     Entidad Gato que hereda de MascotaEntity, de tipo 'gato'
     """
-    def __init__(self, x, y, imagen, animaciones, nombre_dueño, nombre_mascota, tipo='gato'):
-        super().__init__(x, y, imagen, animaciones, nombre_dueño, nombre_mascota, tipo)
+    def __init__(self, x, y, imagen, animaciones):
+        super().__init__(x, y, imagen, animaciones)
