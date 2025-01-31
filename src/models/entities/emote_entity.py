@@ -5,109 +5,63 @@ from config import Config
 class EmoteEntity:
     def __init__(self, animaciones, window):
         self.window = window
-        self.forma = pygame.Rect((Config.WINDOW_WIDTH/2)-(Config.MASCOTA_WIDTH/2), (Config.WINDOW_HEIGHT/2) - Config.MASCOTA_HEIGHT, 29, 30)
+        self.forma = pygame.Rect((Config.WINDOW_WIDTH/2)-(Config.MASCOTA_WIDTH/2), (Config.WINDOW_HEIGHT/2) - (Config.MASCOTA_HEIGHT/2), 29, 30)
         self.imagen: pygame.Surface = None
         self.animaciones = animaciones
         self.animation_index = 0
         self.actualizar_tiempo = pygame.time.get_ticks()
-        self.estado_actual = None
+        self.animacion_activa = False
+        self.tiempo_inicio = 0
 
 
-    def cambiar_estado(self, estado: int):
+    def iniciar_animacion(self, tipo_animacion):
         """
-        Cambia el estado de la animación.
+        Inicia una animación y establece el tiempo de inicio
         """
-        self.estado_actual = estado
         self.animation_index = 0
-        self.actualizar_tiempo = pygame.time.get_ticks()
-
+        self.animacion_activa = True
+        self.tiempo_inicio = pygame.time.get_ticks()
+        self.tipo_animacion = tipo_animacion
     
-    def actualizar(self):
+
+    def actualizar_animacion(self):
         """
-        Llama a la animación actual en cada fotograma.
+        Controla la duración de la animación y la reproduce si está activa
         """
-        if self.estado_actual != None:
-            cooldown_animation = 150
-            animacion = self.animaciones[self.estado_actual]
-
-            if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
-                self.animation_index = (self.animation_index + 1) % len(animacion)
-                self.actualizar_tiempo = pygame.time.get_ticks()
-
-            self.imagen = animacion[self.animation_index]
-
-            self.dibujar()
-
-    # def dormir(self):
-    #     '''
-    #     logica de animacion de emote durmiendo
-    #     '''
-    #     self.dibujar()
-
-    #     cooldown_animation = 50
-
-    #     if self.animation_index >= len(self.animaciones[0]):
-    #         self.animation_index = 0
+        if not self.animacion_activa:
+            return
         
-    #     self.imagen = self.animaciones[0][self.animation_index]
+        # Detener animación si han pasado 2 segundos
+        if pygame.time.get_ticks() - self.tiempo_inicio >= 2000:
+            self.animacion_activa = False
+            return
         
-    #     if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
-    #         self.animation_index += 1
-    #         self.actualizar_tiempo = pygame.time.get_ticks()
-    
-    # def feliz(self):
-    #     '''
-    #     logica de animacion de emote feliz
-    #     '''
-    #     self.dibujar()
+        cooldown_animation = 250
 
-    #     cooldown_animation = 50
-
-    #     if self.animation_index >= len(self.animaciones[1]):
-    #         self.animation_index = 0
+        if self.tipo_animacion == "dormir":
+            animacion = self.animaciones[0]
+        elif self.tipo_animacion == "feliz":
+            animacion = self.animaciones[1]
+        elif self.tipo_animacion == "hambre":
+            animacion = self.animaciones[2]
+        elif self.tipo_animacion == "limpiar":
+            animacion = self.animaciones[3]
+        else:
+            return
         
-    #     self.imagen = self.animaciones[1][self.animation_index]
+        if self.animation_index >= len(animacion):
+            self.animation_index = 0
         
-    #     if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
-    #         self.animation_index += 1
-    #         self.actualizar_tiempo = pygame.time.get_ticks()
+        self.imagen = animacion[self.animation_index]
 
-    # def hambre(self):
-    #     '''
-    #     logica de animacion de emote hambre
-    #     '''
-    #     self.dibujar()
-
-    #     cooldown_animation = 50
-
-    #     if self.animation_index >= len(self.animaciones[2]):
-    #         self.animation_index = 0
+        self.dibujar()
         
-    #     self.imagen = self.animaciones[2][self.animation_index]
-        
-    #     if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
-    #         self.animation_index += 1
-    #         self.actualizar_tiempo = pygame.time.get_ticks()
-
-    # def limpiar(self):
-    #     '''
-    #     logica de animacion de emote limpiar
-    #     '''
-    #     self.dibujar()
-
-    #     cooldown_animation = 50
-
-    #     if self.animation_index >= len(self.animaciones[3]):
-    #         self.animation_index = 0
-        
-    #     self.imagen = self.animaciones[3][self.animation_index]
-        
-    #     if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
-    #         self.animation_index += 1
-    #         self.actualizar_tiempo = pygame.time.get_ticks()
+        if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
+            self.animation_index += 1
+            self.actualizar_tiempo = pygame.time.get_ticks()
 
     def dibujar(self):
-        if self.estado_actual != None:
+        if self.animacion_activa and self.imagen:
             self.window.blit(self.imagen, self.forma)
     
     

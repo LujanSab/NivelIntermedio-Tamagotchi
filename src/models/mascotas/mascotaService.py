@@ -11,10 +11,11 @@ class MascotaService:
         self.dao.guardar_mascota(
             self.mascota.nombre_mascota,
             self.mascota.nombre_dueño,
-            self.mascota.tipo,
+            self.mascota.tipo_de_mascota,
             self.mascota.energia,
             self.mascota.limpieza,
-            self.mascota.hambre
+            self.mascota.hambre,
+            self.mascota.felicidad
         )
 
     def actualizar(self, energia: int=None, limpieza: int=None, hambre: int=None, felicidad: int=None):
@@ -57,19 +58,21 @@ class MascotaService:
 
     def obtener_datos_mascota(self):
         nombre = self.mascota.nombre_mascota
-        if not nombre:
-            return "Los campos no deben estar en blanco. Intente nuevamente"
-        else:
+        datos = self.dao.extraer_datos_mascota(nombre)
+        mascota = datos[0]
+        if mascota:
             data = {
-                "nombre_mascota" : nombre,
-                "nombre_dueño" : self.mascota.nombre_dueño,
-                "tipo" : self.mascota.tipo_de_mascota,
-                "energia" : self.mascota.energia,
-                "limpieza" : self.mascota.limpieza,
-                "hambre" : self.mascota.hambre,
-                "felicidad" : self.mascota.felicidad
+                "id": mascota[0],
+                "nombre_mascota" : mascota[1],
+                "nombre_dueño" : mascota[2],
+                "tipo" : mascota[3],
+                "energia" : mascota[4],
+                "limpieza" : mascota[5],
+                "hambre" : mascota[6],
+                "felicidad" : mascota[7]
             }
             return data
+        return None
     
     def obtener_todas_las_mascotas(self):
         mascotas = self.dao.extraer_datos_mascotas()
