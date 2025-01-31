@@ -1,5 +1,6 @@
-from src.view.game import main
+from src.view.game import Game
 
 
 if __name__ == '__main__':
-    main()
+    game = Game()
+    game.run()
