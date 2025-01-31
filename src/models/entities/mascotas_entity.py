@@ -32,7 +32,6 @@ class MascotaEntity:
         - setters: encargados de enviar informacion a la clase Mascota para almacenarla en la base de datos
     """
     def __init__(self, x, y, imagen, animaciones):
-        
         self.forma.center = (x,y)
         self.imagen = imagen
         self.animaciones = animaciones
