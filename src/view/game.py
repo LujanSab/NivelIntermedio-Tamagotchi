@@ -87,7 +87,10 @@ def main():
                     animaciones=animaciones_mascotas, 
                 )
     
-    emote_entity = EmoteEntity(animaciones_emotes)
+    emote_entity = EmoteEntity(
+                    animaciones=animaciones_emotes,
+                    window=window
+                )
     
     firu = Perro(nombre_dueño='emi', nombre_mascota='firu', tipo='perro')
     
@@ -112,22 +115,27 @@ def main():
                 
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if boton_limpiar.collidepoint(pygame.mouse.get_pos()):
-                        firu.hambre += 25
+                        firu.limpieza += 25
                         firu_servicio.actualizar(limpieza=firu.limpieza)
                         print('limpiar')
-                        # emote_entity.limpiar()
+                        emote_entity.cambiar_estado(3)
+
                     elif boton_alimentar.collidepoint(pygame.mouse.get_pos()):
                         firu.hambre -= 25
                         firu_servicio.actualizar(hambre=firu.hambre)
                         print('alimentar')
-                        emote_entity.comer()
+                        emote_entity.cambiar_estado(2)
+
                     elif boton_dormir.collidepoint(pygame.mouse.get_pos()):
                         firu.energia += 25
                         firu_servicio.actualizar(energia=firu.energia)
                         print('dormir')
-                        # emote_entity.dormir()
+                        emote_entity.cambiar_estado(0)
+            
+            window.fill((200, 200, 200))
             
             firu_entity.dibujar(window=window)
+            emote_entity.actualizar()
 
             pygame.draw.rect(window, (0,0,0), boton_limpiar)
             pygame.draw.rect(window, (0,0,0), boton_alimentar)

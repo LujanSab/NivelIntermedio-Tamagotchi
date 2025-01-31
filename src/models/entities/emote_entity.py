@@ -5,7 +5,7 @@ from config import Config
 class EmoteEntity:
     def __init__(self, animaciones, window):
         self.window = window
-        self.forma = pygame.Rect((Config.WINDOW_WIDTH/2)-(Config.MASCOTA_WIDTH/2), Config.WINDOW_HEIGHT/2, 29, 30)
+        self.forma = pygame.Rect((Config.WINDOW_WIDTH/2)-(Config.MASCOTA_WIDTH/2), (Config.WINDOW_HEIGHT/2) - Config.MASCOTA_HEIGHT, 29, 30)
         self.imagen: pygame.Surface = None
         self.animaciones = animaciones
         self.animation_index = 0
@@ -27,8 +27,7 @@ class EmoteEntity:
         Llama a la animación actual en cada fotograma.
         """
         if self.estado_actual != None:
-            self.dibujar()
-            cooldown_animation = 100
+            cooldown_animation = 150
             animacion = self.animaciones[self.estado_actual]
 
             if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
@@ -36,6 +35,8 @@ class EmoteEntity:
                 self.actualizar_tiempo = pygame.time.get_ticks()
 
             self.imagen = animacion[self.animation_index]
+
+            self.dibujar()
 
     # def dormir(self):
     #     '''
@@ -107,7 +108,7 @@ class EmoteEntity:
 
     def dibujar(self):
         if self.estado_actual != None:
-            self.window.blit(self.img, self.forma)
+            self.window.blit(self.imagen, self.forma)
     
     
 
