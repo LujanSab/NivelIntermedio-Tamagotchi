@@ -87,7 +87,7 @@ def main():
                     animaciones=animaciones_mascotas, 
                 )
     
-    emote_entity = EmoteEntity(Config.HAMBRE_IMG, animaciones_emotes)
+    emote_entity = EmoteEntity(animaciones_emotes)
     
     firu = Perro(nombre_dueño='emi', nombre_mascota='firu', tipo='perro')
     
@@ -125,7 +125,7 @@ def main():
                         firu.energia += 25
                         firu_servicio.actualizar(energia=firu.energia)
                         print('dormir')
-                        # emote_entity.comer()
+                        # emote_entity.dormir()
             
             firu_entity.dibujar(window=window)
 
