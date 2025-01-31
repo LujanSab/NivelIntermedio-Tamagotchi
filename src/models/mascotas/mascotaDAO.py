@@ -53,7 +53,7 @@ class MascotaDAO:
         except Exception as error:
             return error
 
-    def actualizar_estado_mascota(self, campos: str, valores: tuple):
+    def actualizar_estado_mascota(self, campos: str, valores: list):
         data = (valor for valor in valores)
         sql = f"UPDATE mascotas SET {campos} WHERE nombre = ?"
 

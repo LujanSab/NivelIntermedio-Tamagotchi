@@ -17,9 +17,9 @@ class MascotaService:
             self.mascota.hambre
         )
 
-    def actualizar(self, energia=None, limpieza=None, hambre=None, felicidad=None):
-        campos: list = []
-        valores: tuple = []
+    def actualizar(self, energia: int=None, limpieza: int=None, hambre: int=None, felicidad: int=None):
+        campos = []
+        valores = []
 
         if energia is not None:
             campos.append("energia = ?")

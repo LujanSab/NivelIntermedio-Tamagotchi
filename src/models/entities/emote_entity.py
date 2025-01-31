@@ -2,12 +2,12 @@ import pygame
 from config import Config
 
 
-class Emote:
+class EmoteEntity:
     def __init__(self, img, animaciones):
         self.forma = pygame.Rect((Config.WINDOW_WIDTH/2)-(Config.MASCOTA_WIDTH/2), Config.WINDOW_HEIGHT/2, 29, 30)
         self.imagen = img
         self.animaciones = animaciones
-        self.animation_index = 4
+        self.animation_index = 0
 
     def animacion(self):
         '''
