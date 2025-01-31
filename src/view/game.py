@@ -2,11 +2,13 @@ import pygame
 from config import Config
 from config import ASSETS_UTL
 from src.models.entities.mascotas_entity import PerroEntity
+from src.models.entities.emote_entity import EmoteEntity
 from src.models.mascotas.mascotas import Perro
 from src.models.mascotas.mascotaService import MascotaService
 from src.controller.utils import scale_img
 from src.controller.logger import log
 import traceback
+from pprint import pprint
 
 
 def main():
@@ -42,18 +44,39 @@ def main():
     texto_alimentar = fuente.render('Alimentar', True, (255,255,255))
     texto_dormir = fuente.render('Dormir', True, (255,255,255))
 
+    dormir_emote = []
+    feliz_emote = []
     hambre_emote = []
+    limpiar_emote = []
 
     for i in range(2):
-        hambre_emote.append(Config.HAMBRE_IMG)
+        new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//durmiendo//DORMIR{i+1}.png'), 1.8)
+        dormir_emote.append(new_img)
+
+    for i in range(3):
+        new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//felicidad//FELICIDAD{i+1}.png'), 1.8)
+        feliz_emote.append(new_img)
+
+    for i in range(2):
+        new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//hambre//HAMBRE{i+1}.png'), 1.8)
+        hambre_emote.append(new_img)
+
+    for i in range(2):
+        new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//limpiar//LIMPIAR{i+1}.png'), 1.8)
+        limpiar_emote.append(new_img)
 
     animaciones_mascotas = [
         Config.DOG_IMAGE,
     ]
 
     animaciones_emotes = [
+        dormir_emote,
+        feliz_emote,
         hambre_emote,
+        limpiar_emote
     ]
+
+    pprint(animaciones_emotes)
     
     dog_image = Config.DOG_IMAGE
 
@@ -63,6 +86,8 @@ def main():
                     imagen=dog_image, 
                     animaciones=animaciones_mascotas, 
                 )
+    
+    emote_entity = EmoteEntity(Config.HAMBRE_IMG, animaciones_emotes)
     
     firu = Perro(nombre_dueño='emi', nombre_mascota='firu', tipo='perro')
     
@@ -90,17 +115,17 @@ def main():
                         firu.hambre += 25
                         firu_servicio.actualizar(limpieza=firu.limpieza)
                         print('limpiar')
-                        # firu_entity.limpiar()
+                        # emote_entity.limpiar()
                     elif boton_alimentar.collidepoint(pygame.mouse.get_pos()):
                         firu.hambre -= 25
                         firu_servicio.actualizar(hambre=firu.hambre)
                         print('alimentar')
-                        firu_entity.comer()
+                        emote_entity.comer()
                     elif boton_dormir.collidepoint(pygame.mouse.get_pos()):
                         firu.energia += 25
                         firu_servicio.actualizar(energia=firu.energia)
                         print('dormir')
-                        # firu_entity.comer()
+                        # emote_entity.comer()
             
             firu_entity.dibujar(window=window)
 
