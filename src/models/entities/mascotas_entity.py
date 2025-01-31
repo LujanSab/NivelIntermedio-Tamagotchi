@@ -53,7 +53,7 @@ class MascotaEntity:
         funcion para dibujar la mascota en la pantalla
         '''
         window.blit(self.imagen, self.forma)
-        pygame.draw.rect(window, (255,255,255), self.forma, width=1)
+        # pygame.draw.rect(window, (255,255,255), self.forma, width=1)
 
     def limpiar(self):
         '''

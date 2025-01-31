@@ -44,8 +44,8 @@ class MascotaDAO:
         self.con.commit()
 
     def guardar_mascota(self, *args):
-        sql = """INSERT INTO mascotas(nombre, dueño, tipo, energia, limpieza, hambre) 
-        VALUES(?, ?, ?, ?, ?, ?)"""
+        sql = """INSERT INTO mascotas(nombre, dueño, tipo, energia, limpieza, hambre, felicidad) 
+        VALUES(?, ?, ?, ?, ?, ?, ?)"""
         try:
             self.cursor.execute(sql, args)
             self.con.commit()
