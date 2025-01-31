@@ -9,22 +9,22 @@ Tambien está planificado en el juego para armar un administrador hecho en tkint
 
 ## descargar las dependencias
 En la raiz del proyecto, con su gestor de entornos virtuales:
-### Anaconda:
+> ### Anaconda:
 - conda create -n [nombre_de_tu_entorno]
 - conda activate [nombre_de_tu_entorno]
-- pip install -r requirements.txt
 
-### virtualenvwrapper/virtualenvwrapper-win
+> ### virtualenvwrapper/virtualenvwrapper-win
 - mkvirtualenv [nombre_de_tu_entorno]
-- pip install -r requirements.txt
 
-### python venv
+> ### python venv
 - python -m venv [nombre_de_tu_entorno]
 
 > [!NOTE]
 > source /[nombre_de_tu_entorno]/Scripts/activate > para Windows
 > 
 > source [nombre_de_tu_entorno]/bin/activate > para MAC/Unix
+
+> ### y al final ejecutar:
 - pip install -r requirements.txt
 
 ## Ejecucion del programa
