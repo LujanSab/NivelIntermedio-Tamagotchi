@@ -2,6 +2,7 @@ import pygame
 from config import Config
 from config import ASSETS_UTL
 from src.models.entities.mascotas_entity import PerroEntity
+from src.models.entities.emote_entity import EmoteEntity
 from src.models.mascotas.mascotas import Perro
 from src.models.mascotas.mascotaService import MascotaService
 from src.controller.utils import scale_img
@@ -78,6 +79,8 @@ def main():
                     imagen=dog_image, 
                     animaciones=animaciones_mascotas, 
                 )
+    
+    emote_entity = EmoteEntity(animaciones_emotes)
     
     firu = Perro(nombre_dueño='emi', nombre_mascota='firu', tipo='perro')
     
