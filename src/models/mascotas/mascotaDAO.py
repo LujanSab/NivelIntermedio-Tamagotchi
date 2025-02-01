@@ -54,7 +54,7 @@ class MascotaDAO:
             return error
 
     def actualizar_estado_mascota(self, campos: str, valores: list):
-        data = (valor for valor in valores)
+        data = tuple(valores)
         sql = f"UPDATE mascotas SET {campos} WHERE nombre = ?"
 
         try:
@@ -64,9 +64,9 @@ class MascotaDAO:
         except Exception as error:
             return f"Error: {error}"
 
-    def eliminar_mascota(self, nombremascota, nombredueño):
-        data = (nombremascota, nombredueño)
-        sql = "DELETE FROM mascotas WHERE nombre = ?, dueño = ?"
+    def eliminar_mascota(self, nombremascota, nombredueño, tipo):
+        data = (nombremascota, nombredueño, tipo)
+        sql = "DELETE FROM mascotas WHERE nombre = ? AND dueño = ? AND tipo = ?"
         try:
             self.cursor.execute(sql, data)
             self.con.commit()
@@ -74,7 +74,7 @@ class MascotaDAO:
         except Exception as error:
             return error
 
-    def extraer_datos_mascota(self, nombremascota):
+    def extraer_datos_mascota(self, nombremascota, nombredueño, tipo):
         """_summary_
         -
         Extrae los datos de una sola mascota. 
@@ -82,17 +82,17 @@ class MascotaDAO:
         Args:
             nombremascota (str)
         """
-        data = (nombremascota, )
-        sql = "SELECT * FROM mascotas WHERE nombre = ?"
+        data = (nombremascota, nombredueño, tipo)
+        sql = "SELECT * FROM mascotas WHERE nombre = ? AND dueño = ? AND tipo = ?"
         try:
             self.cursor.execute(sql, data)
-            result = self.cursor.fetchall()
+            result = self.cursor.fetchone()
             return result
         except Exception as error:
             return error
 
     def extraer_datos_mascotas(self):
-        sql = "SELECT * FROM mascotas"
+        sql = "SELECT * FROM mascotas ORDER BY id DESC"
         try:
             self.cursor.execute(sql)
             result = self.cursor.fetchall()
