@@ -3,22 +3,22 @@ from src.models.mascotas.mascotaDAO import MascotaDAO
 from src.controller.logger import log
 
 class MascotaService:
-    def __init__(self, mascota):
-        self.mascota: Mascota = mascota
+    def __init__(self, mascota: Mascota=None):
+        self._mascota = mascota
         self.dao = MascotaDAO()
 
     def crear(self):
         self.dao.guardar_mascota(
-            self.mascota.nombre_mascota,
-            self.mascota.nombre_dueño,
-            self.mascota.tipo_de_mascota,
-            self.mascota.energia,
-            self.mascota.limpieza,
-            self.mascota.hambre,
-            self.mascota.felicidad
+            self._mascota.nombre_mascota,
+            self._mascota.nombre_dueño,
+            self._mascota.tipo_de_mascota,
+            self._mascota.energia,
+            self._mascota.limpieza,
+            self._mascota.hambre,
+            self._mascota.felicidad
         )
 
-    def actualizar(self, energia: int=None, limpieza: int=None, hambre: int=None, felicidad: int=None):
+    def actualizar(self, nombre, energia: int=None, limpieza: int=None, hambre: int=None, felicidad: int=None):
         campos = []
         valores = []
 
@@ -43,21 +43,18 @@ class MascotaService:
             print("No se proporcionaron valores para actualizar.")
         else:
             campos_str = ', '.join(campos)
-            valores.append(self.mascota.nombre_mascota)
+            valores.append(nombre)
 
             self.dao.actualizar_estado_mascota(campos=campos_str, valores=valores)
     
-    def eliminar(self):
-        nombre = self.mascota.nombre
-        dueño = self.mascota.dueño
+    def eliminar(self, nombre: str, dueño: str):
         if not nombre and not dueño:
             return "Los campos no deben estar en blanco. Intente nuevamente. "
         else:
             mensaje = self.dao.eliminar_mascota(nombre, dueño)
             return mensaje
 
-    def obtener_datos_mascota(self):
-        nombre = self.mascota.nombre_mascota
+    def obtener_datos_mascota(self, nombre):
         datos = self.dao.extraer_datos_mascota(nombre)
         mascota = datos[0]
         if mascota:
@@ -78,5 +75,11 @@ class MascotaService:
         mascotas = self.dao.extraer_datos_mascotas()
         return mascotas
     
-    def __str__(self):
-        return str(self.mascota.nombre_mascota)
+    @property
+    def mascota(self):
+        return self._mascota
+    
+    @mascota.setter
+    def mascota(self, mascota):
+        self._mascota = mascota
+    

@@ -5,12 +5,10 @@ from tkinter import StringVar
 from tkinter import W
 from tkinter.ttk import Treeview
 from tkinter.messagebox import askyesno, showinfo
-from controller.controlador import Controlador
 
 class VentanaPrincipal:
     def __init__(self, root):
         self.root = root
-        self.controlador = Controlador()
         self.root.geometry('700x400')
         self.root.title("Mascotas")
         self.root.configure(bg="#c689e3")
@@ -111,11 +109,11 @@ class VentanaPrincipal:
         self.tipo = self.boton_gato["text"]
         self.boton_perro["state"] = "disabled"
     
-    def consulta(self):
-        datos = self.controlador.consulta()
-        for fila in datos:
-           self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7]))
-        self.boton_seleccionar["state"] = "active"
+    # def consulta(self):
+    #     datos = self.controlador.consulta()
+    #     for fila in datos:
+    #        self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7]))
+    #     self.boton_seleccionar["state"] = "active"
     
     def seleccionar(self):
         self.valor = self.tree.selection()
