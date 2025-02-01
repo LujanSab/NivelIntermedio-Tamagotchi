@@ -41,9 +41,9 @@ class Mascota:
     def energia(self, valor):
         self._energia = valor
 
-        if self.energia < 50:
+        if self.energia > 50:
             self.felicidad -= 25
-        elif self.energia > 50:
+        elif self.energia < 50:
             self.felicidad += 25
         elif self.energia == 100:
             self.felicidad = 100
@@ -79,9 +79,9 @@ class Mascota:
     def hambre(self, valor):
         self._hambre = valor
         
-        if self.hambre < 50:
+        if self.hambre > 50:
             self.felicidad -= 25
-        elif self.hambre > 50:
+        elif self.hambre < 50:
             self.felicidad += 25
 
         if self.hambre < 0:
