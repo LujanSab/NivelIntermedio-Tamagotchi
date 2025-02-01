@@ -86,10 +86,10 @@ class VentanaPrincipal:
         self.boton_alta = Button(self.root, text="Guardar", command=lambda:self.alta(), width=25)
         self.boton_alta.place(x=500, y=160)
 
-        self.boton_consulta = Button(self.root, text="Consultar", width=25)
+        self.boton_consulta = Button(self.root, text="Consultar", command=lambda:self.consulta(), width=25)
         self.boton_consulta.place(x=500, y=220)
 
-        self.boton_seleccionar = Button(self.root, text="Seleccionar", width=25, state="disabled")
+        self.boton_seleccionar = Button(self.root, text="Seleccionar", command=lambda:self.seleccionar(), width=25, state="disabled")
         self.boton_seleccionar.place(x=500, y=260)
 
         self.boton_eliminar = Button(self.root, text="Modificar", width=25, state="disabled")
@@ -104,11 +104,11 @@ class VentanaPrincipal:
         self.controlador.alta(nombre, duenio, self.tipo)
     
     def obtener_perro(self):
-        self.tipo = self.ventana.boton_perro["text"]
+        self.tipo = self.boton_perro["text"]
         self.boton_gato["state"] = "disabled"
         
     def obtener_gato(self):
-        self.tipo = self.ventana.boton_gato["text"]
+        self.tipo = self.boton_gato["text"]
         self.boton_perro["state"] = "disabled"
     
     def consulta(self):
