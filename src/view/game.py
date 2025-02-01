@@ -111,7 +111,7 @@ class Game:
             main loop of the game
             """
             self.firu_dict = self.firu_servicio.obtener_datos_mascota(self.firu.nombre_mascota, self.firu.nombre_dueño, self.firu.tipo_de_mascota)
-            
+
             self.porcentaje_hambre = BotonEntity(
                 (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
                 (Config.BTN_HEIGHT*2) + 30,
@@ -148,19 +148,19 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                         if self.boton_limpiar.forma.collidepoint(pygame.mouse.get_pos()):
                             self.firu.limpieza += 25
-                            self.firu_servicio.actualizar(limpieza=self.firu.limpieza, nombre=self.firu.nombre_mascota)
+                            self.firu_servicio.actualizar(limpieza=self.firu.limpieza, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
                             print(self.firu.limpieza)
                             self.emote_entity.iniciar_animacion('limpiar')
 
                         elif self.boton_alimentar.forma.collidepoint(pygame.mouse.get_pos()):
                             self.firu.hambre -= 25
-                            self.firu_servicio.actualizar(hambre=self.firu.hambre, nombre=self.firu.nombre_mascota)
+                            self.firu_servicio.actualizar(hambre=self.firu.hambre, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
                             print(self.firu.hambre)
                             self.emote_entity.iniciar_animacion('hambre')
 
                         elif self.boton_dormir.forma.collidepoint(pygame.mouse.get_pos()):
                             self.firu.energia += 25
-                            self.firu_servicio.actualizar(energia=self.firu.energia, nombre=self.firu.nombre_mascota)
+                            self.firu_servicio.actualizar(energia=self.firu.energia, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
                             print(self.firu.energia)
                             self.emote_entity.iniciar_animacion('dormir')
                 
