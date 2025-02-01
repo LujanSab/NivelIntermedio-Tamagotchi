@@ -92,7 +92,7 @@ class MascotaDAO:
             return error
 
     def extraer_datos_mascotas(self):
-        sql = "SELECT * FROM mascotas"
+        sql = "SELECT * FROM mascotas ORDER BY id DESC"
         try:
             self.cursor.execute(sql)
             result = self.cursor.fetchall()

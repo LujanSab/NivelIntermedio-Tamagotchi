@@ -7,6 +7,7 @@ from tkinter.ttk import Treeview
 from tkinter.messagebox import askyesno, showinfo
 from src.models.mascotas.mascotaService import MascotaService
 from src.view.game import Game
+from tkinter import Toplevel
 
 # --------------------------------------------------
 # Ventana de Registro 
@@ -90,7 +91,7 @@ class VentanaRegistro:
         self.boton_perro["state"] = "disabled"
     
     def buscar_mascota(self):
-        self.ventana_principal = VentanaPrincipal(self.root)
+        self.ventana_principal = VentanaPrincipal(Toplevel())
         self.ventana_principal.root.mainloop()
 
 # --------------------------------------------------
@@ -143,15 +144,15 @@ class VentanaPrincipal:
         self.tree = Treeview(self.root, height=17)
 
         # --- COLUMNS
-        self.tree["columns"] = ("Nombre", "Dueño", "Tipo", "Energia", "Felicidad", "Hambre", "Limpieza")
+        self.tree["columns"] = ("Nombre", "Dueño", "Tipo", "Energia", "Limpieza", "Hambre", "Felicidad")
         self.tree.column("#0", width=30, minwidth=30)
         self.tree.column("Nombre", width=70, minwidth=70, anchor=W)
         self.tree.column("Dueño", width=70, minwidth=70, anchor=W)
         self.tree.column("Tipo", width=70, minwidth=70, anchor=W)
         self.tree.column("Energia", width=60, minwidth=60, anchor=W)
-        self.tree.column("Felicidad", width=60, minwidth=60, anchor=W)
-        self.tree.column("Hambre", width=60, minwidth=60, anchor=W)
         self.tree.column("Limpieza", width=60, minwidth=60, anchor=W)
+        self.tree.column("Hambre", width=60, minwidth=60, anchor=W)
+        self.tree.column("Felicidad", width=60, minwidth=60, anchor=W)
         self.tree.place(x=5, y=40)
 
         # --- HEADERS
@@ -160,9 +161,9 @@ class VentanaPrincipal:
         self.tree.heading("Dueño", text="Dueño")
         self.tree.heading("Tipo", text="Tipo")
         self.tree.heading("Energia", text="Energia")
-        self.tree.heading("Felicidad", text="Felicidad")
-        self.tree.heading("Hambre", text="Hambre")
         self.tree.heading("Limpieza", text="Limpieza")
+        self.tree.heading("Hambre", text="Hambre")
+        self.tree.heading("Felicidad", text="Felicidad")
 
         # --------------------------------------------------
         # BUTTONS
@@ -212,27 +213,37 @@ class VentanaPrincipal:
                              values=(data["nombre_mascota"], 
                                     data["nombre_dueño"], 
                                     data["tipo"], 
-                                    data["energia"], 
-                                    data["felicidad"], 
+                                    data["energia"],
+                                    data["limpieza"],  
                                     data["hambre"], 
-                                    data["limpieza"]))
+                                    data["felicidad"]))
             self.boton_jugar["state"] = "active"
         else:
             showinfo("", f"No existe la mascota llamada:{nombre}. Intente con otro nombre.")
         
-    
     def jugar(self):
-        records = self.tree.get_children()
-        self.datos_mascota = records['values']
-        self.service.crear_mascota(self.datos_mascota[0], self.datos_mascota[1], self.datos_mascota[2])
-        game = Game(self.service._mascota)
-        game.run()
+        self.valor = self.tree.focus()
+        item = self.tree.item(self.valor)
+        self.datos_mascota = item['values']
+        print(self.datos_mascota)
+        self.service.crear_objeto_mascota(nombre=self.datos_mascota[0], 
+                                          duenio=self.datos_mascota[1], 
+                                          tipo=self.datos_mascota[2],
+                                          energia=self.datos_mascota[3],
+                                          limpieza=self.datos_mascota[4],
+                                          hambre=self.datos_mascota[5],
+                                          felicidad=self.datos_mascota[6])
+        if self.service._mascota:
+            game = Game(self.service._mascota)
+            game.run()
+        else:
+            showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
     
-    # def consulta(self):
-    #     datos = self.controlador.consulta()
-    #     for fila in datos:
-    #        self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7]))
-    #     self.boton_seleccionar["state"] = "active"
+    def consulta(self):
+        datos = self.service.obtener_todas_las_mascotas()
+        for fila in datos:
+           self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7]))
+        self.boton_seleccionar["state"] = "active"
     
     def seleccionar(self):
         self.valor = self.tree.selection()
@@ -242,25 +253,29 @@ class VentanaPrincipal:
         self.var_nombre_duenio.set(self.datos_mascota[1])
 
         if self.datos_mascota[2] == "perro":
-            self.boton_perro["state"] = "active"
+            self.boton_gato["state"] = "disabled"
         elif self.datos_mascota[2] == "gato":
-            self.boton_gato["state"] = "active"
+            self.boton_perro["state"] = "disabled"
 
-        self.boton_modificar["state"] = "active"
+        self.boton_jugar["state"] = "active"
         self.boton_eliminar["state"] = "active"
 
     def eliminar(self):
         if askyesno("Atención", f"¿Desea confirmar la eliminación de la mascota: {self.datos_mascota[0]}?"):
-            self.controlador.eliminar(self.datos_mascota[0], self.datos_mascota[1])
+            mensaje = self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1], self.datos_mascota[2])
             self.tree.delete(self.valor)
             self.valor = 0
-            showinfo("", "Se ha eliminado con éxito.")
+            showinfo("", mensaje)
+            self.boton_gato["state"] = "active"
+            self.boton_perro["state"] = "active"
+            self.boton_eliminar["state"] = "disabled"
+            self.boton_jugar["state"] = "disabled"
+            self.var_nombre_duenio.set("")
+            self.var_nombre_mascota.set("")
         else:
             showinfo("", "No se han efectuado cambios")
     
-    def modificar(self):
-        pass
-
-# if __name__ == "__main__":
-#     vista = VentanaRegistro(root=Tk())
-#     vista.root.mainloop()
+    def limpiar_vista(self):
+        records = self.tree.get_children()
+        for element in records:
+            self.tree.delete(element)

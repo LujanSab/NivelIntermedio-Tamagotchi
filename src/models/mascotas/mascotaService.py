@@ -25,6 +25,16 @@ class MascotaService:
             self._mascota.hambre,
             self._mascota.felicidad
         )
+    
+    def crear_objeto_mascota(self, nombre, duenio, tipo, energia, limpieza, hambre, felicidad):
+        if tipo == "perro":
+            self._mascota = Perro(nombre, duenio)
+        elif tipo == "gato":
+            self._mascota = Gato(nombre, duenio)
+        self._mascota._energia = energia
+        self._mascota._limpieza = limpieza
+        self._mascota._hambre = hambre 
+        self._mascota._felicidad = felicidad
 
     def actualizar(self, nombre, energia: int=None, limpieza: int=None, hambre: int=None, felicidad: int=None):
         campos = []
@@ -57,11 +67,11 @@ class MascotaService:
 
             self.dao.actualizar_estado_mascota(campos=campos_str, valores=valores)
     
-    def eliminar(self, nombre: str, dueño: str):
+    def eliminar(self, nombre: str, dueño: str, tipo: str):
         if not nombre and not dueño:
             return "Los campos no deben estar en blanco. Intente nuevamente. "
         else:
-            mensaje = self.dao.eliminar_mascota(nombre, dueño)
+            mensaje = self.dao.eliminar_mascota(nombre, dueño, tipo)
             return mensaje
 
     def obtener_datos_mascota(self, nombre, dueño, tipo):
