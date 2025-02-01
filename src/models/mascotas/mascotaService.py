@@ -64,10 +64,10 @@ class MascotaService:
             mensaje = self.dao.eliminar_mascota(nombre, dueño)
             return mensaje
 
-    def obtener_datos_mascota(self, nombre):
-        datos = self.dao.extraer_datos_mascota(nombre)
-        mascota = datos[0]
-        if mascota:
+    def obtener_datos_mascota(self, nombre, dueño, tipo):
+        datos = self.dao.extraer_datos_mascota(nombre, dueño, tipo)
+        if datos:
+            mascota = datos[0]
             data = {
                 "id": mascota,
                 "nombre_mascota" : datos[1],
