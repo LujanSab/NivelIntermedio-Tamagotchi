@@ -1,4 +1,4 @@
-from src.models.mascotas.mascotas import Mascota
+from src.models.mascotas.mascotas import Mascota, Perro, Gato
 from src.models.mascotas.mascotaDAO import MascotaDAO
 from src.controller.logger import log
 
@@ -6,6 +6,14 @@ class MascotaService:
     def __init__(self, mascota: Mascota=None):
         self._mascota = mascota
         self.dao = MascotaDAO()
+
+    def crear_mascota(self, nombre, duenio, tipo):
+        if tipo == "Perro":
+            self._mascota = Perro(nombre, duenio)
+            self.crear()
+        elif tipo == "Gato":
+            self._mascota = Gato(nombre, duenio)
+            self.crear()
 
     def crear(self):
         self.dao.guardar_mascota(
@@ -44,6 +52,8 @@ class MascotaService:
         else:
             campos_str = ', '.join(campos)
             valores.append(nombre)
+            print(campos_str)
+            print(valores)
 
             self.dao.actualizar_estado_mascota(campos=campos_str, valores=valores)
     
@@ -56,17 +66,17 @@ class MascotaService:
 
     def obtener_datos_mascota(self, nombre):
         datos = self.dao.extraer_datos_mascota(nombre)
-        if datos:
-            mascota = datos[0]
+        mascota = datos[0]
+        if mascota:
             data = {
-                "id": mascota[0],
-                "nombre_mascota" : mascota[1],
-                "nombre_dueño" : mascota[2],
-                "tipo" : mascota[3],
-                "energia" : mascota[4],
-                "limpieza" : mascota[5],
-                "hambre" : mascota[6],
-                "felicidad" : mascota[7]
+                "id": mascota,
+                "nombre_mascota" : datos[1],
+                "nombre_dueño" : datos[2],
+                "tipo" : datos[3],
+                "energia" : datos[4],
+                "limpieza" : datos[5],
+                "hambre" : datos[6],
+                "felicidad" : datos[7]
             }
             return data
         return None

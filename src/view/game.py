@@ -17,8 +17,9 @@ import traceback
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, mascota):
         pygame.init()
+        self.firu = mascota
 
         self.window = pygame.display.set_mode((Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT))
         self.window.fill((200,200,200))
@@ -98,15 +99,16 @@ class Game:
                         window=self.window
                     )
         
-        self.firu = Perro(nombre_dueño='emi', nombre_mascota='firu', tipo='perro')
+        # self.firu = Perro(nombre_dueño='emi', nombre_mascota='firu', tipo='perro')
         
-        self.firu_servicio = MascotaService(self.firu)
-        self.perro_dict = self.firu_servicio.obtener_datos_mascota(self.firu.nombre_mascota)
+        self.firu_servicio = MascotaService()
+        self.firu_servicio._mascota = self.firu
+        # self.perro_dict = self.firu_servicio.obtener_datos_mascota(self.firu.nombre_mascota)
 
-        if not self.perro_dict:
-            self.firu_servicio.crear()
-        else:
-            self.firu = Perro(nombre_mascota=self.perro_dict['nombre_mascota'], nombre_dueño=self.perro_dict['nombre_dueño'], tipo=self.perro_dict['tipo'])
+        # if not self.perro_dict:
+        #     self.firu_servicio.crear()
+        # else:
+        #     self.firu = Perro(nombre_mascota=self.perro_dict['nombre_mascota'], nombre_dueño=self.perro_dict['nombre_dueño'], tipo=self.perro_dict['tipo'])
 
     def run(self):
 
