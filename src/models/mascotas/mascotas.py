@@ -1,6 +1,6 @@
 
 class Mascota:
-    def __init__(self, nombre_dueño, nombre_mascota, tipo):
+    def __init__(self, nombre_mascota, nombre_dueño, tipo):
         self._dueño = nombre_dueño
         self._nombre = nombre_mascota
         self._tipo = tipo
