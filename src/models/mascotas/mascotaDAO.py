@@ -54,7 +54,7 @@ class MascotaDAO:
             return error
 
     def actualizar_estado_mascota(self, campos: str, valores: list):
-        data = (valor for valor in valores)
+        data = tuple(valores)
         sql = f"UPDATE mascotas SET {campos} WHERE nombre = ?"
 
         try:
@@ -66,7 +66,7 @@ class MascotaDAO:
 
     def eliminar_mascota(self, nombremascota, nombredueño):
         data = (nombremascota, nombredueño)
-        sql = "DELETE FROM mascotas WHERE nombre = ?, dueño = ?"
+        sql = "DELETE FROM mascotas WHERE nombre = ? AND dueño = ?"
         try:
             self.cursor.execute(sql, data)
             self.con.commit()
