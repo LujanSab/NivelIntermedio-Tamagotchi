@@ -52,12 +52,6 @@ class Game:
             self.window
             )
 
-        self.fuente = pygame.font.Font(None,30)
-
-        self.texto_limpiar = self.fuente.render('Limpiar', True, (255,255,255))
-        self.texto_alimentar = self.fuente.render('Alimentar', True, (255,255,255))
-        self.texto_dormir = self.fuente.render('Dormir', True, (255,255,255))
-
         self.dormir_emote = []
         self.feliz_emote = []
         self.hambre_emote = []
