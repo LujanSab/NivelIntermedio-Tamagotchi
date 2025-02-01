@@ -66,8 +66,8 @@ class MascotaService:
 
     def obtener_datos_mascota(self, nombre, dueño, tipo):
         datos = self.dao.extraer_datos_mascota(nombre, dueño, tipo)
-        mascota = datos[0]
-        if mascota:
+        if datos:
+            mascota = datos[0]
             data = {
                 "id": mascota,
                 "nombre_mascota" : datos[1],
