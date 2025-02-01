@@ -102,6 +102,34 @@ class Game:
         self.firu_servicio = MascotaService()
         self.firu_servicio._mascota = self.firu
 
+        self.porcentaje_hambre = BotonEntity(
+            (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
+            (Config.BTN_HEIGHT*2) + 30,
+            'Hambre 100%',
+            self.window
+        )
+
+        self.porcentaje_energia = BotonEntity(
+            (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
+            (Config.BTN_HEIGHT*3) + 40,
+            'Energia 100%',
+            self.window
+        )
+
+        self.porcentaje_felicidad = BotonEntity(
+            (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
+            (Config.BTN_HEIGHT*4) + 50,
+            'Felicidad 100%',
+            self.window
+        )
+
+        self.porcentaje_limpieza = BotonEntity(
+            (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
+            (Config.BTN_HEIGHT*5) + 60,
+            'Limpieza 100%',
+            self.window
+        )
+
     def run(self):
 
         run = True
@@ -139,10 +167,15 @@ class Game:
                 self.firu_entity.dibujar(window=self.window)
                 self.emote_entity.actualizar_animacion()
 
-                self.boton_limpiar.dibujar()
-                self.boton_admin.dibujar()
-                self.boton_dormir.dibujar()
-                self.boton_alimentar.dibujar()
+                self.boton_limpiar.dibujar((0,0,0))
+                self.boton_admin.dibujar((0,0,0))
+                self.boton_dormir.dibujar((0,0,0))
+                self.boton_alimentar.dibujar((0,0,0))
+
+                self.porcentaje_energia.dibujar((150,150,150))
+                self.porcentaje_hambre.dibujar((150,150,150))
+                self.porcentaje_felicidad.dibujar((150,150,150))
+                self.porcentaje_limpieza.dibujar((150,150,150))
 
                 pygame.display.update()
 
