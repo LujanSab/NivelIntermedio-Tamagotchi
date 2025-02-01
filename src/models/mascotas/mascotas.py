@@ -42,9 +42,9 @@ class Mascota:
         self._energia = valor
 
         if self.energia > 50:
-            self.felicidad -= 25
-        elif self.energia < 50:
             self.felicidad += 25
+        elif self.energia < 50:
+            self.felicidad -= 25
         elif self.energia == 100:
             self.felicidad = 100
 
