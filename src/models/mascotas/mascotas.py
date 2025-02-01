@@ -39,7 +39,19 @@ class Mascota:
     
     @energia.setter
     def energia(self, valor):
-        self._energia += valor
+        self._energia = valor
+
+        if self.energia < 50:
+            self.felicidad -= 25
+        elif self.energia > 50:
+            self.felicidad += 25
+        elif self.energia == 100:
+            self.felicidad = 100
+
+        if self.energia < 0:
+            self._energia = 0
+        elif self.energia > 100:
+            self._energia = 100
 
     @property
     def limpieza(self):
@@ -47,7 +59,17 @@ class Mascota:
 
     @limpieza.setter
     def limpieza(self, valor):
-        self._limpieza += valor
+        self._limpieza = valor
+
+        if self.limpieza < 50:
+            self.felicidad -= 25
+        elif self.limpieza > 50:
+            self.felicidad += 25
+
+        if self.limpieza < 0:
+            self._limpieza = 0
+        elif self.limpieza > 100:
+            self._limpieza = 100
 
     @property
     def hambre(self):
@@ -55,7 +77,17 @@ class Mascota:
     
     @hambre.setter
     def hambre(self, valor):
-        self._hambre += valor
+        self._hambre = valor
+        
+        if self.hambre < 50:
+            self.felicidad -= 25
+        elif self.hambre > 50:
+            self.felicidad += 25
+
+        if self.hambre < 0:
+            self._hambre = 0
+        elif self.hambre > 100:
+            self._hambre = 100
 
     @property
     def felicidad(self):
@@ -63,7 +95,12 @@ class Mascota:
 
     @felicidad.setter
     def felicidad(self, valor):
-        self._felicidad += valor
+        self._felicidad = valor
+
+        if self.felicidad < 0:
+            self._felicidad = 0
+        elif self.felicidad > 100:
+            self._felicidad = 100
 
 
 class Perro(Mascota):

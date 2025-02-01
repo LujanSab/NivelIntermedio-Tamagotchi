@@ -125,19 +125,19 @@ class Game:
                         if self.boton_limpiar.forma.collidepoint(pygame.mouse.get_pos()):
                             self.firu.limpieza += 25
                             self.firu_servicio.actualizar(limpieza=self.firu.limpieza, nombre=self.firu.nombre_mascota)
-                            print('limpiar')
+                            print(self.firu.limpieza)
                             self.emote_entity.iniciar_animacion('limpiar')
 
                         elif self.boton_alimentar.forma.collidepoint(pygame.mouse.get_pos()):
                             self.firu.hambre -= 25
                             self.firu_servicio.actualizar(hambre=self.firu.hambre, nombre=self.firu.nombre_mascota)
-                            print('alimentar')
+                            print(self.firu.hambre)
                             self.emote_entity.iniciar_animacion('hambre')
 
                         elif self.boton_dormir.forma.collidepoint(pygame.mouse.get_pos()):
                             self.firu.energia += 25
                             self.firu_servicio.actualizar(energia=self.firu.energia, nombre=self.firu.nombre_mascota)
-                            print('dormir')
+                            print(self.firu.energia)
                             self.emote_entity.iniciar_animacion('dormir')
                 
                 self.window.fill((200, 200, 200))
