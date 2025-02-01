@@ -3,17 +3,17 @@ from models.mascotas.mascotaService import MascotaService
 
 class Controlador:
     def __init__(self):
-        pass
+        self.masc_service = MascotaService() 
     # --------------------------------------------------
     # FUNCIONES AUXILIARES
     # --------------------------------------------------
     def alta(self, nombre, duenio, tipo):
         if tipo == "Perro": 
             perro = Perro(duenio, nombre)
-            self.service = MascotaService(perro) #???????
+            self.masc_service.crear(perro)
         elif tipo == "Gato":
             gato = Gato(duenio, nombre)
-            self.service = MascotaService(gato) #???????
+            self.masc_service.crear(gato)
 
     def consulta(self):
         datos = self.service.obtener_todas_las_mascotas()
