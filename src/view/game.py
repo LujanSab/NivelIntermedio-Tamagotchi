@@ -23,26 +23,33 @@ class Game:
         self.window.fill((200,200,200))
 
         self.boton_limpiar = pygame.Rect(
-            (Config.WINDOW_WIDTH - Config.BTN_LIMPIAR_WIDTH) - 30,
-            (Config.WINDOW_HEIGHT - Config.BTN_LIMPIAR_HEIGHT) - 30,
-            Config.BTN_LIMPIAR_WIDTH,
-            Config.BTN_LIMPIAR_HEIGHT
+            (Config.WINDOW_WIDTH - Config.BTN_WIDTH) - 30,
+            (Config.WINDOW_HEIGHT - Config.BTN_HEIGHT) - 30,
+            Config.BTN_WIDTH,
+            Config.BTN_HEIGHT
         )
 
         self.boton_alimentar = pygame.Rect(
-            (Config.WINDOW_WIDTH - Config.BTN_LIMPIAR_WIDTH) - 30,
+            (Config.WINDOW_WIDTH - Config.BTN_WIDTH) - 30,
             30,
-            Config.BTN_LIMPIAR_WIDTH,
-            Config.BTN_LIMPIAR_HEIGHT
+            Config.BTN_WIDTH,
+            Config.BTN_HEIGHT
         )
 
         self.boton_dormir = pygame.Rect(
             30,
-            (Config.WINDOW_HEIGHT - Config.BTN_LIMPIAR_HEIGHT) - 30,
-            Config.BTN_LIMPIAR_WIDTH,
-            Config.BTN_LIMPIAR_HEIGHT
+            (Config.WINDOW_HEIGHT - Config.BTN_HEIGHT) - 30,
+            Config.BTN_WIDTH,
+            Config.BTN_BOTON_HEIGHT
         )
-        
+
+        self.boton_admin = pygame.Rect(
+            30,
+            30,
+            Config.BTN_WIDTH,
+            Config.BTN_HEIGHT
+        )
+
         self.fuente = pygame.font.Font(None,30)
 
         self.texto_limpiar = self.fuente.render('Limpiar', True, (255,255,255))

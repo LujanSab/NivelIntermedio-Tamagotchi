@@ -35,5 +35,5 @@ class Config:
     limpiar_emote = pygame.image.load(f'{ASSETS_UTL}//emotes//limpiar//LIMPIAR1.png')
     LIMPIAR_IMG = scale_img(limpiar_emote, 1.8)
 
-    BTN_LIMPIAR_WIDTH = 150
-    BTN_LIMPIAR_HEIGHT = 50
+    BTN_WIDTH = 150
+    BTN_HEIGHT = 50
