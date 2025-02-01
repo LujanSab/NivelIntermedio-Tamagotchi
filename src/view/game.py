@@ -6,7 +6,7 @@ from config import ASSETS_UTL
 from src.models.entities.mascotas_entity import PerroEntity
 from src.models.entities.emote_entity import EmoteEntity
 from src.models.entities.boton_entity import BotonEntity
-from src.models.mascotas.mascotas import Perro
+from src.models.mascotas.mascotas import Mascota
 from src.models.mascotas.mascotaService import MascotaService
 
 from src.controller.utils import scale_img
@@ -17,7 +17,7 @@ import traceback
 
 class Game:
 
-    def __init__(self, mascota):
+    def __init__(self, mascota: Mascota):
         pygame.init()
         self.firu = mascota
 
@@ -100,35 +100,7 @@ class Game:
                     )
         
         self.firu_servicio = MascotaService()
-        self.firu_servicio._mascota = self.firu
-
-        self.porcentaje_hambre = BotonEntity(
-            (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
-            (Config.BTN_HEIGHT*2) + 30,
-            'Hambre 100%',
-            self.window
-        )
-
-        self.porcentaje_energia = BotonEntity(
-            (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
-            (Config.BTN_HEIGHT*3) + 40,
-            'Energia 100%',
-            self.window
-        )
-
-        self.porcentaje_felicidad = BotonEntity(
-            (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
-            (Config.BTN_HEIGHT*4) + 50,
-            'Felicidad 100%',
-            self.window
-        )
-
-        self.porcentaje_limpieza = BotonEntity(
-            (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
-            (Config.BTN_HEIGHT*5) + 60,
-            'Limpieza 100%',
-            self.window
-        )
+        self.firu_servicio.mascota = self.firu
 
     def run(self):
 
@@ -138,6 +110,36 @@ class Game:
             """
             main loop of the game
             """
+            self.firu_dict = self.firu_servicio.obtener_datos_mascota(self.firu.nombre_mascota, self.firu.nombre_dueño, self.firu.tipo_de_mascota)
+            
+            self.porcentaje_hambre = BotonEntity(
+                (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
+                (Config.BTN_HEIGHT*2) + 30,
+                f"Hambre {self.firu_dict['hambre']}%",
+                self.window
+            )
+
+            self.porcentaje_energia = BotonEntity(
+                (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
+                (Config.BTN_HEIGHT*3) + 40,
+                f'Energia {self.firu_dict['energia']}%',
+                self.window
+            )
+
+            self.porcentaje_felicidad = BotonEntity(
+                (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
+                (Config.BTN_HEIGHT*4) + 50,
+                f'Felicidad {self.firu_dict['felicidad']}%',
+                self.window
+            )
+
+            self.porcentaje_limpieza = BotonEntity(
+                (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
+                (Config.BTN_HEIGHT*5) + 60,
+                f'Limpieza {self.firu_dict['limpieza']}%',
+                self.window
+            )
+
             try:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
