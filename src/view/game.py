@@ -122,21 +122,21 @@ class Game:
             self.porcentaje_energia = BotonEntity(
                 (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
                 (Config.BTN_HEIGHT*3) + 40,
-                f'Energia {self.firu_dict['energia']}%',
+                f"Energia {self.firu_dict['energia']}%",
                 self.window
             )
 
             self.porcentaje_felicidad = BotonEntity(
                 (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
                 (Config.BTN_HEIGHT*4) + 50,
-                f'Felicidad {self.firu_dict['felicidad']}%',
+                f"Felicidad {self.firu_dict['felicidad']}%",
                 self.window
             )
 
             self.porcentaje_limpieza = BotonEntity(
                 (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
                 (Config.BTN_HEIGHT*5) + 60,
-                f'Limpieza {self.firu_dict['limpieza']}%',
+                f"Limpieza {self.firu_dict['limpieza']}%",
                 self.window
             )
 
