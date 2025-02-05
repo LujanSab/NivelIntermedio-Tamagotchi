@@ -186,9 +186,6 @@ class VentanaPrincipal:
         self.boton_seleccionar = Button(self.root, text="Seleccionar", command=lambda:self.seleccionar(), width=25, state="disabled")
         self.boton_seleccionar.place(x=500, y=290)
 
-        # self.boton_eliminar = Button(self.root, text="Modificar", width=25, state="disabled")
-        # self.boton_eliminar.place(x=500, y=330)
-
         self.boton_eliminar = Button(self.root, text="Eliminar", command=lambda:self.eliminar(), width=25, state="disabled")
         self.boton_eliminar.place(x=500, y=330)
     
@@ -236,10 +233,12 @@ class VentanaPrincipal:
         if self.service._mascota:
             game = Game(self.service._mascota)
             game.run()
+            self.limpiar_vista()
         else:
             showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
     
     def consulta(self):
+        self.limpiar_vista()
         datos = self.service.obtener_todas_las_mascotas()
         for fila in datos:
            self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7]))
@@ -251,12 +250,8 @@ class VentanaPrincipal:
         self.datos_mascota = item['values']
         self.var_nombre_mascota.set(self.datos_mascota[0])
         self.var_nombre_duenio.set(self.datos_mascota[1])
-
-        if self.datos_mascota[2] == "perro":
-            self.boton_gato["state"] = "disabled"
-        elif self.datos_mascota[2] == "gato":
-            self.boton_perro["state"] = "disabled"
-
+        self.boton_gato["state"] = "disabled"
+        self.boton_perro["state"] = "disabled"
         self.boton_jugar["state"] = "active"
         self.boton_eliminar["state"] = "active"
 
@@ -266,12 +261,7 @@ class VentanaPrincipal:
             self.tree.delete(self.valor)
             self.valor = 0
             showinfo("", mensaje)
-            self.boton_gato["state"] = "active"
-            self.boton_perro["state"] = "active"
-            self.boton_eliminar["state"] = "disabled"
-            self.boton_jugar["state"] = "disabled"
-            self.var_nombre_duenio.set("")
-            self.var_nombre_mascota.set("")
+            self.limpiar_vista_eliminar()
         else:
             showinfo("", "No se han efectuado cambios")
     
@@ -279,3 +269,22 @@ class VentanaPrincipal:
         records = self.tree.get_children()
         for element in records:
             self.tree.delete(element)
+        self.var_nombre_duenio.set("")
+        self.var_nombre_mascota.set("")
+        self.boton_gato["state"] = "active"
+        self.boton_perro["state"] = "active"
+        self.boton_eliminar["state"] = "disabled"
+        self.boton_jugar["state"] = "disabled"
+        self.boton_seleccionar["state"] = "disabled"
+    
+    def limpiar_vista_eliminar(self):
+        """
+        Es para la limpiar la vista después de usar la función eliminar.
+        """
+        self.boton_gato["state"] = "active"
+        self.boton_perro["state"] = "active"
+        self.boton_eliminar["state"] = "disabled"
+        self.boton_jugar["state"] = "disabled"
+        self.var_nombre_duenio.set("")
+        self.var_nombre_mascota.set("")
+

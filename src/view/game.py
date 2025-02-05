@@ -46,48 +46,40 @@ class Game:
             self.window
             )
 
-        self.boton_admin = BotonEntity(
+        self.boton_salir = BotonEntity(
             30, 
             30,
-            'ADMIN',
+            'SALIR',
             self.window
             )
+        
+        self.boton_nombre = BotonEntity(
+            (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH/2),
+            (Config.BTN_HEIGHT*2) + 30,
+            f"{self.firu.nombre_mascota} - {self.firu.tipo_de_mascota}",
+            self.window
+        )
 
-        self.dormir_emote = []
-        self.feliz_emote = []
-        self.hambre_emote = []
-        self.limpiar_emote = []
+        self.boton_nombre_duenio = BotonEntity(
+            (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH/2),
+            (Config.WINDOW_HEIGHT - Config.BTN_HEIGHT) - 30,
+            f"Dueño: {self.firu.nombre_dueño}",
+            self.window
+        )
 
-        for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//durmiendo//DORMIR{i+1}.png'), 1.8)
-            self.dormir_emote.append(new_img)
-
-        for i in range(3):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//felicidad//FELICIDAD{i+1}.png'), 1.8)
-            self.feliz_emote.append(new_img)
-
-        for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//hambre//HAMBRE{i+1}.png'), 1.8)
-            self.hambre_emote.append(new_img)
-
-        for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//limpiar//LIMPIAR{i+1}.png'), 1.8)
-            self.limpiar_emote.append(new_img)
-
-        self.animaciones_mascotas = [
-            Config.DOG_IMAGE,
-        ]
+        self.animaciones_mascotas = []
 
         self.animaciones_emotes = [
-            self.dormir_emote,
-            self.feliz_emote,
-            self.hambre_emote,
-            self.limpiar_emote
+            Config.DORMIR_EMOTE,
+            Config.FELIZ_EMOTE,
+            Config.HAMBRE_EMOTE,
+            Config.LIMPIAR_EMOTE
         ]
 
         self.dog_image = Config.DOG_IMAGE
 
         if self.firu.tipo_de_mascota == 'perro':
+            self.animaciones_mascotas.append(self.dog_image)
             self.firu_entity = PerroEntity(
                             x=(Config.WINDOW_WIDTH/2), 
                             y=Config.WINDOW_HEIGHT/2, 
@@ -95,13 +87,13 @@ class Game:
                             animaciones=self.animaciones_mascotas, 
                         )
         elif self.firu.tipo_de_mascota == 'gato':
+            self.animaciones_mascotas.append(Config.GATO_IDLE)
             self.firu_entity = GatoEntity(
                             x=(Config.WINDOW_WIDTH/2), 
                             y=Config.WINDOW_HEIGHT/2, 
                             imagen=self.dog_image, 
                             animaciones=self.animaciones_mascotas, 
                         )
-        
         self.emote_entity = EmoteEntity(
                         animaciones=self.animaciones_emotes,
                         window=self.window
@@ -171,21 +163,32 @@ class Game:
                             self.firu_servicio.actualizar(energia=self.firu.energia, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
                             print(self.firu.energia)
                             self.emote_entity.iniciar_animacion('dormir')
+                        
+                        elif self.boton_salir.forma.collidepoint(pygame.mouse.get_pos()):
+                            run = False
                 
                 self.window.fill((200, 200, 200))
                 
                 self.firu_entity.dibujar(window=self.window)
+
+                if isinstance(self.firu_entity, GatoEntity):
+                    self.firu_entity.idle()
+
                 self.emote_entity.actualizar_animacion()
 
                 self.boton_limpiar.dibujar((0,0,0))
-                self.boton_admin.dibujar((0,0,0))
+                self.boton_salir.dibujar((0,0,0))
                 self.boton_dormir.dibujar((0,0,0))
                 self.boton_alimentar.dibujar((0,0,0))
+
+                self.boton_nombre.dibujar((100,100,100))
 
                 self.porcentaje_energia.dibujar((150,150,150))
                 self.porcentaje_hambre.dibujar((150,150,150))
                 self.porcentaje_felicidad.dibujar((150,150,150))
                 self.porcentaje_limpieza.dibujar((150,150,150))
+
+                self.boton_nombre_duenio.dibujar((100,100,100))
 
                 pygame.display.update()
 
