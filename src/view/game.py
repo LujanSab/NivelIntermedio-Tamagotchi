@@ -62,12 +62,14 @@ class Game:
             Config.LIMPIAR_EMOTE
         ]
 
+        self.dog_image = Config.DOG_IMAGE
+
         if self.firu.tipo_de_mascota == 'perro':
-            self.animaciones_mascotas.append(Config.DOG_IMAGE)
+            self.animaciones_mascotas.append(self.dog_img)
             self.firu_entity = PerroEntity(
                             x=(Config.WINDOW_WIDTH/2), 
                             y=Config.WINDOW_HEIGHT/2, 
-                            imagen=Config.DOG_IMAGE, 
+                            imagen=self.dog_img, 
                             animaciones=self.animaciones_mascotas, 
                         )
         elif self.firu.tipo_de_mascota == 'gato':
@@ -154,6 +156,10 @@ class Game:
                 self.window.fill((200, 200, 200))
                 
                 self.firu_entity.dibujar(window=self.window)
+
+                if isinstance(self.firu_entity, GatoEntity):
+                    self.firu_entity.idle()
+
                 self.emote_entity.actualizar_animacion()
 
                 self.boton_limpiar.dibujar((0,0,0))

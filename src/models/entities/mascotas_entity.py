@@ -38,6 +38,7 @@ class MascotaEntity:
         self.animaciones = animaciones
         self.actualizar_tiempo = pygame.time.get_ticks()
 
+        self.idle_frame_index = 0
         self.comer_frame_index = 0
         self.limpiar_frame_index = 0
         self.dormir_frame_index = 0
@@ -54,6 +55,18 @@ class MascotaEntity:
         '''
         window.blit(self.imagen, self.forma)
         # pygame.draw.rect(window, (255,255,255), self.forma, width=1)
+    
+    def idle(self):
+        cooldown_animation = 80
+
+        if self.idle_frame_index >= len(self.animaciones[0]):
+            self.idle_frame_index = 0
+
+        self.imagen = self.animaciones[0][self.idle_frame_index]
+
+        if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
+            self.idle_frame_index += 1
+            self.actualizar_tiempo = pygame.time.get_ticks()
 
     def limpiar(self):
         '''
