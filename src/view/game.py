@@ -3,7 +3,7 @@ import pygame
 from config import Config
 from config import ASSETS_UTL
 
-from src.models.entities.mascotas_entity import PerroEntity
+from src.models.entities.mascotas_entity import PerroEntity, GatoEntity
 from src.models.entities.emote_entity import EmoteEntity
 from src.models.entities.boton_entity import BotonEntity
 from src.models.mascotas.mascotas import Mascota
@@ -87,12 +87,20 @@ class Game:
 
         self.dog_image = Config.DOG_IMAGE
 
-        self.firu_entity = PerroEntity(
-                        x=(Config.WINDOW_WIDTH/2), 
-                        y=Config.WINDOW_HEIGHT/2, 
-                        imagen=self.dog_image, 
-                        animaciones=self.animaciones_mascotas, 
-                    )
+        if self.firu.tipo_de_mascota == 'perro':
+            self.firu_entity = PerroEntity(
+                            x=(Config.WINDOW_WIDTH/2), 
+                            y=Config.WINDOW_HEIGHT/2, 
+                            imagen=self.dog_image, 
+                            animaciones=self.animaciones_mascotas, 
+                        )
+        elif self.firu.tipo_de_mascota == 'gato':
+            self.firu_entity = GatoEntity(
+                            x=(Config.WINDOW_WIDTH/2), 
+                            y=Config.WINDOW_HEIGHT/2, 
+                            imagen=self.dog_image, 
+                            animaciones=self.animaciones_mascotas, 
+                        )
         
         self.emote_entity = EmoteEntity(
                         animaciones=self.animaciones_emotes,
