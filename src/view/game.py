@@ -46,10 +46,10 @@ class Game:
             self.window
             )
 
-        self.boton_admin = BotonEntity(
+        self.boton_salir = BotonEntity(
             30, 
             30,
-            'ADMIN',
+            'SALIR',
             self.window
             )
 
@@ -171,6 +171,9 @@ class Game:
                             self.firu_servicio.actualizar(energia=self.firu.energia, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
                             print(self.firu.energia)
                             self.emote_entity.iniciar_animacion('dormir')
+                        
+                        elif self.boton_salir.forma.collidepoint(pygame.mouse.get_pos()):
+                            run = False
                 
                 self.window.fill((200, 200, 200))
                 
@@ -178,7 +181,7 @@ class Game:
                 self.emote_entity.actualizar_animacion()
 
                 self.boton_limpiar.dibujar((0,0,0))
-                self.boton_admin.dibujar((0,0,0))
+                self.boton_salir.dibujar((0,0,0))
                 self.boton_dormir.dibujar((0,0,0))
                 self.boton_alimentar.dibujar((0,0,0))
 
