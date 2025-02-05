@@ -52,6 +52,20 @@ class Game:
             'SALIR',
             self.window
             )
+        
+        self.boton_nombre = BotonEntity(
+            (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH/2),
+            (Config.BTN_HEIGHT*2) + 30,
+            f"{self.firu.nombre_mascota} - {self.firu.tipo_de_mascota}",
+            self.window
+        )
+
+        self.boton_nombre_duenio = BotonEntity(
+            (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH/2),
+            (Config.WINDOW_HEIGHT - Config.BTN_HEIGHT) - 30,
+            f"Dueño: {self.firu.nombre_dueño}",
+            self.window
+        )
 
         self.animaciones_mascotas = []
 
@@ -167,10 +181,14 @@ class Game:
                 self.boton_dormir.dibujar((0,0,0))
                 self.boton_alimentar.dibujar((0,0,0))
 
+                self.boton_nombre.dibujar((100,100,100))
+
                 self.porcentaje_energia.dibujar((150,150,150))
                 self.porcentaje_hambre.dibujar((150,150,150))
                 self.porcentaje_felicidad.dibujar((150,150,150))
                 self.porcentaje_limpieza.dibujar((150,150,150))
+
+                self.boton_nombre_duenio.dibujar((100,100,100))
 
                 pygame.display.update()
 
