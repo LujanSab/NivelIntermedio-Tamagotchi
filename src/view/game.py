@@ -53,55 +53,31 @@ class Game:
             self.window
             )
 
-        self.dormir_emote = []
-        self.feliz_emote = []
-        self.hambre_emote = []
-        self.limpiar_emote = []
-
-        for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//durmiendo//DORMIR{i+1}.png'), 1.8)
-            self.dormir_emote.append(new_img)
-
-        for i in range(3):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//felicidad//FELICIDAD{i+1}.png'), 1.8)
-            self.feliz_emote.append(new_img)
-
-        for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//hambre//HAMBRE{i+1}.png'), 1.8)
-            self.hambre_emote.append(new_img)
-
-        for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//limpiar//LIMPIAR{i+1}.png'), 1.8)
-            self.limpiar_emote.append(new_img)
-
-        self.animaciones_mascotas = [
-            Config.DOG_IMAGE,
-        ]
+        self.animaciones_mascotas = []
 
         self.animaciones_emotes = [
-            self.dormir_emote,
-            self.feliz_emote,
-            self.hambre_emote,
-            self.limpiar_emote
+            Config.DORMIR_EMOTE,
+            Config.FELIZ_EMOTE,
+            Config.HAMBRE_EMOTE,
+            Config.LIMPIAR_EMOTE
         ]
 
-        self.dog_image = Config.DOG_IMAGE
-
         if self.firu.tipo_de_mascota == 'perro':
+            self.animaciones_mascotas.append(Config.DOG_IMAGE)
             self.firu_entity = PerroEntity(
                             x=(Config.WINDOW_WIDTH/2), 
                             y=Config.WINDOW_HEIGHT/2, 
-                            imagen=self.dog_image, 
+                            imagen=Config.DOG_IMAGE, 
                             animaciones=self.animaciones_mascotas, 
                         )
         elif self.firu.tipo_de_mascota == 'gato':
+            self.animaciones_mascotas.append(Config.GATO_IDLE)
             self.firu_entity = GatoEntity(
                             x=(Config.WINDOW_WIDTH/2), 
                             y=Config.WINDOW_HEIGHT/2, 
                             imagen=self.dog_image, 
                             animaciones=self.animaciones_mascotas, 
                         )
-        
         self.emote_entity = EmoteEntity(
                         animaciones=self.animaciones_emotes,
                         window=self.window
