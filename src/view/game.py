@@ -65,11 +65,11 @@ class Game:
         self.dog_image = Config.DOG_IMAGE
 
         if self.firu.tipo_de_mascota == 'perro':
-            self.animaciones_mascotas.append(self.dog_img)
+            self.animaciones_mascotas.append(self.dog_image)
             self.firu_entity = PerroEntity(
                             x=(Config.WINDOW_WIDTH/2), 
                             y=Config.WINDOW_HEIGHT/2, 
-                            imagen=self.dog_img, 
+                            imagen=self.dog_image, 
                             animaciones=self.animaciones_mascotas, 
                         )
         elif self.firu.tipo_de_mascota == 'gato':
