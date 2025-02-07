@@ -9,6 +9,7 @@ class MascotaDAO:
             self.crear_tabla()
         except ConnectionError as error:
             print(error)
+            return error
 
     def conexion(self):
         """_summary_

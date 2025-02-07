@@ -8,6 +8,7 @@ from tkinter.messagebox import askyesno, showinfo
 from src.models.mascotas.mascotaService import MascotaService
 from src.view.game import Game
 from tkinter import Toplevel
+from src.controller.logger import log
 
 # --------------------------------------------------
 # Ventana de Registro 
@@ -81,6 +82,7 @@ class VentanaRegistro:
         except Exception as error:
             print(error)
             showinfo("", "Los campos no deben estar en blanco.")
+            log(error)
     
     def obtener_perro(self):
         self.tipo = self.boton_perro["text"]
@@ -203,46 +205,55 @@ class VentanaPrincipal:
     def filtrar_mascota(self):
         nombre = self.var_nombre_mascota.get()
         dueño = self.var_nombre_duenio.get()
-        data = self.service.obtener_datos_mascota(nombre, dueño, self.tipo)
-        if data:
-            self.tree.insert("", 0, 
-                             text=data["id"], 
-                             values=(data["nombre_mascota"], 
-                                    data["nombre_dueño"], 
-                                    data["tipo"], 
-                                    data["energia"],
-                                    data["limpieza"],  
-                                    data["hambre"], 
-                                    data["felicidad"]))
-            self.boton_jugar["state"] = "active"
-        else:
-            showinfo("", f"No existe la mascota llamada:{nombre}. Intente con otro nombre.")
+        try:
+            data = self.service.obtener_datos_mascota(nombre, dueño, self.tipo)
+            if data:
+                self.tree.insert("", 0, 
+                                text=data["id"], 
+                                values=(data["nombre_mascota"], 
+                                        data["nombre_dueño"], 
+                                        data["tipo"], 
+                                        data["energia"],
+                                        data["limpieza"],  
+                                        data["hambre"], 
+                                        data["felicidad"]))
+                self.boton_jugar["state"] = "active"
+            else:
+                showinfo("", f"No existe la mascota llamada:{nombre}. Intente con otro nombre.")
+        except Exception as error:
+            log(error)
         
     def jugar(self):
         self.valor = self.tree.focus()
         item = self.tree.item(self.valor)
         self.datos_mascota = item['values']
         print(self.datos_mascota)
-        self.service.crear_objeto_mascota(nombre=self.datos_mascota[0], 
-                                          duenio=self.datos_mascota[1], 
-                                          tipo=self.datos_mascota[2],
-                                          energia=self.datos_mascota[3],
-                                          limpieza=self.datos_mascota[4],
-                                          hambre=self.datos_mascota[5],
-                                          felicidad=self.datos_mascota[6])
-        if self.service._mascota:
-            game = Game(self.service._mascota)
-            game.run()
-            self.limpiar_vista()
-        else:
-            showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
+        try:
+            self.service.crear_objeto_mascota(nombre=self.datos_mascota[0], 
+                                            duenio=self.datos_mascota[1], 
+                                            tipo=self.datos_mascota[2],
+                                            energia=self.datos_mascota[3],
+                                            limpieza=self.datos_mascota[4],
+                                            hambre=self.datos_mascota[5],
+                                            felicidad=self.datos_mascota[6])
+            if self.service._mascota:
+                game = Game(self.service._mascota)
+                game.run()
+                self.limpiar_vista()
+            else:
+                showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
+        except Exception as error:
+            log(error)
     
     def consulta(self):
         self.limpiar_vista()
-        datos = self.service.obtener_todas_las_mascotas()
-        for fila in datos:
-           self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7]))
-        self.boton_seleccionar["state"] = "active"
+        try:
+            datos = self.service.obtener_todas_las_mascotas()
+            for fila in datos:
+                self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7]))
+                self.boton_seleccionar["state"] = "active"
+        except Exception as error:
+            log(error)
     
     def seleccionar(self):
         self.valor = self.tree.selection()
@@ -257,11 +268,14 @@ class VentanaPrincipal:
 
     def eliminar(self):
         if askyesno("Atención", f"¿Desea confirmar la eliminación de la mascota: {self.datos_mascota[0]}?"):
-            mensaje = self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1], self.datos_mascota[2])
-            self.tree.delete(self.valor)
-            self.valor = 0
-            showinfo("", mensaje)
-            self.limpiar_vista_eliminar()
+            try:
+                mensaje = self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1], self.datos_mascota[2])
+                self.tree.delete(self.valor)
+                self.valor = 0
+                showinfo("", mensaje)
+                self.limpiar_vista_eliminar()
+            except Exception as error:
+                log(error)
         else:
             showinfo("", "No se han efectuado cambios")
     

@@ -75,22 +75,26 @@ class MascotaService:
             return mensaje
 
     def obtener_datos_mascota(self, nombre, dueño, tipo):
-        datos = self.dao.extraer_datos_mascota(nombre, dueño, tipo)
-        if datos:
-            mascota = datos[0]
-            data = {
-                "id": mascota,
-                "nombre_mascota" : datos[1],
-                "nombre_dueño" : datos[2],
-                "tipo" : datos[3],
-                "energia" : datos[4],
-                "limpieza" : datos[5],
-                "hambre" : datos[6],
-                "felicidad" : datos[7]
-            }
-            return data
-        return None
-    
+        try:
+            datos = self.dao.extraer_datos_mascota(nombre, dueño, tipo)
+            if datos:
+                mascota = datos[0]
+                data = {
+                    "id": mascota,
+                    "nombre_mascota" : datos[1],
+                    "nombre_dueño" : datos[2],
+                    "tipo" : datos[3],
+                    "energia" : datos[4],
+                    "limpieza" : datos[5],
+                    "hambre" : datos[6],
+                    "felicidad" : datos[7]
+                }
+                return data
+            return None
+        except Exception as error:
+            return error
+        
+        
     def obtener_todas_las_mascotas(self):
         mascotas = self.dao.extraer_datos_mascotas()
         return mascotas
