@@ -9,6 +9,7 @@ from src.models.mascotas.mascotaService import MascotaService
 from src.view.game import Game
 from tkinter import Toplevel
 from src.controller.logger import log
+from src.controller.validations import Validacion
 
 # --------------------------------------------------
 # Ventana de Registro 
@@ -20,6 +21,7 @@ class VentanaRegistro:
         self.root.title("")
         self.root.configure(bg="#c689e3")
         self.service = MascotaService()
+        self.validacion = Validacion()
         self.var_nombre_mascota = StringVar()
         self.var_nombre_duenio = StringVar()
         self.tipo = None
@@ -73,17 +75,22 @@ class VentanaRegistro:
         try:
             nombre = self.var_nombre_mascota.get()
             duenio = self.var_nombre_duenio.get()
-            self.service.crear_mascota(nombre, duenio, self.tipo)
-            if self.service._mascota:
-                game = Game(self.service._mascota)
-                game.run()
+            if self.validacion.validar_campos_str(nombre) and self.validacion.validar_campos_str(duenio):
+                self.service.crear_mascota(nombre, duenio, self.tipo)
+                if self.service._mascota:
+                    game = Game(self.service._mascota)
+                    game.run()
+                else:
+                    showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
             else:
-                showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
+                showinfo("", "Los datos ingresados contienen carácteres inválidos. Intente de nuevo.")
+                self.limpiar()
         except Exception as error:
             print(error)
             showinfo("", "Los campos no deben estar en blanco.")
             log(error)
-    
+            self.limpiar()
+
     def obtener_perro(self):
         self.tipo = self.boton_perro["text"]
         self.boton_gato["state"] = "disabled"
@@ -96,6 +103,12 @@ class VentanaRegistro:
         self.ventana_principal = VentanaPrincipal(Toplevel())
         self.ventana_principal.root.mainloop()
 
+    def limpiar(self):
+        self.var_nombre_mascota.set("")
+        self.var_nombre_duenio.set("")
+        self.boton_gato["state"] = "active"
+        self.boton_perro["state"] = "active"
+
 # --------------------------------------------------
 # Ventana Principal 
 # --------------------------------------------------
@@ -103,6 +116,7 @@ class VentanaPrincipal:
     def __init__(self, root):
         self.root = root
         self.service = MascotaService()
+        self.validacion = Validacion()
         self.root.geometry('700x450')
         self.root.title("Mascotas")
         self.root.configure(bg="#c689e3")
@@ -205,7 +219,9 @@ class VentanaPrincipal:
     def filtrar_mascota(self):
         nombre = self.var_nombre_mascota.get()
         dueño = self.var_nombre_duenio.get()
+
         try:
+          if self.validacion.validar_campos_str(nombre) and self.validacion.validar_campos_str(dueño):
             data = self.service.obtener_datos_mascota(nombre, dueño, self.tipo)
             if data:
                 self.tree.insert("", 0, 
@@ -220,9 +236,11 @@ class VentanaPrincipal:
                 self.boton_jugar["state"] = "active"
             else:
                 showinfo("", f"No existe la mascota llamada:{nombre}. Intente con otro nombre.")
+          else:
+            showinfo("", "Los datos ingresados contienen carácteres inválidos. Intente de nuevo.")
         except Exception as error:
             log(error)
-        
+
     def jugar(self):
         self.valor = self.tree.focus()
         item = self.tree.item(self.valor)
