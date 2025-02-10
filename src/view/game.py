@@ -110,7 +110,7 @@ class Game:
             """
             main loop of the game
             """
-            self.firu_dict = self.firu_servicio.obtener_datos_mascota(self.firu.nombre_mascota, self.firu.nombre_dueño, self.firu.tipo_de_mascota)
+            self.firu_dict = self.firu_servicio.obtener_datos_mascota(self.firu.nombre_mascota)
 
             self.porcentaje_hambre = BotonEntity(
                 (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
