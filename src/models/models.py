@@ -3,7 +3,7 @@ from peewee import *
 
 db = SqliteDatabase('tamagochi.db')
 
-class Mascota(Model):
+class Mascotas(Model):
     duenio = CharField()
     nombre = CharField(unique=True)
     tipo = CharField()
@@ -19,4 +19,4 @@ class Mascota(Model):
         database = db
 
 db.connect()
-db.create_tables([Mascota])
+db.create_tables([Mascotas])

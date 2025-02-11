@@ -1,6 +1,6 @@
 from src.models.mascotas.mascotas import Mascota, Perro, Gato
 from src.controller.logger import log
-from src.models.models import Mascota
+from src.models.models import Mascotas
 from peewee import IntegrityError, DoesNotExist
 
 class MascotaService:
@@ -8,23 +8,23 @@ class MascotaService:
         self._mascota = mascota
 
     def crear_mascota(self, nombre, duenio, tipo):
-        if tipo == "perro":
-            self.mascota = Perro(nombre, duenio)
+        if tipo == "Perro":
+            self._mascota = Perro(nombre, duenio)
             self.crear()
-        elif tipo == "gato":
-            self.mascota = Gato(nombre, duenio)
+        elif tipo == "Gato":
+            self._mascota = Gato(nombre, duenio)
             self.crear()
 
     def crear(self):
         try:
-            mascota = Mascota(
-                duenio = self.mascota.nombre_dueño,
-                nombre = self.mascota.nombre_mascota,
-                tipo = self.mascota.tipo_de_mascota,
-                energia = self.mascota.energia,
-                limpieza = self.mascota.limpieza,
-                hambre = self.mascota.hambre,
-                felicidad = self.mascota.felicidad
+            mascota = Mascotas(
+                duenio = self._mascota.nombre_dueño,
+                nombre = self._mascota.nombre_mascota,
+                tipo = self._mascota.tipo_de_mascota,
+                energia = self._mascota.energia,
+                limpieza = self._mascota.limpieza,
+                hambre = self._mascota.hambre,
+                felicidad = self._mascota.felicidad
             )
 
             mascota.save()
@@ -48,9 +48,9 @@ class MascotaService:
             if not actualizar:
                 log('No hay datos para actualizar')
 
-            query = (Mascota
+            query = (Mascotas
                     .update(**actualizar)
-                    .where(Mascota.nombre == nombre)
+                    .where(Mascotas.nombre == nombre)
                     .execute())
                 
             return query > 0
@@ -64,25 +64,24 @@ class MascotaService:
             log("Los campos no deben estar en blanco. Intente nuevamente. ")
         else:
             try:
-                Mascota.delete().where(Mascota.nombre == nombre).execute()
+                Mascotas.delete().where(Mascotas.nombre == nombre).execute()
             except Exception as e:
                 log(e)
 
 
     def obtener_datos_mascota(self, nombre):
         try:
-            datos = Mascota.get(Mascota.nombre == nombre)
-            if datos:
-                mascota = datos[0]
+            datos_mascota = Mascotas.get(Mascotas.nombre == nombre)
+            if datos_mascota:
                 data = {
-                    "id": mascota.id,
-                    "nombre_mascota" : mascota.nombre,
-                    "nombre_dueño" : mascota.duenio,
-                    "tipo" : mascota.tipo,
-                    "energia" : mascota.energia,
-                    "limpieza" : mascota.limpieza,
-                    "hambre" : mascota.hambre,
-                    "felicidad" : mascota.felicidad
+                    "id": datos_mascota.id,
+                    "nombre_mascota" : datos_mascota.nombre,
+                    "nombre_dueño" : datos_mascota.duenio,
+                    "tipo" : datos_mascota.tipo,
+                    "energia" : datos_mascota.energia,
+                    "limpieza" : datos_mascota.limpieza,
+                    "hambre" : datos_mascota.hambre,
+                    "felicidad" : datos_mascota.felicidad
                 }
                 return data
             return None
@@ -91,7 +90,7 @@ class MascotaService:
         
         
     def obtener_todas_las_mascotas(self):
-        query = Mascota.select()
+        query = Mascotas.select()
         
         mascotas = [(mascota.id, mascota.nombre, mascota.duenio, mascota.tipo, mascota.energia, mascota.limpieza, mascota.hambre, mascota.felicidad) for mascota in query]
 

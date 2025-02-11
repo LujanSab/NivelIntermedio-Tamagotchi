@@ -86,9 +86,9 @@ class VentanaRegistro:
                 showinfo("", "Los datos ingresados contienen carácteres inválidos. Intente de nuevo.")
                 self.limpiar()
         except Exception as error:
+            log(error)
             print(error)
             showinfo("", "Los campos no deben estar en blanco.")
-            log(error)
             self.limpiar()
 
     def obtener_perro(self):
