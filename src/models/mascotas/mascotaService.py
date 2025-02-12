@@ -2,6 +2,9 @@ from src.models.mascotas.mascotas import Mascota, Perro, Gato
 from src.controller.logger import log
 from src.models.models import Mascotas
 from peewee import IntegrityError, DoesNotExist
+from datetime import datetime
+import pytz
+
 
 class MascotaService:
     def __init__(self, mascota: Mascota=None):
@@ -17,6 +20,9 @@ class MascotaService:
 
     def crear(self):
         try:
+            zona_horaria_argentina = pytz.timezone('America/Argentina/Buenos_Aires')
+            now = datetime.now(zona_horaria_argentina).strftime("%d/%m/%Y, %H:%M:%S")
+
             mascota = Mascotas(
                 duenio = self._mascota.nombre_dueño,
                 nombre = self._mascota.nombre_mascota,
@@ -24,14 +30,20 @@ class MascotaService:
                 energia = self._mascota.energia,
                 limpieza = self._mascota.limpieza,
                 hambre = self._mascota.hambre,
-                felicidad = self._mascota.felicidad
+                felicidad = self._mascota.felicidad,
+                ultima_vez_actualizado = now
             )
 
             mascota.save()
         except (Exception, IntegrityError) as e:
             log(e)
-        
-    def crear_objeto_mascota(self, nombre, duenio, tipo, energia, limpieza, hambre, felicidad):
+
+    def crear_objeto_mascota(
+            self, nombre, 
+            duenio, tipo, 
+            energia, limpieza, 
+            hambre, felicidad
+            ):
         if tipo == "perro":
             self._mascota = Perro(nombre, duenio)
         elif tipo == "gato":
@@ -41,9 +53,26 @@ class MascotaService:
         self._mascota._hambre = hambre 
         self._mascota._felicidad = felicidad
 
-    def actualizar(self, nombre, energia: int=None, limpieza: int=None, hambre: int=None, felicidad: int=None):
+    def actualizar(
+            self, nombre, 
+            energia: int=None, limpieza: int=None, 
+            hambre: int=None, felicidad: int=None, 
+            ultima_vez_actualizado: str = None
+            ):
         try:
-            actualizar= {k: v for k, v in locals().items() if k != 'self' and k != 'nombre' and v is not None}
+            zona_horaria_argentina = pytz.timezone('America/Argentina/Buenos_Aires')
+            ultima_vez_actualizado = datetime.now(zona_horaria_argentina).strftime("%d/%m/%Y, %H:%M:%S")
+
+            actualizar= {k: v for k, v in locals().items() if k != 'self' and k != 'nombre' and k != 'zona_horaria_argentina' and v is not None}
+
+            if 'energia' in actualizar:
+                actualizar['energia'] = max(0, min(100, actualizar['energia']))
+            if 'limpieza' in actualizar:
+                actualizar['limpieza'] = max(0, min(100, actualizar['limpieza']))
+            if 'hambre' in actualizar:
+                actualizar['hambre'] = max(0, min(100, actualizar['hambre']))
+            if 'felicidad' in actualizar:
+                actualizar['felicidad'] = max(0, min(100, actualizar['felicidad']))
 
             if not actualizar:
                 log('No hay datos para actualizar')
@@ -81,7 +110,8 @@ class MascotaService:
                     "energia" : datos_mascota.energia,
                     "limpieza" : datos_mascota.limpieza,
                     "hambre" : datos_mascota.hambre,
-                    "felicidad" : datos_mascota.felicidad
+                    "felicidad" : datos_mascota.felicidad,
+                    "ultima_vez_actualizado": datos_mascota.ultima_vez_actualizado
                 }
                 return data
             return None
@@ -92,9 +122,16 @@ class MascotaService:
     def obtener_todas_las_mascotas(self):
         query = Mascotas.select()
         
-        mascotas = [(mascota.id, mascota.nombre, mascota.duenio, mascota.tipo, mascota.energia, mascota.limpieza, mascota.hambre, mascota.felicidad) for mascota in query]
+        mascotas = [(mascota.id, mascota.nombre, 
+                     mascota.duenio, mascota.tipo, 
+                     mascota.energia, mascota.limpieza, 
+                     mascota.hambre, mascota.felicidad, 
+                     mascota.ultima_vez_actualizado) for mascota in query]
 
-        return mascotas
+        if mascotas:
+            return mascotas
+        else:
+            log('No se encontro ninguna mascota')
     
 
     @property

@@ -77,8 +77,8 @@ class VentanaRegistro:
             duenio = self.var_nombre_duenio.get()
             if self.validacion.validar_campos_str(nombre) and self.validacion.validar_campos_str(duenio):
                 self.service.crear_mascota(nombre, duenio, self.tipo)
-                if self.service._mascota:
-                    game = Game(self.service._mascota)
+                if self.service.mascota:
+                    game = Game(self.service.mascota)
                     game.run()
                 else:
                     showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
@@ -245,7 +245,6 @@ class VentanaPrincipal:
         self.valor = self.tree.focus()
         item = self.tree.item(self.valor)
         self.datos_mascota = item['values']
-        print(self.datos_mascota)
         try:
             self.service.crear_objeto_mascota(nombre=self.datos_mascota[0], 
                                             duenio=self.datos_mascota[1], 
@@ -254,8 +253,8 @@ class VentanaPrincipal:
                                             limpieza=self.datos_mascota[4],
                                             hambre=self.datos_mascota[5],
                                             felicidad=self.datos_mascota[6])
-            if self.service._mascota:
-                game = Game(self.service._mascota)
+            if self.service.mascota:
+                game = Game(self.service.mascota)
                 game.run()
                 self.limpiar_vista()
             else:
