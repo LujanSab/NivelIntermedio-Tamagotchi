@@ -1,11 +1,11 @@
 from src.models.mascotas.mascotas import Mascota, Perro, Gato
-from src.models.mascotas.mascotaDAO import MascotaDAO
 from src.controller.logger import log
+from src.models.models import Mascotas
+from peewee import IntegrityError, DoesNotExist
 
 class MascotaService:
     def __init__(self, mascota: Mascota=None):
         self._mascota = mascota
-        self.dao = MascotaDAO()
 
     def crear_mascota(self, nombre, duenio, tipo):
         if tipo == "Perro":
@@ -16,16 +16,21 @@ class MascotaService:
             self.crear()
 
     def crear(self):
-        self.dao.guardar_mascota(
-            self._mascota.nombre_mascota,
-            self._mascota.nombre_dueño,
-            self._mascota.tipo_de_mascota,
-            self._mascota.energia,
-            self._mascota.limpieza,
-            self._mascota.hambre,
-            self._mascota.felicidad
-        )
-    
+        try:
+            mascota = Mascotas(
+                duenio = self._mascota.nombre_dueño,
+                nombre = self._mascota.nombre_mascota,
+                tipo = self._mascota.tipo_de_mascota,
+                energia = self._mascota.energia,
+                limpieza = self._mascota.limpieza,
+                hambre = self._mascota.hambre,
+                felicidad = self._mascota.felicidad
+            )
+
+            mascota.save()
+        except (Exception, IntegrityError) as e:
+            log(e)
+        
     def crear_objeto_mascota(self, nombre, duenio, tipo, energia, limpieza, hambre, felicidad):
         if tipo == "perro":
             self._mascota = Perro(nombre, duenio)
@@ -37,68 +42,61 @@ class MascotaService:
         self._mascota._felicidad = felicidad
 
     def actualizar(self, nombre, energia: int=None, limpieza: int=None, hambre: int=None, felicidad: int=None):
-        campos = []
-        valores = []
-
-        if energia is not None:
-            campos.append("energia = ?")
-            valores.append(energia)
-        
-        if limpieza is not None:
-            campos.append("limpieza = ?")
-            valores.append(limpieza)
-        
-        if hambre is not None:
-            campos.append("hambre = ?")
-            valores.append(hambre)
-
-        if felicidad is not None:
-            campos.append("felicidad = ?")
-            valores.append(felicidad)
-
-        if not campos[0]:
-            log("No se proporcionaron valores para actualizar.")
-            print("No se proporcionaron valores para actualizar.")
-        else:
-            campos_str = ', '.join(campos)
-            valores.append(nombre)
-            print(campos_str)
-            print(valores)
-
-            self.dao.actualizar_estado_mascota(campos=campos_str, valores=valores)
-    
-    def eliminar(self, nombre: str, dueño: str, tipo: str):
-        if not nombre and not dueño:
-            return "Los campos no deben estar en blanco. Intente nuevamente. "
-        else:
-            mensaje = self.dao.eliminar_mascota(nombre, dueño, tipo)
-            return mensaje
-
-    def obtener_datos_mascota(self, nombre, dueño, tipo):
         try:
-            datos = self.dao.extraer_datos_mascota(nombre, dueño, tipo)
-            if datos:
-                mascota = datos[0]
+            actualizar= {k: v for k, v in locals().items() if k != 'self' and k != 'nombre' and v is not None}
+
+            if not actualizar:
+                log('No hay datos para actualizar')
+
+            query = (Mascotas
+                    .update(**actualizar)
+                    .where(Mascotas.nombre == nombre)
+                    .execute())
+                
+            return query > 0
+            
+        except Exception as e:
+            log(e)
+    
+
+    def eliminar(self, nombre: str, dueño: str):
+        if not nombre and not dueño:
+            log("Los campos no deben estar en blanco. Intente nuevamente. ")
+        else:
+            try:
+                Mascotas.delete().where(Mascotas.nombre == nombre).execute()
+            except Exception as e:
+                log(e)
+
+
+    def obtener_datos_mascota(self, nombre):
+        try:
+            datos_mascota = Mascotas.get(Mascotas.nombre == nombre)
+            if datos_mascota:
                 data = {
-                    "id": mascota,
-                    "nombre_mascota" : datos[1],
-                    "nombre_dueño" : datos[2],
-                    "tipo" : datos[3],
-                    "energia" : datos[4],
-                    "limpieza" : datos[5],
-                    "hambre" : datos[6],
-                    "felicidad" : datos[7]
+                    "id": datos_mascota.id,
+                    "nombre_mascota" : datos_mascota.nombre,
+                    "nombre_dueño" : datos_mascota.duenio,
+                    "tipo" : datos_mascota.tipo,
+                    "energia" : datos_mascota.energia,
+                    "limpieza" : datos_mascota.limpieza,
+                    "hambre" : datos_mascota.hambre,
+                    "felicidad" : datos_mascota.felicidad
                 }
                 return data
             return None
-        except Exception as error:
-            return error
+        except (Exception, DoesNotExist) as error:
+            log(error)
         
         
     def obtener_todas_las_mascotas(self):
-        mascotas = self.dao.extraer_datos_mascotas()
+        query = Mascotas.select()
+        
+        mascotas = [(mascota.id, mascota.nombre, mascota.duenio, mascota.tipo, mascota.energia, mascota.limpieza, mascota.hambre, mascota.felicidad) for mascota in query]
+
         return mascotas
     
+
     @property
     def mascota(self):
         return self._mascota

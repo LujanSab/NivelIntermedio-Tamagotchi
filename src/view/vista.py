@@ -86,9 +86,9 @@ class VentanaRegistro:
                 showinfo("", "Los datos ingresados contienen carácteres inválidos. Intente de nuevo.")
                 self.limpiar()
         except Exception as error:
+            log(error)
             print(error)
             showinfo("", "Los campos no deben estar en blanco.")
-            log(error)
             self.limpiar()
 
     def obtener_perro(self):
@@ -222,7 +222,7 @@ class VentanaPrincipal:
 
         try:
           if self.validacion.validar_campos_str(nombre) and self.validacion.validar_campos_str(dueño):
-            data = self.service.obtener_datos_mascota(nombre, dueño, self.tipo)
+            data = self.service.obtener_datos_mascota(nombre)
             if data:
                 self.tree.insert("", 0, 
                                 text=data["id"], 
@@ -287,7 +287,7 @@ class VentanaPrincipal:
     def eliminar(self):
         if askyesno("Atención", f"¿Desea confirmar la eliminación de la mascota: {self.datos_mascota[0]}?"):
             try:
-                mensaje = self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1], self.datos_mascota[2])
+                mensaje = self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1])
                 self.tree.delete(self.valor)
                 self.valor = 0
                 showinfo("", mensaje)
