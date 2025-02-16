@@ -116,31 +116,7 @@ class Game:
 
             diferencia_tiempo = datetime.now() - fecha_ultima_actualizacion
 
-            if diferencia_tiempo >= timedelta(seconds=15):
-                self.firu_servicio.actualizar(
-                    nombre=self.firu.nombre_mascota, 
-                    energia=self.firu_dict['energia']-2, 
-                    limpieza=self.firu_dict['limpieza']-1, 
-                    hambre=self.firu_dict['hambre']+2,
-                    felicidad=self.firu_dict['felicidad']-1
-                    )
-                self.firu.energia -= 2
-                self.firu.limpieza -= 1
-                self.firu.hambre += 2
-                self.firu.felicidad -= 1
-
-            if diferencia_tiempo >= timedelta(days=1):
-                self.firu_servicio.actualizar(
-                    nombre=self.firu.nombre_mascota, 
-                    energia=self.firu_dict['energia']-15, 
-                    limpieza=self.firu_dict['limpieza']-10, 
-                    hambre=self.firu_dict['hambre']+20,
-                    felicidad=self.firu_dict['felicidad']-10
-                    )
-                self.firu.energia -= 15
-                self.firu.limpieza -= 10
-                self.firu.hambre += 20
-                self.firu.felicidad -= 10
+            self.firu_servicio.actualizar_estado_mascota(self.firu.nombre_mascota, self.firu, self.firu_dict, diferencia_tiempo)
 
             self.porcentaje_hambre = BotonEntity(
                 (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),

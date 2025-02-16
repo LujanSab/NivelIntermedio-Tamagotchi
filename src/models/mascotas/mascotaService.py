@@ -2,7 +2,7 @@ from src.models.mascotas.mascotas import Mascota, Perro, Gato
 from src.controller.logger import log
 from src.models.models import Mascotas
 from peewee import IntegrityError, DoesNotExist
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
 
@@ -118,7 +118,6 @@ class MascotaService:
         except (Exception, DoesNotExist) as error:
             log(error)
         
-        
     def obtener_todas_las_mascotas(self):
         query = Mascotas.select()
         
@@ -132,7 +131,36 @@ class MascotaService:
             return mascotas
         else:
             log('No se encontro ninguna mascota')
-    
+
+    def actualizar_estado_mascota(self, nombre_mascota, obj_mascota, dict_mascota, diferencia_tiempo):
+        try:
+            if diferencia_tiempo >= timedelta(days=3):
+                self.actualizar(nombre_mascota, energia=0, limpieza=0, hambre=100, felicidad=0)
+            elif diferencia_tiempo >= timedelta(days=2):
+                self.actualizar(nombre_mascota, energia=10, limpieza=5, hambre=80, felicidad=10)
+            elif diferencia_tiempo >= timedelta(days=1):
+                self.actualizar(nombre_mascota, energia=20, limpieza=10, hambre=65, felicidad=20)
+            elif diferencia_tiempo >= timedelta(hours=5):
+                self.actualizar(nombre_mascota, energia=30, limpieza=30, hambre=40, felicidad=55)
+            elif diferencia_tiempo >= timedelta(hours=2):                
+                self.actualizar(nombre_mascota, energia=40, limpieza=50, hambre=20, felicidad=60)
+            elif diferencia_tiempo >= timedelta(minutes=10):
+                self.actualizar(nombre_mascota, energia=90, limpieza=90, hambre=10, felicidad=90)
+            elif diferencia_tiempo >= timedelta(seconds=15):
+                self.actualizar(
+                    nombre=nombre_mascota, 
+                    energia=dict_mascota['energia']-2, 
+                    limpieza=dict_mascota['limpieza']-1, 
+                    hambre=dict_mascota['hambre']+2,
+                    felicidad=dict_mascota['felicidad']-1
+                    )
+                obj_mascota.energia -= 2
+                obj_mascota.limpieza -= 1
+                obj_mascota.hambre += 2
+                obj_mascota.felicidad -= 1
+
+        except Exception as error:
+            log(error)
 
     @property
     def mascota(self):

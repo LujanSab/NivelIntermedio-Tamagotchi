@@ -1,6 +1,5 @@
 from peewee import *
 
-
 db = SqliteDatabase('tamagochi.db')
 
 class Mascotas(Model):
@@ -15,7 +14,7 @@ class Mascotas(Model):
 
     def __str__(self):
         return f'{self.nombre}, {self.duenio}, {self.tipo}, {self.energia}, {self.limpieza}, {self.hambre}, {self.felicidad}, {self.ultima_vez_actualizado}'
-    
+
     class Meta:
         database = db
 
