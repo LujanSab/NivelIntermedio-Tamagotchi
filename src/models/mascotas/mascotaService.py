@@ -31,7 +31,8 @@ class MascotaService:
                 limpieza = self._mascota.limpieza,
                 hambre = self._mascota.hambre,
                 felicidad = self._mascota.felicidad,
-                ultima_vez_actualizado = now
+                estado = 'Sano',
+                ultima_actualizacion = now
             )
 
             mascota.save()
@@ -42,7 +43,8 @@ class MascotaService:
             self, nombre, 
             duenio, tipo, 
             energia, limpieza, 
-            hambre, felicidad
+            hambre, felicidad,
+            estado
             ):
         if tipo == "perro":
             self._mascota = Perro(nombre, duenio)
@@ -52,38 +54,45 @@ class MascotaService:
         self._mascota._limpieza = limpieza
         self._mascota._hambre = hambre 
         self._mascota._felicidad = felicidad
+        self._mascota._estado = estado
 
     def actualizar(
-            self, nombre, 
-            energia: int=None, limpieza: int=None, 
-            hambre: int=None, felicidad: int=None, 
-            ultima_vez_actualizado: str = None
-            ):
+        self, 
+        nombre: str,
+        energia: int = None,
+        limpieza: int = None,
+        hambre: int = None,
+        felicidad: int = None,
+        estado: str = None
+    ):
         try:
             zona_horaria_argentina = pytz.timezone('America/Argentina/Buenos_Aires')
-            ultima_vez_actualizado = datetime.now(zona_horaria_argentina).strftime("%d/%m/%Y, %H:%M:%S")
+            ultima_actualizacion = datetime.now(zona_horaria_argentina).strftime("%d/%m/%Y, %H:%M:%S")
 
-            actualizar= {k: v for k, v in locals().items() if k != 'self' and k != 'nombre' and k != 'zona_horaria_argentina' and v is not None}
+            actualizar = {
+                "energia": energia,
+                "limpieza": limpieza,
+                "hambre": hambre,
+                "felicidad": felicidad,
+                "estado": estado,
+                "ultima_actualizacion": ultima_actualizacion
+            }
 
-            if 'energia' in actualizar:
-                actualizar['energia'] = max(0, min(100, actualizar['energia']))
-            if 'limpieza' in actualizar:
-                actualizar['limpieza'] = max(0, min(100, actualizar['limpieza']))
-            if 'hambre' in actualizar:
-                actualizar['hambre'] = max(0, min(100, actualizar['hambre']))
-            if 'felicidad' in actualizar:
-                actualizar['felicidad'] = max(0, min(100, actualizar['felicidad']))
+            actualizar = {k: v for k, v in actualizar.items() if v is not None}
 
-            if not actualizar:
+            for key in ["energia", "limpieza", "hambre", "felicidad"]:
+                if key in actualizar:
+                    actualizar[key] = max(0, min(100, actualizar[key]))
+
+            if actualizar:
+                query = (Mascotas
+                        .update(**actualizar)
+                        .where(Mascotas.nombre == nombre)
+                        .execute())
+                return query > 0
+            else:
                 log('No hay datos para actualizar')
 
-            query = (Mascotas
-                    .update(**actualizar)
-                    .where(Mascotas.nombre == nombre)
-                    .execute())
-                
-            return query > 0
-            
         except Exception as e:
             log(e)
     
@@ -111,7 +120,8 @@ class MascotaService:
                     "limpieza" : datos_mascota.limpieza,
                     "hambre" : datos_mascota.hambre,
                     "felicidad" : datos_mascota.felicidad,
-                    "ultima_vez_actualizado": datos_mascota.ultima_vez_actualizado
+                    "estado" : datos_mascota.estado,
+                    "ultima_actualizacion": datos_mascota.ultima_actualizacion
                 }
                 return data
             return None
@@ -125,7 +135,7 @@ class MascotaService:
                      mascota.duenio, mascota.tipo, 
                      mascota.energia, mascota.limpieza, 
                      mascota.hambre, mascota.felicidad, 
-                     mascota.ultima_vez_actualizado) for mascota in query]
+                     mascota.ultima_actualizacion, mascota.estado) for mascota in query]
 
         if mascotas:
             return mascotas
@@ -143,36 +153,45 @@ class MascotaService:
                 "felicidad": 1   
             }
 
-            segundos_transcurridos = diferencia_tiempo.total_seconds()
+            # segundos_transcurridos = diferencia_tiempo.total_seconds()
+            segundos_transcurridos = 432000
             intervalo_segundos = segundos_transcurridos / PRIMER_CAMBIO_SEGUNDOS  #cantidad de veces que sucede los cambios
 
-            if diferencia_tiempo >= timedelta(seconds=PRIMER_CAMBIO_SEGUNDOS):
-                self.actualizar(
-                    nombre=nombre_mascota, 
-                    energia=dict_mascota["energia"]-(CAMBIO_VALORES_SEGUNDOS["energia"]*intervalo_segundos),
-                    limpieza=dict_mascota["limpieza"]-(CAMBIO_VALORES_SEGUNDOS["limpieza"]*intervalo_segundos), 
-                    hambre=dict_mascota["hambre"]+(CAMBIO_VALORES_SEGUNDOS["hambre"]*intervalo_segundos),
-                    felicidad=dict_mascota["felicidad"]-(CAMBIO_VALORES_SEGUNDOS["felicidad"]*intervalo_segundos)
-                    )
-                obj_mascota.energia -= (CAMBIO_VALORES_SEGUNDOS["energia"]*intervalo_segundos)
-                obj_mascota.limpieza -= (CAMBIO_VALORES_SEGUNDOS["limpieza"]*intervalo_segundos)
-                obj_mascota.hambre += (CAMBIO_VALORES_SEGUNDOS["hambre"]*intervalo_segundos)
-                obj_mascota.felicidad -= (CAMBIO_VALORES_SEGUNDOS["felicidad"]*intervalo_segundos)
-            elif diferencia_tiempo == timedelta(days=DIA_LIMITE):
-                self.actualizar(
-                    nombre=nombre_mascota, 
-                    energia=0,
-                    limpieza=0, 
-                    hambre=100,
-                    felicidad=0
-                    )
-                obj_mascota.energia = 0
-                obj_mascota.limpieza =0
-                obj_mascota.hambre = 100
-                obj_mascota.felicidad = 0
+            try:
+                if diferencia_tiempo >= timedelta(days=DIA_LIMITE):
 
-        # except Exception as error:
-        #     log(error)
+                    self.actualizar(
+                        nombre=nombre_mascota, 
+                        energia=0,
+                        limpieza=0, 
+                        hambre=100,
+                        felicidad=0,
+                        estado='Morido'
+                        )
+                    
+                    obj_mascota.energia = 0
+                    obj_mascota.limpieza = 0
+                    obj_mascota.hambre = 100
+                    obj_mascota.felicidad = 0
+                    obj_mascota.estado = 'Morido'
+
+                elif diferencia_tiempo >= timedelta(seconds=PRIMER_CAMBIO_SEGUNDOS):
+
+                    self.actualizar(
+                        nombre=nombre_mascota, 
+                        energia=dict_mascota["energia"]-(CAMBIO_VALORES_SEGUNDOS["energia"]*intervalo_segundos),
+                        limpieza=dict_mascota["limpieza"]-(CAMBIO_VALORES_SEGUNDOS["limpieza"]*intervalo_segundos), 
+                        hambre=dict_mascota["hambre"]+(CAMBIO_VALORES_SEGUNDOS["hambre"]*intervalo_segundos),
+                        felicidad=dict_mascota["felicidad"]-(CAMBIO_VALORES_SEGUNDOS["felicidad"]*intervalo_segundos)
+                        )
+                    
+                    obj_mascota.energia -= (CAMBIO_VALORES_SEGUNDOS["energia"]*intervalo_segundos)
+                    obj_mascota.limpieza -= (CAMBIO_VALORES_SEGUNDOS["limpieza"]*intervalo_segundos)
+                    obj_mascota.hambre += (CAMBIO_VALORES_SEGUNDOS["hambre"]*intervalo_segundos)
+                    obj_mascota.felicidad -= (CAMBIO_VALORES_SEGUNDOS["felicidad"]*intervalo_segundos)
+
+            except Exception as error:
+                log(error)
 
     @property
     def mascota(self):

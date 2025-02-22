@@ -8,7 +8,17 @@ class Mascota:
         self._limpieza = 50
         self._hambre = 50
         self._felicidad = 50
-        self._estado = 'Sano'
+        self._estado: str = ''
+
+        self._ultima_actualizacion: str = ''
+    
+    @property
+    def ultima_actualizacion(self):
+        return self._ultima_actualizacion
+    
+    @ultima_actualizacion.setter
+    def ultima_actualizacion(self, ultima_actualizacion):
+        self._ultima_actualizacion = ultima_actualizacion
 
     @property
     def nombre_dueño(self):
