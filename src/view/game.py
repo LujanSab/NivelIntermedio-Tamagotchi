@@ -146,6 +146,13 @@ class Game:
                 self.window
             )
 
+            self.boton_estado = BotonEntity(
+                (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
+                (Config.BTN_HEIGHT*6) + 70,
+                f"{self.firu.estado}",
+                self.window
+            )
+
             try:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -184,6 +191,7 @@ class Game:
                 self.boton_dormir.dibujar((0,0,0))
                 self.boton_alimentar.dibujar((0,0,0))
 
+                self.boton_estado.dibujar((150,150,150))
                 self.boton_nombre.dibujar((100,100,100))
 
                 self.porcentaje_energia.dibujar((150,150,150))
