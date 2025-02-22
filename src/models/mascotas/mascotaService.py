@@ -133,34 +133,46 @@ class MascotaService:
             log('No se encontro ninguna mascota')
 
     def actualizar_estado_mascota(self, nombre_mascota, obj_mascota, dict_mascota, diferencia_tiempo):
-        try:
-            if diferencia_tiempo >= timedelta(days=3):
-                self.actualizar(nombre_mascota, energia=0, limpieza=0, hambre=100, felicidad=0)
-            elif diferencia_tiempo >= timedelta(days=2):
-                self.actualizar(nombre_mascota, energia=10, limpieza=5, hambre=80, felicidad=10)
-            elif diferencia_tiempo >= timedelta(days=1):
-                self.actualizar(nombre_mascota, energia=20, limpieza=10, hambre=65, felicidad=20)
-            elif diferencia_tiempo >= timedelta(hours=5):
-                self.actualizar(nombre_mascota, energia=30, limpieza=30, hambre=40, felicidad=55)
-            elif diferencia_tiempo >= timedelta(hours=2):                
-                self.actualizar(nombre_mascota, energia=40, limpieza=50, hambre=20, felicidad=60)
-            elif diferencia_tiempo >= timedelta(minutes=10):
-                self.actualizar(nombre_mascota, energia=90, limpieza=90, hambre=10, felicidad=90)
-            elif diferencia_tiempo >= timedelta(seconds=15):
+            PRIMER_CAMBIO_SEGUNDOS = 15 #cambios cada 15 segundos
+            DIA_LIMITE = 5 #dia de moricion 
+            
+            CAMBIO_VALORES_SEGUNDOS = {
+                "energia" : 2, 
+                "limpieza" : 1,
+                "hambre" : 2,
+                "felicidad": 1   
+            }
+
+            segundos_transcurridos = diferencia_tiempo.total_seconds()
+            intervalo_segundos = segundos_transcurridos / PRIMER_CAMBIO_SEGUNDOS  #cantidad de veces que sucede los cambios
+
+            if diferencia_tiempo >= timedelta(seconds=PRIMER_CAMBIO_SEGUNDOS):
                 self.actualizar(
                     nombre=nombre_mascota, 
-                    energia=dict_mascota['energia']-2, 
-                    limpieza=dict_mascota['limpieza']-1, 
-                    hambre=dict_mascota['hambre']+2,
-                    felicidad=dict_mascota['felicidad']-1
+                    energia=dict_mascota["energia"]-(CAMBIO_VALORES_SEGUNDOS["energia"]*intervalo_segundos),
+                    limpieza=dict_mascota["limpieza"]-(CAMBIO_VALORES_SEGUNDOS["limpieza"]*intervalo_segundos), 
+                    hambre=dict_mascota["hambre"]+(CAMBIO_VALORES_SEGUNDOS["hambre"]*intervalo_segundos),
+                    felicidad=dict_mascota["felicidad"]-(CAMBIO_VALORES_SEGUNDOS["felicidad"]*intervalo_segundos)
                     )
-                obj_mascota.energia -= 2
-                obj_mascota.limpieza -= 1
-                obj_mascota.hambre += 2
-                obj_mascota.felicidad -= 1
+                obj_mascota.energia -= (CAMBIO_VALORES_SEGUNDOS["energia"]*intervalo_segundos)
+                obj_mascota.limpieza -= (CAMBIO_VALORES_SEGUNDOS["limpieza"]*intervalo_segundos)
+                obj_mascota.hambre += (CAMBIO_VALORES_SEGUNDOS["hambre"]*intervalo_segundos)
+                obj_mascota.felicidad -= (CAMBIO_VALORES_SEGUNDOS["felicidad"]*intervalo_segundos)
+            elif diferencia_tiempo == timedelta(days=DIA_LIMITE):
+                self.actualizar(
+                    nombre=nombre_mascota, 
+                    energia=0,
+                    limpieza=0, 
+                    hambre=100,
+                    felicidad=0
+                    )
+                obj_mascota.energia = 0
+                obj_mascota.limpieza =0
+                obj_mascota.hambre = 100
+                obj_mascota.felicidad = 0
 
-        except Exception as error:
-            log(error)
+        # except Exception as error:
+        #     log(error)
 
     @property
     def mascota(self):
