@@ -8,6 +8,7 @@ class Mascota:
         self._limpieza = 50
         self._hambre = 50
         self._felicidad = 50
+        self._estado = 'Sano'
 
     @property
     def nombre_dueño(self):
@@ -101,6 +102,14 @@ class Mascota:
             self._felicidad = 0
         elif self.felicidad > 100:
             self._felicidad = 100
+    
+    @property
+    def estado(self):
+        return self._estado
+    
+    @estado.setter
+    def estado(self, estado):
+        self._estado = estado
 
 
 class Perro(Mascota):
