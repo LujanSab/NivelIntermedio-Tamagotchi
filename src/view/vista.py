@@ -77,8 +77,8 @@ class VentanaRegistro:
             duenio = self.var_nombre_duenio.get()
             if self.validacion.validar_campos_str(nombre) and self.validacion.validar_campos_str(duenio):
                 self.service.crear_mascota(nombre, duenio, self.tipo)
-                if self.service._mascota:
-                    game = Game(self.service._mascota)
+                if self.service.mascota:
+                    game = Game(self.service.mascota)
                     game.run()
                 else:
                     showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
@@ -117,7 +117,7 @@ class VentanaPrincipal:
         self.root = root
         self.service = MascotaService()
         self.validacion = Validacion()
-        self.root.geometry('700x450')
+        self.root.geometry('780x450')
         self.root.title("Mascotas")
         self.root.configure(bg="#c689e3")
         self.var_nombre_mascota = StringVar()
@@ -134,25 +134,25 @@ class VentanaPrincipal:
         self.titulo_1.config(font=("Helvetica", 12, "bold"))
 
         self.titulo_2 = Label(self.root, text="Datos Mascota", bg="#790f9b", fg="white", width=25)
-        self.titulo_2.place(x=500, y=40)
+        self.titulo_2.place(x=590, y=40)
 
         self.lab_nom_mascota = Label(self.root, text="Nombre", bg="#c689e3")
-        self.lab_nom_mascota.place(x=500, y=70)
+        self.lab_nom_mascota.place(x=590, y=70)
 
         self.lab_nom_duenio = Label(self.root, text="Dueño", bg="#c689e3")
-        self.lab_nom_duenio.place(x=500, y=100)
+        self.lab_nom_duenio.place(x=590, y=100)
 
         self.lab_tipo = Label(self.root, text="Tipo", bg="#c689e3")
-        self.lab_tipo.place(x=500, y=130)
+        self.lab_tipo.place(x=590, y=130)
 
         # --------------------------------------------------
         # ENTRYS 
         # --------------------------------------------------
         self.entry_nom_mascota = Entry(self.root, textvariable=self.var_nombre_mascota, width=19)
-        self.entry_nom_mascota.place(x=560, y=70)
+        self.entry_nom_mascota.place(x=650, y=70)
 
         self.entry_nom_duenio= Entry(self.root, textvariable=self.var_nombre_duenio, width=19)
-        self.entry_nom_duenio.place(x=560, y=100)
+        self.entry_nom_duenio.place(x=650, y=100)
 
         # --------------------------------------------------
         # TREEVIEW 
@@ -160,15 +160,16 @@ class VentanaPrincipal:
         self.tree = Treeview(self.root, height=17)
 
         # --- COLUMNS
-        self.tree["columns"] = ("Nombre", "Dueño", "Tipo", "Energia", "Limpieza", "Hambre", "Felicidad")
+        self.tree["columns"] = ("Nombre", "Dueño", "Tipo", "Energia", "Limpieza", "Hambre", "Felicidad", "Ultimo Ingreso")
         self.tree.column("#0", width=30, minwidth=30)
-        self.tree.column("Nombre", width=70, minwidth=70, anchor=W)
-        self.tree.column("Dueño", width=70, minwidth=70, anchor=W)
-        self.tree.column("Tipo", width=70, minwidth=70, anchor=W)
+        self.tree.column("Nombre", width=60, minwidth=60, anchor=W)
+        self.tree.column("Dueño", width=60, minwidth=60, anchor=W)
+        self.tree.column("Tipo", width=60, minwidth=60, anchor=W)
         self.tree.column("Energia", width=60, minwidth=60, anchor=W)
         self.tree.column("Limpieza", width=60, minwidth=60, anchor=W)
         self.tree.column("Hambre", width=60, minwidth=60, anchor=W)
         self.tree.column("Felicidad", width=60, minwidth=60, anchor=W)
+        self.tree.column("Ultimo Ingreso", width=120, minwidth=120, anchor=W)
         self.tree.place(x=5, y=40)
 
         # --- HEADERS
@@ -180,30 +181,31 @@ class VentanaPrincipal:
         self.tree.heading("Limpieza", text="Limpieza")
         self.tree.heading("Hambre", text="Hambre")
         self.tree.heading("Felicidad", text="Felicidad")
+        self.tree.heading("Ultimo Ingreso", text="Ultimo Ingreso")
 
         # --------------------------------------------------
         # BUTTONS
         # --------------------------------------------------
         self.boton_perro = Button(self.root, text="Perro", command=lambda:self.obtener_perro(), width=6)
-        self.boton_perro.place(x=560, y=130)
+        self.boton_perro.place(x=650, y=130)
 
         self.boton_gato = Button(self.root, text="Gato", command=lambda:self.obtener_gato(), width=6)
-        self.boton_gato.place(x=630, y=130)
+        self.boton_gato.place(x=720, y=130)
         
         self.boton_buscar = Button(self.root, text="Buscar", command=lambda:self.filtrar_mascota(), width=25)
-        self.boton_buscar.place(x=500, y=160)
+        self.boton_buscar.place(x=590, y=160)
         
         self.boton_jugar = Button(self.root, text="Jugar", command=lambda:self.jugar(), width=25, state="disabled")
-        self.boton_jugar.place(x=500, y=195)
+        self.boton_jugar.place(x=590, y=195)
 
         self.boton_consulta = Button(self.root, text="Ver todas las mascotas", command=lambda:self.consulta(), width=25)
-        self.boton_consulta.place(x=500, y=250)
+        self.boton_consulta.place(x=590, y=250)
 
         self.boton_seleccionar = Button(self.root, text="Seleccionar", command=lambda:self.seleccionar(), width=25, state="disabled")
-        self.boton_seleccionar.place(x=500, y=290)
+        self.boton_seleccionar.place(x=590, y=290)
 
         self.boton_eliminar = Button(self.root, text="Eliminar", command=lambda:self.eliminar(), width=25, state="disabled")
-        self.boton_eliminar.place(x=500, y=330)
+        self.boton_eliminar.place(x=590, y=330)
     
     # --------------------------------------------------
     # FUNCIONES
@@ -232,7 +234,8 @@ class VentanaPrincipal:
                                         data["energia"],
                                         data["limpieza"],  
                                         data["hambre"], 
-                                        data["felicidad"]))
+                                        data["felicidad"],
+                                        data["ultima_vez_actualizado"]))
                 self.boton_jugar["state"] = "active"
             else:
                 showinfo("", f"No existe la mascota llamada:{nombre}. Intente con otro nombre.")
@@ -245,7 +248,6 @@ class VentanaPrincipal:
         self.valor = self.tree.focus()
         item = self.tree.item(self.valor)
         self.datos_mascota = item['values']
-        print(self.datos_mascota)
         try:
             self.service.crear_objeto_mascota(nombre=self.datos_mascota[0], 
                                             duenio=self.datos_mascota[1], 
@@ -254,8 +256,8 @@ class VentanaPrincipal:
                                             limpieza=self.datos_mascota[4],
                                             hambre=self.datos_mascota[5],
                                             felicidad=self.datos_mascota[6])
-            if self.service._mascota:
-                game = Game(self.service._mascota)
+            if self.service.mascota:
+                game = Game(self.service.mascota)
                 game.run()
                 self.limpiar_vista()
             else:
@@ -268,7 +270,7 @@ class VentanaPrincipal:
         try:
             datos = self.service.obtener_todas_las_mascotas()
             for fila in datos:
-                self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7]))
+                self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8]))
                 self.boton_seleccionar["state"] = "active"
         except Exception as error:
             log(error)

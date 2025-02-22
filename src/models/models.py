@@ -1,6 +1,5 @@
 from peewee import *
 
-
 db = SqliteDatabase('tamagochi.db')
 
 class Mascotas(Model):
@@ -11,10 +10,11 @@ class Mascotas(Model):
     limpieza = IntegerField(default=50)
     hambre = IntegerField(default=50)
     felicidad = IntegerField(default=50)
+    ultima_vez_actualizado = CharField()
 
     def __str__(self):
-        return f'{self.nombre} de {self.duenio}'
-    
+        return f'{self.nombre}, {self.duenio}, {self.tipo}, {self.energia}, {self.limpieza}, {self.hambre}, {self.felicidad}, {self.ultima_vez_actualizado}'
+
     class Meta:
         database = db
 
