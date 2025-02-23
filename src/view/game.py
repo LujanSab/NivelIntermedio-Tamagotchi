@@ -101,7 +101,7 @@ class Game:
         
         self.firu_servicio = MascotaService()
         self.firu_servicio.mascota = self.firu
-
+        
     def run(self):
 
         run = True
@@ -110,9 +110,10 @@ class Game:
             """
             main loop of the game
             """
+
             self.firu_dict = self.firu_servicio.obtener_datos_mascota(self.firu.nombre_mascota)
 
-            fecha_ultima_actualizacion = datetime.strptime(self.firu_dict['ultima_vez_actualizado'], "%d/%m/%Y, %H:%M:%S")
+            fecha_ultima_actualizacion = datetime.strptime(self.firu_dict['ultima_actualizacion'], "%d/%m/%Y, %H:%M:%S")
 
             diferencia_tiempo = datetime.now() - fecha_ultima_actualizacion
 
@@ -149,7 +150,7 @@ class Game:
             self.boton_estado = BotonEntity(
                 (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
                 (Config.BTN_HEIGHT*6) + 70,
-                f"{self.firu.estado}",
+                f"{self.firu_dict['estado']}",
                 self.window
             )
 

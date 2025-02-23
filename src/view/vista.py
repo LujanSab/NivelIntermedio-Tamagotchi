@@ -160,7 +160,7 @@ class VentanaPrincipal:
         self.tree = Treeview(self.root, height=17)
 
         # --- COLUMNS
-        self.tree["columns"] = ("Nombre", "Dueño", "Tipo", "Energia", "Limpieza", "Hambre", "Felicidad", "Ultimo Ingreso")
+        self.tree["columns"] = ("Nombre", "Dueño", "Tipo", "Energia", "Limpieza", "Hambre", "Felicidad", "Estado")
         self.tree.column("#0", width=30, minwidth=30)
         self.tree.column("Nombre", width=60, minwidth=60, anchor=W)
         self.tree.column("Dueño", width=60, minwidth=60, anchor=W)
@@ -169,7 +169,7 @@ class VentanaPrincipal:
         self.tree.column("Limpieza", width=60, minwidth=60, anchor=W)
         self.tree.column("Hambre", width=60, minwidth=60, anchor=W)
         self.tree.column("Felicidad", width=60, minwidth=60, anchor=W)
-        self.tree.column("Ultimo Ingreso", width=120, minwidth=120, anchor=W)
+        self.tree.column("Estado", width=120, minwidth=120, anchor=W)
         self.tree.place(x=5, y=40)
 
         # --- HEADERS
@@ -181,7 +181,7 @@ class VentanaPrincipal:
         self.tree.heading("Limpieza", text="Limpieza")
         self.tree.heading("Hambre", text="Hambre")
         self.tree.heading("Felicidad", text="Felicidad")
-        self.tree.heading("Ultimo Ingreso", text="Ultimo Ingreso")
+        self.tree.heading("Estado", text="Estado")
 
         # --------------------------------------------------
         # BUTTONS
@@ -235,7 +235,7 @@ class VentanaPrincipal:
                                         data["limpieza"],  
                                         data["hambre"], 
                                         data["felicidad"],
-                                        data["ultima_vez_actualizado"]))
+                                        data["estado"]))
                 self.boton_jugar["state"] = "active"
             else:
                 showinfo("", f"No existe la mascota llamada:{nombre}. Intente con otro nombre.")
@@ -255,7 +255,8 @@ class VentanaPrincipal:
                                             energia=self.datos_mascota[3],
                                             limpieza=self.datos_mascota[4],
                                             hambre=self.datos_mascota[5],
-                                            felicidad=self.datos_mascota[6])
+                                            felicidad=self.datos_mascota[6],
+                                            estado=self.datos_mascota[7])
             if self.service.mascota:
                 game = Game(self.service.mascota)
                 game.run()
@@ -270,7 +271,7 @@ class VentanaPrincipal:
         try:
             datos = self.service.obtener_todas_las_mascotas()
             for fila in datos:
-                self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8]))
+                self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7],  fila[9]))
                 self.boton_seleccionar["state"] = "active"
         except Exception as error:
             log(error)
@@ -289,10 +290,10 @@ class VentanaPrincipal:
     def eliminar(self):
         if askyesno("Atención", f"¿Desea confirmar la eliminación de la mascota: {self.datos_mascota[0]}?"):
             try:
-                mensaje = self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1])
+                self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1])
                 self.tree.delete(self.valor)
                 self.valor = 0
-                showinfo("", mensaje)
+                showinfo("", "Se ha eliminado la mascota correctamente. ")
                 self.limpiar_vista_eliminar()
             except Exception as error:
                 log(error)

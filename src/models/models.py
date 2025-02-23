@@ -10,10 +10,11 @@ class Mascotas(Model):
     limpieza = IntegerField(default=50)
     hambre = IntegerField(default=50)
     felicidad = IntegerField(default=50)
-    ultima_vez_actualizado = CharField()
+    estado = CharField()
+    ultima_actualizacion = CharField()
 
     def __str__(self):
-        return f'{self.nombre}, {self.duenio}, {self.tipo}, {self.energia}, {self.limpieza}, {self.hambre}, {self.felicidad}, {self.ultima_vez_actualizado}'
+        return f'{self.nombre}, {self.duenio}, {self.tipo}, {self.energia}, {self.limpieza}, {self.hambre}, {self.felicidad}, {self.estado}, {self.ultima_actualizacion}'
 
     class Meta:
         database = db
