@@ -31,7 +31,7 @@ class MascotaService:
                 limpieza = self._mascota.limpieza,
                 hambre = self._mascota.hambre,
                 felicidad = self._mascota.felicidad,
-                estado = 'Sano',
+                estado = self._mascota.estado,
                 ultima_actualizacion = now
             )
 
@@ -153,8 +153,7 @@ class MascotaService:
                 "felicidad": 1   
             }
 
-            # segundos_transcurridos = diferencia_tiempo.total_seconds()
-            segundos_transcurridos = 432000
+            segundos_transcurridos = diferencia_tiempo.total_seconds()
             intervalo_segundos = segundos_transcurridos / PRIMER_CAMBIO_SEGUNDOS  #cantidad de veces que sucede los cambios
 
             try:

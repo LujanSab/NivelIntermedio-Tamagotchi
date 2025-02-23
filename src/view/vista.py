@@ -290,10 +290,10 @@ class VentanaPrincipal:
     def eliminar(self):
         if askyesno("Atención", f"¿Desea confirmar la eliminación de la mascota: {self.datos_mascota[0]}?"):
             try:
-                mensaje = self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1])
+                self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1])
                 self.tree.delete(self.valor)
                 self.valor = 0
-                showinfo("", mensaje)
+                showinfo("", "Se ha eliminado la mascota correctamente. ")
                 self.limpiar_vista_eliminar()
             except Exception as error:
                 log(error)

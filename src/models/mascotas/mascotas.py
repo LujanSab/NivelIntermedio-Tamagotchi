@@ -1,6 +1,6 @@
 
 class Mascota:
-    def __init__(self, nombre_mascota, nombre_dueño, tipo):
+    def __init__(self, nombre_mascota, nombre_dueño, tipo, estado):
         self._dueño = nombre_dueño
         self._nombre = nombre_mascota
         self._tipo = tipo
@@ -8,17 +8,8 @@ class Mascota:
         self._limpieza = 50
         self._hambre = 50
         self._felicidad = 50
-        self._estado: str = ''
-
+        self._estado = estado
         self._ultima_actualizacion: str = ''
-    
-    @property
-    def ultima_actualizacion(self):
-        return self._ultima_actualizacion
-    
-    @ultima_actualizacion.setter
-    def ultima_actualizacion(self, ultima_actualizacion):
-        self._ultima_actualizacion = ultima_actualizacion
 
     @property
     def nombre_dueño(self):
@@ -121,12 +112,20 @@ class Mascota:
     def estado(self, estado):
         self._estado = estado
 
+    @property
+    def ultima_actualizacion(self):
+        return self._ultima_actualizacion
+    
+    @ultima_actualizacion.setter
+    def ultima_actualizacion(self, ultima_actualizacion):
+        self._ultima_actualizacion = ultima_actualizacion
+
 
 class Perro(Mascota):
-    def __init__(self, nombre_dueño, nombre_mascota, tipo='perro'):
-        super().__init__(nombre_dueño, nombre_mascota, tipo)
+    def __init__(self, nombre_dueño, nombre_mascota, tipo='perro', estado='sano'):
+        super().__init__(nombre_dueño, nombre_mascota, tipo, estado)
 
     
 class Gato(Mascota):
-    def __init__(self, nombre_dueño, nombre_mascota, tipo='gato'):
-        super().__init__(nombre_dueño, nombre_mascota, tipo)
+    def __init__(self, nombre_dueño, nombre_mascota, tipo='gato', estado='sano'):
+        super().__init__(nombre_dueño, nombre_mascota, tipo, estado)

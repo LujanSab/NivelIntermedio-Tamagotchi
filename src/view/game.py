@@ -101,9 +101,7 @@ class Game:
         
         self.firu_servicio = MascotaService()
         self.firu_servicio.mascota = self.firu
-
-
-
+        
     def run(self):
 
         run = True
