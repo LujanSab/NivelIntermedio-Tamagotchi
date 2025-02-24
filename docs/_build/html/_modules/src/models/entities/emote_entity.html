@@ -1,23 +1,24 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../../../">
+<html class="writer-html5" lang="es" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>src.models.entities.emote_entity &mdash; Tamagochi 1.0.0 documentation</title>
+  <title>src.models.entities.emote_entity &mdash; documentación de Tamagochi - 1.0.0</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../../../_static/documentation_options.js?v=36c4ab74"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/translations.js?v=f85f4cfb"></script>
     <script src="../../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../../search.html" /> 
+    <link rel="index" title="Índice" href="../../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -33,7 +34,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -60,7 +61,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Código de módulo</a></li>
       <li class="breadcrumb-item active">src.models.entities.emote_entity</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -70,14 +71,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for src.models.entities.emote_entity</h1><div class="highlight"><pre>
+  <h1>Código fuente para src.models.entities.emote_entity</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Aca se encuentra la logica de entidad para los emoticones</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygame</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">config</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span>
 
 
 <div class="viewcode-block" id="EmoteEntity">
-<a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.emote_entity.EmoteEntity">[docs]</a>
+<a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.emote_entity.EmoteEntity">[documentos]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EmoteEntity</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    La clase `EmoteEntity` en Python define métodos para controlar y mostrar animaciones para un</span>
@@ -99,7 +100,7 @@
 
 
 <div class="viewcode-block" id="EmoteEntity.iniciar_animacion">
-<a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.emote_entity.EmoteEntity.iniciar_animacion">[docs]</a>
+<a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.emote_entity.EmoteEntity.iniciar_animacion">[documentos]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">iniciar_animacion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tipo_animacion</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Inicia una animación y establece el tiempo de inicio</span>
@@ -112,7 +113,7 @@
     
 
 <div class="viewcode-block" id="EmoteEntity.actualizar_animacion">
-<a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.emote_entity.EmoteEntity.actualizar_animacion">[docs]</a>
+<a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.emote_entity.EmoteEntity.actualizar_animacion">[documentos]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">actualizar_animacion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Controla la duración de la animación y la reproduce si está activa</span>
@@ -151,7 +152,7 @@
 
 
 <div class="viewcode-block" id="EmoteEntity.dibujar">
-<a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.emote_entity.EmoteEntity.dibujar">[docs]</a>
+<a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.emote_entity.EmoteEntity.dibujar">[documentos]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">dibujar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">animacion_activa</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">imagen</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imagen</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">forma</span><span class="p">)</span></div>
@@ -171,12 +172,12 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Lujan, Laura, Emilio.</p>
+    <p>&#169; Derechos de autor 2025, Lujan, Laura, Emilio.</p>
   </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>
