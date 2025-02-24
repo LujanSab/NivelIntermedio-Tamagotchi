@@ -7,6 +7,19 @@ import pytz
 
 
 class MascotaService:
+    """
+    La clase `MascotaService` en Python proporciona métodos para crear, actualizar, eliminar y
+    recuperar información sobre mascotas, así como para administrar sus estados y propiedades.
+
+    :param nombre: El parámetro "nombre" hace referencia al nombre de la mascota o mascota. Se utiliza para
+    identificar la mascota específica al realizar operaciones como crear, actualizar o eliminar
+    datos de mascotas en la clase MascotaService
+    :param duenio: El parámetro `duenio` en la clase `MascotaService` hace referencia al dueño o
+    tutor de la mascota (mascota). Se utiliza para identificar a la persona responsable del cuidado y
+    bienestar de la mascota
+    :param tipo: El parámetro `tipo` en el método `crear_mascota` y el método `crear_objeto_mascota` hace referencia al tipo de mascota que se está creando. Puede ser "Perro" o "Gato". Este parámetro se utiliza para determinar qué clase
+    """
+    
     def __init__(self, mascota: Mascota=None):
         self._mascota = mascota
 

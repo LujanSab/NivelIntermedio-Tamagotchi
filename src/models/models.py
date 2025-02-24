@@ -1,8 +1,15 @@
+# Dentro de este modulo se colocan todos los modelos de la app
 from peewee import *
 
 db = SqliteDatabase('tamagochi.db')
 
 class Mascotas(Model):
+    """
+    El código define un modelo para mascotas con atributos como dueño, nombre, tipo, nivel de energía,
+    limpieza, hambre, felicidad, estado y hora de la última actualización.
+    :return: El método `__str__` en el modelo `Mascotas` está devolviendo una cadena formateada
+    que contiene los valores de los atributos de la instancia del modelo. El formato es el siguiente:
+    """
     duenio = CharField()
     nombre = CharField(unique=True)
     tipo = CharField()
