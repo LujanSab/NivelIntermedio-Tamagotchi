@@ -1,3 +1,5 @@
+# Este es el modulo donde aparece toda la logica dentro del juego y se 
+# llaman a distintos modulos, como config, las diferentes entidades y las utilidades
 import pygame
 import traceback
 from datetime import datetime, timedelta
@@ -16,6 +18,12 @@ from src.controller.logger import log
 
 
 class Game:
+    """
+    El código Python dado define un juego en el que el 
+    jugador puede interactuar con una mascota virtual
+    alimentándola, limpiándola y poniéndola 
+    a dormir, mientras monitorea sus diversas estadísticas y emociones.
+    """
 
     def __init__(self, mascota: Mascota):
         pygame.init()
@@ -103,13 +111,17 @@ class Game:
         self.firu_servicio.mascota = self.firu
         
     def run(self):
+        '''
+        Metodo encargado de correr el juego, con logica que se necesita 
+        verificar en cada tick que pasa
+        '''
 
         run = True
 
         while run:
-            """
-            main loop of the game
-            """
+            '''
+            bucle main del juego
+            '''
 
             self.firu_dict = self.firu_servicio.obtener_datos_mascota(self.firu.nombre_mascota)
 

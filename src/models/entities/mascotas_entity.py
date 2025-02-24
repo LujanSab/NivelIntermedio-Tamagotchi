@@ -1,3 +1,4 @@
+# Aca se encuentra la logica de entidad para las mascotas
 import pygame
 from config import Config
 

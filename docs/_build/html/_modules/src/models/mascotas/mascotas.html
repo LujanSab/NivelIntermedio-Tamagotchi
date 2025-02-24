@@ -1,24 +1,23 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="es" data-content_root="../../../../">
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>src.models.mascotas.mascotas &mdash; documentación de tp-tamagotchi - 1.3.0</title>
+  <title>src.models.mascotas.mascotas &mdash; Tamagochi 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../_static/documentation_options.js?v=a4bb759f"></script>
+      <script src="../../../../_static/documentation_options.js?v=8d563738"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script src="../../../../_static/translations.js?v=f85f4cfb"></script>
     <script src="../../../../_static/js/theme.js"></script>
-    <link rel="index" title="Índice" href="../../../../genindex.html" />
-    <link rel="search" title="Búsqueda" href="../../../../search.html" /> 
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -30,11 +29,11 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            tp-tamagotchi
+            Tamagochi
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -53,7 +52,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">tp-tamagotchi</a>
+          <a href="../../../../index.html">Tamagochi</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -61,7 +60,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../../index.html">Código de módulo</a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
       <li class="breadcrumb-item active">src.models.mascotas.mascotas</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -71,11 +70,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Código fuente para src.models.mascotas.mascotas</h1><div class="highlight"><pre>
-<span></span>
+  <h1>Source code for src.models.mascotas.mascotas</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Este es un modulo dedicado a la logica minima para las mascotas,</span>
+<span class="c1"># de las que despues va a consumir los datos el ORM </span>
+<span class="c1"># para pasarlo a la base de datos</span>
 <div class="viewcode-block" id="Mascota">
-<a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotas.Mascota">[documentos]</a>
+<a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotas.Mascota">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Mascota</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    La clase `Mascota` en Python define atributos y métodos </span>
+<span class="sd">    para gestionar las características de una mascota, </span>
+<span class="sd">    como energía, limpieza, hambre, felicidad y estado.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre_mascota</span><span class="p">,</span> <span class="n">nombre_dueño</span><span class="p">,</span> <span class="n">tipo</span><span class="p">,</span> <span class="n">estado</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dueño</span> <span class="o">=</span> <span class="n">nombre_dueño</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nombre</span> <span class="o">=</span> <span class="n">nombre_mascota</span>
@@ -199,16 +205,24 @@
 
 
 <div class="viewcode-block" id="Perro">
-<a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotas.Perro">[documentos]</a>
+<a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotas.Perro">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Perro</span><span class="p">(</span><span class="n">Mascota</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Clase que hereda de mascota, con la diferencia que esta es de tipo perro,</span>
+<span class="sd">    y por lo tanto, tendra sus caracteristicas cuando se llame en otros modulos</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre_dueño</span><span class="p">,</span> <span class="n">nombre_mascota</span><span class="p">,</span> <span class="n">tipo</span><span class="o">=</span><span class="s1">&#39;perro&#39;</span><span class="p">,</span> <span class="n">estado</span><span class="o">=</span><span class="s1">&#39;sano&#39;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">nombre_dueño</span><span class="p">,</span> <span class="n">nombre_mascota</span><span class="p">,</span> <span class="n">tipo</span><span class="p">,</span> <span class="n">estado</span><span class="p">)</span></div>
 
 
     
 <div class="viewcode-block" id="Gato">
-<a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotas.Gato">[documentos]</a>
+<a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotas.Gato">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Gato</span><span class="p">(</span><span class="n">Mascota</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Clase que hereda de mascota, con la diferencia que esta es de tipo gato,</span>
+<span class="sd">    y por lo tanto, tendra sus caracteristicas cuando se llame en otros modulos</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre_dueño</span><span class="p">,</span> <span class="n">nombre_mascota</span><span class="p">,</span> <span class="n">tipo</span><span class="o">=</span><span class="s1">&#39;gato&#39;</span><span class="p">,</span> <span class="n">estado</span><span class="o">=</span><span class="s1">&#39;sano&#39;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">nombre_dueño</span><span class="p">,</span> <span class="n">nombre_mascota</span><span class="p">,</span> <span class="n">tipo</span><span class="p">,</span> <span class="n">estado</span><span class="p">)</span></div>
 
@@ -221,12 +235,12 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Derechos de autor 2025, Emilio Luján Laura.</p>
+    <p>&#169; Copyright 2025, Lujan, Laura, Emilio.</p>
   </div>
 
-  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
-    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>

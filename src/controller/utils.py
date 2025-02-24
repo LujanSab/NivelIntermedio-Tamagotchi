@@ -1,3 +1,5 @@
+# Aca se colocan todas las funcionalidades 
+# que no tienen que ver con el modelo o la vista
 import pygame
 
 def scale_img(image, scale: float):

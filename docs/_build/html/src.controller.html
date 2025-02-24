@@ -1,25 +1,24 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="es" data-content_root="./">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>src.controller package &mdash; documentación de tp-tamagotchi - 1.3.0</title>
+  <title>src.controller package &mdash; Tamagochi 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=a4bb759f"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script src="_static/translations.js?v=f85f4cfb"></script>
     <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Índice" href="genindex.html" />
-    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="src.models package" href="src.models.html" />
     <link rel="prev" title="src package" href="src.html" /> 
 </head>
@@ -33,11 +32,11 @@
           
           
           <a href="index.html" class="icon icon-home">
-            tp-tamagotchi
+            Tamagochi
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -72,7 +71,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">tp-tamagotchi</a>
+          <a href="index.html">Tamagochi</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -83,7 +82,7 @@
           <li class="breadcrumb-item"><a href="src.html">src package</a></li>
       <li class="breadcrumb-item active">src.controller package</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/src.controller.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+            <a href="_sources/src.controller.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -100,15 +99,24 @@
 <span id="src-controller-logger-module"></span><h2>src.controller.logger module<a class="headerlink" href="#module-src.controller.logger" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.controller.logger.log">
-<span class="sig-prename descclassname"><span class="pre">src.controller.logger.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/controller/logger.html#log"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.controller.logger.log" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">src.controller.logger.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/controller/logger.html#log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.controller.logger.log" title="Link to this definition"></a></dt>
+<dd><p>La función <cite>log</cite> registra un evento mediante el módulo <cite>logging</cite> en Python.</p>
+<dl>
+<dt>parametros: </dt><dd><ul class="simple">
+<li><p>event: La función <cite>log</cite> toma un parámetro <cite>event</cite>, que es un mensaje o evento que</p></li>
+</ul>
+<p>desea registrar mediante el método <cite>logging.info</cite>. Esta función es útil para registrar información durante
+la ejecución de un programa</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-src.controller.utils">
 <span id="src-controller-utils-module"></span><h2>src.controller.utils module<a class="headerlink" href="#module-src.controller.utils" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.controller.utils.scale_img">
-<span class="sig-prename descclassname"><span class="pre">src.controller.utils.</span></span><span class="sig-name descname"><span class="pre">scale_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/controller/utils.html#scale_img"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.controller.utils.scale_img" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.controller.utils.</span></span><span class="sig-name descname"><span class="pre">scale_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/controller/utils.html#scale_img"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.controller.utils.scale_img" title="Link to this definition"></a></dt>
 <dd><p>La función <cite>scale_img</cite> toma una imagen y la escala según un factor específico utilizando el método
 <cite>transform.scale</cite> de Pygame.</p>
 <section id="parametros">
@@ -138,12 +146,34 @@ la imagen se escalará según un valor de escala predefinido para una imagen de 
 <span id="src-controller-validations-module"></span><h2>src.controller.validations module<a class="headerlink" href="#module-src.controller.validations" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.controller.validations.Validacion">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.controller.validations.</span></span><span class="sig-name descname"><span class="pre">Validacion</span></span><a class="reference internal" href="_modules/src/controller/validations.html#Validacion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.controller.validations.Validacion" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.controller.validations.</span></span><span class="sig-name descname"><span class="pre">Validacion</span></span><a class="reference internal" href="_modules/src/controller/validations.html#Validacion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.controller.validations.Validacion" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>La función <cite>validar_campos_str</cite> utiliza un patrón de expresión regular para validar una cadena
+de entrada.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>campo</strong> – El parámetro <cite>campo</cite> es una cadena que desea validar contra el patrón de expresión regular</p>
+</dd>
+</dl>
+<p>definido en el atributo <cite>PATRON_STR</cite> de la clase <cite>Validacion</cite>. 
+El patrón de expresión regular <cite>^[A-Za-z]+(?:[ ][A-Za-z]+)*$</cite> 
+se utiliza para validarlo</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.controller.validations.Validacion.validar_campos_str">
-<span class="sig-name descname"><span class="pre">validar_campos_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">campo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/controller/validations.html#Validacion.validar_campos_str"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.controller.validations.Validacion.validar_campos_str" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">validar_campos_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">campo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/controller/validations.html#Validacion.validar_campos_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.controller.validations.Validacion.validar_campos_str" title="Link to this definition"></a></dt>
+<dd><p>La función <cite>validar_campos_str</cite> verifica si una cadena dada coincide con un patrón especificado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>campo</strong> – El parámetro <cite>campo</cite> es una cadena que representa un campo o valor que necesita</p>
+</dd>
+</dl>
+<p>ser validado contra un patrón de expresión regular definido en el atributo <cite>PATRON_STR</cite> de la
+clase. El método <cite>validar_campos_str</cite> usa la función <cite>re.match</cite> para verificar si el <cite>campo</cite>
+:return: La función <cite>validar_campos_str</cite> está devolviendo el resultado de <cite>re.match(self.PATRON_STR,
+campo)</cite>. Es probable que esta función esté verificando si la cadena <cite>campo</cite> coincide con un patrón específico
+definido por <cite>self.PATRON_STR</cite>. Si hay una coincidencia, devolverá el objeto coincidente, de lo contrario,
+devolverá <cite>None</cite>.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -156,20 +186,20 @@ la imagen se escalará según un valor de escala predefinido para una imagen de 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
-        <a href="src.html" class="btn btn-neutral float-left" title="src package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
-        <a href="src.models.html" class="btn btn-neutral float-right" title="src.models package" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="src.html" class="btn btn-neutral float-left" title="src package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.models.html" class="btn btn-neutral float-right" title="src.models package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Derechos de autor 2025, Emilio Luján Laura.</p>
+    <p>&#169; Copyright 2025, Lujan, Laura, Emilio.</p>
   </div>
 
-  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
-    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>
