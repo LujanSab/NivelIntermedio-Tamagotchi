@@ -1,0 +1,203 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentación Tamagotchi &mdash; documentación de Tamagochi - 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=36c4ab74"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=f85f4cfb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="config module" href="config.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Tamagochi
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.html">src package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Tamagochi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documentación Tamagotchi</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="documentacion-tamagotchi">
+<h1>Documentación Tamagotchi<a class="headerlink" href="#documentacion-tamagotchi" title="Link to this heading"></a></h1>
+<p>Trabajo Práctico para el nivel intermedio de la Diplomatura en Python de FRBA UTN e-learning.</p>
+<section id="instalacion">
+<h2>Instalación<a class="headerlink" href="#instalacion" title="Link to this heading"></a></h2>
+<p>Antes de ejecutar este trabajo, primero instalar las dependencias:</p>
+</section>
+<section id="en-virtualenv">
+<h2>En virtualenv:<a class="headerlink" href="#en-virtualenv" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+
+<span class="gp">$ </span>.venv<span class="se">\S</span>crips<span class="se">\a</span>ctivate
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="en-anaconda">
+<h2>En Anaconda:<a class="headerlink" href="#en-anaconda" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>tamagochi<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11.10
+
+<span class="gp">$ </span>conda<span class="w"> </span>activate<span class="w"> </span>tamagochi
+
+<span class="gp gp-VirtualEnv">(tamagochi)</span> <span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="en-virtualenvwrapper">
+<h2>En virtualenvwrapper:<a class="headerlink" href="#en-virtualenvwrapper" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkvirtualenv<span class="w"> </span>tamagochi
+
+<span class="gp">$ </span>workon<span class="w"> </span>tamagochi
+
+<span class="gp gp-VirtualEnv">(tamagochi)</span> <span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html#config.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.BTN_HEIGHT"><code class="docutils literal notranslate"><span class="pre">Config.BTN_HEIGHT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.BTN_WIDTH"><code class="docutils literal notranslate"><span class="pre">Config.BTN_WIDTH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.CAT_IMG"><code class="docutils literal notranslate"><span class="pre">Config.CAT_IMG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.DOG_IMAGE"><code class="docutils literal notranslate"><span class="pre">Config.DOG_IMAGE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.DORMIR_EMOTE"><code class="docutils literal notranslate"><span class="pre">Config.DORMIR_EMOTE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.FELIZ_EMOTE"><code class="docutils literal notranslate"><span class="pre">Config.FELIZ_EMOTE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.GATO_IDLE"><code class="docutils literal notranslate"><span class="pre">Config.GATO_IDLE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.GATO_SCALE"><code class="docutils literal notranslate"><span class="pre">Config.GATO_SCALE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.HAMBRE_EMOTE"><code class="docutils literal notranslate"><span class="pre">Config.HAMBRE_EMOTE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.LIMPIAR_EMOTE"><code class="docutils literal notranslate"><span class="pre">Config.LIMPIAR_EMOTE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.MASCOTA_HEIGHT"><code class="docutils literal notranslate"><span class="pre">Config.MASCOTA_HEIGHT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.MASCOTA_WIDTH"><code class="docutils literal notranslate"><span class="pre">Config.MASCOTA_WIDTH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.PERRO_SCALE"><code class="docutils literal notranslate"><span class="pre">Config.PERRO_SCALE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.WINDOW_HEIGHT"><code class="docutils literal notranslate"><span class="pre">Config.WINDOW_HEIGHT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.WINDOW_WIDTH"><code class="docutils literal notranslate"><span class="pre">Config.WINDOW_WIDTH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.i"><code class="docutils literal notranslate"><span class="pre">Config.i</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.Config.new_img"><code class="docutils literal notranslate"><span class="pre">Config.new_img</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.html">src package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.controller.html">src.controller package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.controller.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.controller.html#module-src.controller.logger">src.controller.logger module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.controller.html#module-src.controller.utils">src.controller.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.controller.html#module-src.controller.validations">src.controller.validations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.controller.html#module-src.controller">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.models.html">src.models package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.models.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.models.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.models.html#module-src.models.models">src.models.models module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.models.html#module-src.models">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.view.html">src.view package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.view.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.view.html#module-src.view.game">src.view.game module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.view.html#module-src.view.vista">src.view.vista module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.view.html#module-src.view">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="config.html" class="btn btn-neutral float-right" title="config module" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Lujan, Laura, Emilio.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,3 +1,7 @@
+# Este fragmento de código define una clase `Config` usando una clase de datos en Python. Contiene varios
+# valores constantes relacionados con un juego, como dimensiones de ventana, escalas de imagen, rutas de imagen y
+# dimensiones de botón. Además, carga imágenes usando pygame y las escala usando una función `scale_img`
+# importacion desde `src.controller.utils`.
 from dataclasses import dataclass
 import pygame
 from src.controller.utils import scale_img

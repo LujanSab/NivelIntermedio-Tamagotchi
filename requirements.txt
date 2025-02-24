@@ -1,2 +1,5 @@
 pygame==2.6.1
-keyboard==0.13.5
+peewee==3.17.9
+pytz==2025.1
+Sphinx==8.2.1
+sphinx-rtd-theme==3.0.2

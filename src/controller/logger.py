@@ -16,4 +16,12 @@ logging.basicConfig(
 )
 
 def log(event):
+    """
+    La función `log` registra un evento mediante el módulo `logging` en Python.
+
+    parametros: 
+        - event: La función `log` toma un parámetro `event`, que es un mensaje o evento que
+        desea registrar mediante el método `logging.info`. Esta función es útil para registrar información durante
+        la ejecución de un programa
+    """
     logging.info(event)

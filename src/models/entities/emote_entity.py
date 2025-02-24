@@ -1,8 +1,17 @@
+# Aca se encuentra la logica de entidad para los emoticones
 import pygame
 from config import Config
 
 
 class EmoteEntity:
+    """
+    La clase `EmoteEntity` en Python define métodos para controlar y mostrar animaciones para un
+    personaje en una ventana usando Pygame.
+
+    :param tipo_animacion: El parámetro `tipo_animacion` en el método `iniciar_animacion` de la
+    clase `EmoteEntity` se usa para especificar el tipo de animación que se debe iniciar. Es un
+    parámetro de cadena que puede tener valores como "dormir", "feliz", "hambre", etc...
+    """
     def __init__(self, animaciones, window):
         self.window = window
         self.forma = pygame.Rect((Config.WINDOW_WIDTH/2)-(Config.MASCOTA_WIDTH/2), (Config.WINDOW_HEIGHT/2) - (Config.MASCOTA_HEIGHT/2), 29, 30)
