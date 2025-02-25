@@ -44,6 +44,7 @@ class MascotaService:
                 limpieza = self._mascota.limpieza,
                 hambre = self._mascota.hambre,
                 felicidad = self._mascota.felicidad,
+                social = self._mascota.social,
                 estado = self._mascota.estado,
                 ultima_actualizacion = now
             )
@@ -57,7 +58,7 @@ class MascotaService:
             duenio, tipo, 
             energia, limpieza, 
             hambre, felicidad,
-            estado
+            social, estado
             ):
         if tipo == "perro":
             self._mascota = Perro(nombre, duenio)
@@ -67,6 +68,7 @@ class MascotaService:
         self._mascota._limpieza = limpieza
         self._mascota._hambre = hambre 
         self._mascota._felicidad = felicidad
+        self._mascota._social = social
         self._mascota._estado = estado
 
     def actualizar(
@@ -76,6 +78,7 @@ class MascotaService:
         limpieza: int = None,
         hambre: int = None,
         felicidad: int = None,
+        social: int = None,
         estado: str = None
     ):
         try:
@@ -87,13 +90,14 @@ class MascotaService:
                 "limpieza": limpieza,
                 "hambre": hambre,
                 "felicidad": felicidad,
+                "social": social,
                 "estado": estado,
                 "ultima_actualizacion": ultima_actualizacion
             }
 
             actualizar = {k: v for k, v in actualizar.items() if v is not None}
 
-            for key in ["energia", "limpieza", "hambre", "felicidad"]:
+            for key in ["energia", "limpieza", "hambre", "felicidad", "social"]:
                 if key in actualizar:
                     actualizar[key] = max(0, min(100, actualizar[key]))
 
@@ -133,6 +137,7 @@ class MascotaService:
                     "limpieza" : datos_mascota.limpieza,
                     "hambre" : datos_mascota.hambre,
                     "felicidad" : datos_mascota.felicidad,
+                    "social" : datos_mascota.social,
                     "estado" : datos_mascota.estado,
                     "ultima_actualizacion": datos_mascota.ultima_actualizacion
                 }
@@ -148,7 +153,8 @@ class MascotaService:
                      mascota.duenio, mascota.tipo, 
                      mascota.energia, mascota.limpieza, 
                      mascota.hambre, mascota.felicidad, 
-                     mascota.ultima_actualizacion, mascota.estado) for mascota in query]
+                     mascota.social, mascota.ultima_actualizacion, 
+                     mascota.estado) for mascota in query]
 
         if mascotas:
             return mascotas
@@ -163,7 +169,8 @@ class MascotaService:
                 "energia" : 2, 
                 "limpieza" : 1,
                 "hambre" : 2,
-                "felicidad": 1   
+                "felicidad": 1, 
+                "social": 1
             }
 
             segundos_transcurridos = diferencia_tiempo.total_seconds()
@@ -178,6 +185,7 @@ class MascotaService:
                         limpieza=0, 
                         hambre=100,
                         felicidad=0,
+                        social=0,
                         estado='Morido'
                         )
                     
@@ -185,6 +193,7 @@ class MascotaService:
                     obj_mascota.limpieza = 0
                     obj_mascota.hambre = 100
                     obj_mascota.felicidad = 0
+                    obj_mascota.social = 0
                     obj_mascota.estado = 'Morido'
 
                 elif diferencia_tiempo >= timedelta(seconds=PRIMER_CAMBIO_SEGUNDOS):
@@ -194,13 +203,15 @@ class MascotaService:
                         energia=dict_mascota["energia"]-(CAMBIO_VALORES_SEGUNDOS["energia"]*intervalo_segundos),
                         limpieza=dict_mascota["limpieza"]-(CAMBIO_VALORES_SEGUNDOS["limpieza"]*intervalo_segundos), 
                         hambre=dict_mascota["hambre"]+(CAMBIO_VALORES_SEGUNDOS["hambre"]*intervalo_segundos),
-                        felicidad=dict_mascota["felicidad"]-(CAMBIO_VALORES_SEGUNDOS["felicidad"]*intervalo_segundos)
+                        felicidad=dict_mascota["felicidad"]-(CAMBIO_VALORES_SEGUNDOS["felicidad"]*intervalo_segundos),
+                        social=dict_mascota["social"]-(CAMBIO_VALORES_SEGUNDOS["social"]*intervalo_segundos)
                         )
                     
                     obj_mascota.energia -= (CAMBIO_VALORES_SEGUNDOS["energia"]*intervalo_segundos)
                     obj_mascota.limpieza -= (CAMBIO_VALORES_SEGUNDOS["limpieza"]*intervalo_segundos)
                     obj_mascota.hambre += (CAMBIO_VALORES_SEGUNDOS["hambre"]*intervalo_segundos)
                     obj_mascota.felicidad -= (CAMBIO_VALORES_SEGUNDOS["felicidad"]*intervalo_segundos)
+                    obj_mascota.social -= (CAMBIO_VALORES_SEGUNDOS["social"]*intervalo_segundos)
 
             except Exception as error:
                 log(error)

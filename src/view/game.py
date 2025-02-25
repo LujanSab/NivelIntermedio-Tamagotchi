@@ -21,7 +21,7 @@ class Game:
     """
     El código Python dado define un juego en el que el 
     jugador puede interactuar con una mascota virtual
-    alimentándola, limpiándola y poniéndola 
+    alimentándola, limpiándola, jugando con ella y poniéndola 
     a dormir, mientras monitorea sus diversas estadísticas y emociones.
     """
 
@@ -81,7 +81,8 @@ class Game:
             Config.DORMIR_EMOTE,
             Config.FELIZ_EMOTE,
             Config.HAMBRE_EMOTE,
-            Config.LIMPIAR_EMOTE
+            Config.LIMPIAR_EMOTE,
+            Config.JUGAR_EMOTE
         ]
 
         self.dog_image = Config.DOG_IMAGE
@@ -162,6 +163,13 @@ class Game:
             self.boton_estado = BotonEntity(
                 (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
                 (Config.BTN_HEIGHT*6) + 70,
+                f"Jugar{self.firu_dict['jugar']}%",
+                self.window
+            )
+
+            self.boton_estado = BotonEntity(
+                (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
+                (Config.BTN_HEIGHT*7) + 80,
                 f"{self.firu_dict['estado']}",
                 self.window
             )
@@ -186,6 +194,11 @@ class Game:
                             self.firu.energia += 25
                             self.firu_servicio.actualizar(energia=self.firu.energia, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
                             self.emote_entity.iniciar_animacion('dormir')
+
+                        elif self.boton_jugar.forma.collidepoint(pygame.mouse.get_pos()):
+                            self.firu.felicidad -= 25
+                            self.firu_servicio.actualizar(energia=self.firu.energia, social=self.firu.social, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
+                            self.emote_entity.iniciar_animacion('jugar') #aca deberia bajar la energia y el hambre
                         
                         elif self.boton_salir.forma.collidepoint(pygame.mouse.get_pos()):
                             run = False
@@ -203,6 +216,7 @@ class Game:
                 self.boton_salir.dibujar((0,0,0))
                 self.boton_dormir.dibujar((0,0,0))
                 self.boton_alimentar.dibujar((0,0,0))
+                self.boton_jugar.dibujar((0,0,0,0))
 
                 self.boton_estado.dibujar((150,150,150))
                 self.boton_nombre.dibujar((100,100,100))
@@ -211,6 +225,7 @@ class Game:
                 self.porcentaje_hambre.dibujar((150,150,150))
                 self.porcentaje_felicidad.dibujar((150,150,150))
                 self.porcentaje_limpieza.dibujar((150,150,150))
+                self.porcentaje_social.dibujar((150,150,150))
 
                 self.boton_nombre_duenio.dibujar((100,100,100))
 

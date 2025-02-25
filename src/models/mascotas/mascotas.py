@@ -15,6 +15,7 @@ class Mascota:
         self._limpieza = 50
         self._hambre = 50
         self._felicidad = 50
+        self._social = 50
         self._estado = estado
         self._ultima_actualizacion: str = ''
 
@@ -110,6 +111,19 @@ class Mascota:
             self._felicidad = 0
         elif self.felicidad > 100:
             self._felicidad = 100
+
+    @property
+    def social(self):
+        return self._social
+
+    @social.setter
+    def social(self, valor):
+        self._social = valor
+
+        if self.social < 0:
+            self._social = 0
+        elif self.social > 100:
+            self._social = 100
     
     @property
     def estado(self):
