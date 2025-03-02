@@ -24,12 +24,16 @@ class MascotaService:
         self._mascota = mascota
 
     def crear_mascota(self, nombre, duenio, tipo):
-        if tipo == "Perro":
-            self._mascota = Perro(nombre, duenio)
-            self.crear()
-        elif tipo == "Gato":
-            self._mascota = Gato(nombre, duenio)
-            self.crear()
+        try:
+            if tipo == "Perro":
+                self._mascota = Perro(nombre, duenio)
+                self.crear()
+            elif tipo == "Gato":
+                self._mascota = Gato(nombre, duenio)
+                self.crear()
+        except Exception as e:
+            log(e)
+            print(e)
 
     def crear(self):
         try:

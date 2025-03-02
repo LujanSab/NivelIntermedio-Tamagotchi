@@ -56,8 +56,15 @@ class Game:
 
         self.boton_salir = BotonEntity(
             30, 
-            30,
+            (Config.WINDOW_WIDTH/2),
             'SALIR',
+            self.window
+            )
+
+        self.boton_jugar = BotonEntity(
+            70, 
+            30,
+            'JUGAR',
             self.window
             )
         
@@ -160,10 +167,10 @@ class Game:
                 self.window
             )
 
-            self.boton_estado = BotonEntity(
+            self.porcentaje_social = BotonEntity(
                 (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
                 (Config.BTN_HEIGHT*6) + 70,
-                f"Jugar{self.firu_dict['jugar']}%",
+                f"Jugar{self.firu_dict['social']}%",
                 self.window
             )
 
