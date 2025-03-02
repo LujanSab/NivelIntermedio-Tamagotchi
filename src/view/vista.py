@@ -303,8 +303,7 @@ class VentanaPrincipal:
                                             energia=self.datos_mascota[3],
                                             limpieza=self.datos_mascota[4],
                                             hambre=self.datos_mascota[5],
-                                            felicidad=self.datos_mascota[6],
-                                            estado=self.datos_mascota[7])
+                                            felicidad=self.datos_mascota[6])
             if self.service.mascota:
                 game = Game(self.service.mascota)
                 game.run()

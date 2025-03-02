@@ -23,8 +23,8 @@ class Config:
     WINDOW_HEIGHT = 700
     WINDOW_WIDTH = 1300
 
-    PERRO_SCALE = 4.0
-    GATO_SCALE = 3.0
+    PERRO_SCALE = 2.0
+    GATO_SCALE = 2.0
 
     _dog_img = pygame.image.load(f'{ASSETS_UTL}//mascotas//perro//perroidle//perro1.png')
     DOG_IMAGE = scale_img(_dog_img, PERRO_SCALE)
@@ -44,7 +44,7 @@ class Config:
     GATO_IDLE = []
 
     for i in range(7):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//mascotas//gato//gatoidle//gato{i+1}.png'), GATO_SCALE)
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//mascotas//gato//gatoidle//GATO{i+1}.png'), GATO_SCALE)
             GATO_IDLE.append(new_img)
 
     for i in range(2):
