@@ -92,14 +92,13 @@ class Game:
             Config.JUGAR_EMOTE
         ]
 
-        self.dog_image = Config.DOG_IMAGE
-
+        
         if self.firu.tipo_de_mascota == 'perro':
-            self.animaciones_mascotas.append(self.dog_image)
+            self.animaciones_mascotas.append(Config.PERRO_IDLE)
             self.firu_entity = PerroEntity(
                             x=(Config.WINDOW_WIDTH/2), 
                             y=Config.WINDOW_HEIGHT/2, 
-                            imagen=self.dog_image, 
+                            imagen=Config.DOG_IMG, 
                             animaciones=self.animaciones_mascotas, 
                         )
         elif self.firu.tipo_de_mascota == 'gato':
@@ -107,7 +106,7 @@ class Game:
             self.firu_entity = GatoEntity(
                             x=(Config.WINDOW_WIDTH/2), 
                             y=Config.WINDOW_HEIGHT/2, 
-                            imagen=self.dog_image, 
+                            imagen=Config.CAT_IMG,
                             animaciones=self.animaciones_mascotas, 
                         )
         self.emote_entity = EmoteEntity(
@@ -117,6 +116,31 @@ class Game:
         
         self.firu_servicio = MascotaService()
         self.firu_servicio.mascota = self.firu
+
+    def check_status_mascota(self, null):
+        atributos = [
+            self.firu.energia,
+            self.firu.hambre,
+            self.firu.felicidad,
+            self.firu.social,
+            self.firu.limpieza
+        ]
+
+        atributo_bajo = 0
+        atributo_cero = 0
+        for atributo in atributos:
+            if (atributo < 30):
+                atributo_bajo += 1
+            if (atributo == 0):
+                atributo_cero += 1 
+        
+        if (atributo_bajo >= 3 and atributo_cero < 3):
+            self.firu.estado = 'Enfermo'
+        elif (atributo_cero >= 3):
+            self.firu.estado = 'Morido'
+        else:
+            self.firu.estado = 'Sano'
+
         
     def run(self):
         '''
@@ -138,6 +162,8 @@ class Game:
             diferencia_tiempo = datetime.now() - fecha_ultima_actualizacion
 
             self.firu_servicio.actualizar_estado_mascota(self.firu.nombre_mascota, self.firu, self.firu_dict, diferencia_tiempo)
+
+            self.check_status_mascota(self)
 
             self.porcentaje_hambre = BotonEntity(
                 (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
@@ -187,32 +213,51 @@ class Game:
                         run = False
 
                     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                        accion = ''
+                        
                         if self.boton_limpiar.forma.collidepoint(pygame.mouse.get_pos()):
-                            self.firu.limpieza += 25
-                            self.firu_servicio.actualizar(limpieza=self.firu.limpieza, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
-                            self.emote_entity.iniciar_animacion('limpiar')
+                            self.firu.limpiar()
+                            accion = 'limpiar'
 
                         elif self.boton_alimentar.forma.collidepoint(pygame.mouse.get_pos()):
-                            self.firu.hambre -= 25
-                            self.firu.energia += 25
-                            self.firu_servicio.actualizar(hambre=self.firu.hambre, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
-                            self.emote_entity.iniciar_animacion('hambre')
+                            self.firu.alimentar()
+                            accion = 'hambre'
 
                         elif self.boton_dormir.forma.collidepoint(pygame.mouse.get_pos()):
-                            self.firu.energia += 25
-                            self.firu_servicio.actualizar(energia=self.firu.energia, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
-                            self.emote_entity.iniciar_animacion('dormir')
+                            self.firu.dormir()
+                            accion = 'dormir'
 
                         elif self.boton_jugar.forma.collidepoint(pygame.mouse.get_pos()):
-                            self.firu.felicidad += 25
-                            self.firu.hambre += 25
-                            self.firu.energia -= 25
-                            self.firu.limpieza -= 25
-                            self.firu_servicio.actualizar(energia=self.firu.energia, social=self.firu.social, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
-                            self.emote_entity.iniciar_animacion('jugar')
+                            self.firu.jugar()
+                            accion = 'jugar'
                         
                         elif self.boton_salir.forma.collidepoint(pygame.mouse.get_pos()):
                             run = False
+
+                        if(accion):
+                            self.firu_servicio.actualizar(energia=self.firu.energia, felicidad=self.firu.felicidad, hambre=self.firu.hambre, social=self.firu.social, limpieza=self.firu.limpieza, nombre=self.firu.nombre_mascota)
+                            self.emote_entity.iniciar_animacion(accion)
+
+                if (self.firu.estado == 'Sano'):
+                    self.animaciones_mascotas.clear()
+                    if (self.firu.tipo_de_mascota == 'gato'):
+                        self.animaciones_mascotas.append(Config.GATO_IDLE)
+                    else:
+                        self.animaciones_mascotas.append(Config.PERRO_IDLE)
+                if (self.firu.estado == 'Enfermo'):
+                    self.animaciones_mascotas.clear()
+                    if (self.firu.tipo_de_mascota == 'gato'):
+                        self.animaciones_mascotas.append(Config.GATO_SICK)
+                    else:
+                        self.animaciones_mascotas.append(Config.PERRO_SICK)
+                if (self.firu.estado == 'Morido'):
+                    self.animaciones_mascotas.clear()
+                    if (self.firu.tipo_de_mascota == 'gato'):
+                        self.animaciones_mascotas.append(Config.GATO_DEAD)
+                    else:
+                        self.animaciones_mascotas.append(Config.PERRO_DEAD)
+                
+
                 
                 self.window.fill((200, 200, 200))
                 

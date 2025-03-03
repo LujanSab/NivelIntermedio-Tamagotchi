@@ -27,25 +27,19 @@ class Config:
     GATO_SCALE = 2.0
 
     _dog_img = pygame.image.load(f'{ASSETS_UTL}//mascotas//perro//perroidle//perro1.png')
-    DOG_IMAGE = scale_img(_dog_img, PERRO_SCALE)
+    DOG_IMG = scale_img(_dog_img, PERRO_SCALE)
 
     _cat_img = pygame.image.load(f'{ASSETS_UTL}//mascotas//gato//gatoidle//gato1.png')
     CAT_IMG = scale_img(_cat_img, GATO_SCALE)
 
-    MASCOTA_WIDTH = DOG_IMAGE.get_width()
-    MASCOTA_HEIGHT = DOG_IMAGE.get_height()
+    MASCOTA_WIDTH = DOG_IMG.get_width()
+    MASCOTA_HEIGHT = DOG_IMG.get_height()
 
     DORMIR_EMOTE = []
     FELIZ_EMOTE = []
     HAMBRE_EMOTE = []
     LIMPIAR_EMOTE = []
     JUGAR_EMOTE = []
-
-    GATO_IDLE = []
-
-    for i in range(7):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//mascotas//gato//gatoidle//GATO{i+1}.png'), GATO_SCALE)
-            GATO_IDLE.append(new_img)
 
     for i in range(2):
             new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//durmiendo//petenergy{i+1}.png'), 1.8)
@@ -67,12 +61,6 @@ class Config:
             new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//jugar//catsocial{i+1}.png'), 1.8)
             JUGAR_EMOTE.append(new_img)
 
-    PERRO_IDLE = []
-
-    for i in range(7):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//mascotas//perro//perroidle//perro{i+1}.png'), PERRO_SCALE)
-            PERRO_IDLE.append(new_img)
-
     for i in range(2):
             new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//durmiendo//petenergy{i+1}.png'), 1.8)
             DORMIR_EMOTE.append(new_img)
@@ -93,5 +81,38 @@ class Config:
             new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//jugar//dogsocial{i+1}.png'), 1.8)
             JUGAR_EMOTE.append(new_img)
 
+    GATO_IDLE = []
+    GATO_SICK = []
+    GATO_DEAD = []
+ 
+    for i in range(7):
+        new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//mascotas//gato//gatoidle//gato{i+1}.png'), GATO_SCALE)
+        GATO_IDLE.append(new_img)
+
+    for i in range(4):
+        new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//mascotas//gato//gatosick//gatosick{i+1}.png'), GATO_SCALE)
+        GATO_SICK.append(new_img)
+
+    for i in range(5):
+        new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//mascotas//gato//gatodead//gatodead{i+1}.png'), GATO_SCALE)
+        GATO_DEAD.append(new_img)
+
+    PERRO_IDLE = []
+    PERRO_SICK = []
+    PERRO_DEAD = []
+
+    for i in range(7):
+        new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//mascotas//perro//perroidle//perro{i+1}.png'), PERRO_SCALE)
+        PERRO_IDLE.append(new_img)
+
+    for i in range(4):
+        new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//mascotas//perro//perrosick//perrosick{i+1}.png'), PERRO_SCALE)
+        PERRO_SICK.append(new_img)
+
+    for i in range(5):
+        new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//mascotas//perro//perrodead//perrodead{i+1}.png'), PERRO_SCALE)
+        PERRO_DEAD.append(new_img)
+
+    
     BTN_WIDTH = 150
     BTN_HEIGHT = 50

@@ -18,6 +18,7 @@ class Mascota:
         self._social = 50
         self._estado = estado
         self._ultima_actualizacion: str = ''
+        self._block_atributo = False
 
     @property
     def nombre_dueño(self):
@@ -51,13 +52,6 @@ class Mascota:
     def energia(self, valor):
         self._energia = valor
 
-        if self.energia > 50:
-            self.felicidad += 25
-        elif self.energia < 50:
-            self.felicidad -= 25
-        elif self.energia == 100:
-            self.felicidad = 100
-
         if self.energia < 0:
             self._energia = 0
         elif self.energia > 100:
@@ -71,11 +65,6 @@ class Mascota:
     def limpieza(self, valor):
         self._limpieza = valor
 
-        if self.limpieza < 50:
-            self.felicidad -= 25
-        elif self.limpieza > 50:
-            self.felicidad += 25
-
         if self.limpieza < 0:
             self._limpieza = 0
         elif self.limpieza > 100:
@@ -88,11 +77,6 @@ class Mascota:
     @hambre.setter
     def hambre(self, valor):
         self._hambre = valor
-        
-        if self.hambre > 50:
-            self.felicidad -= 25
-        elif self.hambre < 50:
-            self.felicidad += 25
 
         if self.hambre < 0:
             self._hambre = 0
@@ -141,6 +125,51 @@ class Mascota:
     def ultima_actualizacion(self, ultima_actualizacion):
         self._ultima_actualizacion = ultima_actualizacion
 
+    def jugar(self):
+        self.social += 12;
+        if (self.social < 100 ):
+            if self.social >= 50:
+                self.felicidad += 7
+                self.limpieza -= 14
+                self.hambre -= 11
+                self.energia -= 16
+            elif self.social < 50:
+                self.felicidad += 9
+                self.limpieza -= 21
+                self.hambre -= 16
+                self.energia -= 18
+
+    def alimentar(self):
+        self.hambre += 13;
+        if (self.social > 0 ):
+            if self.hambre >= 50:
+                self.felicidad += 2
+                self.limpieza -= 15 
+            elif self.hambre < 50:
+                self.felicidad += 7
+                self.limpieza -= 11
+
+    def limpiar(self):
+        self.limpieza += 14;
+        if (self.limpieza < 100 ):
+            if self.limpieza <= 50:
+                self.felicidad -= 13
+                self.social -= 17
+            elif self.limpieza > 50:
+                self.felicidad -= 8
+                self.social -= 18
+
+    def dormir(self):
+        self.energia += 11;
+        if (self.energia < 100 ):
+            if self.energia >= 50:
+                self.felicidad += 7
+                self.social -= 11
+                self.hambre -= 7
+            elif self.energia < 50:
+                self.felicidad += 12
+                self.social -= 14
+                self.hambre -= 11
 
 class Perro(Mascota):
     '''
