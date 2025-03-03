@@ -276,8 +276,8 @@ class VentanaPrincipal:
             for fila in datos:
                 self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8], fila[9]))
                 self.boton_seleccionar["state"] = "active"
-        except Exception as error:
-            log(error)
+        except Exception as e:
+            log(e)
     
     def seleccionar(self):
         self.valor = self.tree.selection()
