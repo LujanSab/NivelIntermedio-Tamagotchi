@@ -170,7 +170,7 @@ class Game:
             self.porcentaje_social = BotonEntity(
                 (Config.WINDOW_WIDTH/2) - (Config.MASCOTA_WIDTH*2),
                 (Config.BTN_HEIGHT*6) + 70,
-                f"Jugar{self.firu_dict['social']}%",
+                f"Social {self.firu_dict['social']}%",
                 self.window
             )
 
@@ -185,7 +185,7 @@ class Game:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         run = False
-                    
+
                     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                         if self.boton_limpiar.forma.collidepoint(pygame.mouse.get_pos()):
                             self.firu.limpieza += 25
@@ -194,6 +194,7 @@ class Game:
 
                         elif self.boton_alimentar.forma.collidepoint(pygame.mouse.get_pos()):
                             self.firu.hambre -= 25
+                            self.firu.energia += 25
                             self.firu_servicio.actualizar(hambre=self.firu.hambre, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
                             self.emote_entity.iniciar_animacion('hambre')
 
@@ -203,9 +204,12 @@ class Game:
                             self.emote_entity.iniciar_animacion('dormir')
 
                         elif self.boton_jugar.forma.collidepoint(pygame.mouse.get_pos()):
-                            self.firu.felicidad -= 25
+                            self.firu.felicidad += 25
+                            self.firu.hambre += 25
+                            self.firu.energia -= 25
+                            self.firu.limpieza -= 25
                             self.firu_servicio.actualizar(energia=self.firu.energia, social=self.firu.social, felicidad=self.firu.felicidad, nombre=self.firu.nombre_mascota)
-                            self.emote_entity.iniciar_animacion('jugar') #aca deberia bajar la energia y el hambre
+                            self.emote_entity.iniciar_animacion('jugar')
                         
                         elif self.boton_salir.forma.collidepoint(pygame.mouse.get_pos()):
                             run = False
