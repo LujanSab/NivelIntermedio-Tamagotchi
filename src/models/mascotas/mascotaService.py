@@ -61,7 +61,8 @@ class MascotaService:
             self, nombre, 
             duenio, tipo, 
             energia, limpieza, 
-            hambre, felicidad
+            hambre, felicidad, 
+            social
             ):
         if tipo == "perro":
             self._mascota = Perro(nombre, duenio)
@@ -71,6 +72,7 @@ class MascotaService:
         self._mascota._limpieza = limpieza
         self._mascota._hambre = hambre 
         self._mascota._felicidad = felicidad
+        self._mascota._social = social
 
     def actualizar(
         self, 
