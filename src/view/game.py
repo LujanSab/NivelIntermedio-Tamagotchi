@@ -33,38 +33,38 @@ class Game:
         self.window.fill((200,200,200))
 
         # BOTONES
+        self.boton_jugar = BotonEntity(
+            30, 
+            Config.COORDENADA_Y,
+            'JUGAR',
+            self.window
+            )
+        
         self.boton_limpiar = BotonEntity(
-            (Config.WINDOW_WIDTH - Config.BTN_WIDTH) - 30,
-            (Config.WINDOW_HEIGHT - Config.BTN_HEIGHT) - 30,
+            Config.COORDENADA_Y + Config.SEPARACION,
+            Config.COORDENADA_Y,
             'LIMPIAR',
             self.window
         )
 
-        self.boton_alimentar = BotonEntity(
-            x=(Config.WINDOW_WIDTH - Config.BTN_WIDTH) - 30,
-            y=30,
-            texto='ALIMENTAR',
-            ventana=self.window
-            )
-
         self.boton_dormir = BotonEntity(
-            30, 
-            (Config.WINDOW_HEIGHT - Config.BTN_HEIGHT) - 30,
+            Config.COORDENADA_Y + 2*Config.SEPARACION, 
+            Config.COORDENADA_Y,
             'DORMIR',
+            self.window
+            )
+        
+        self.boton_alimentar = BotonEntity(
+            Config.COORDENADA_Y + 3*Config.SEPARACION,
+            Config.COORDENADA_Y,
+            'ALIMENTAR',
             self.window
             )
 
         self.boton_salir = BotonEntity(
             30, 
-            (Config.WINDOW_WIDTH/2),
+            (Config.WINDOW_HEIGHT - Config.BTN_HEIGHT) - 20,
             'SALIR',
-            self.window
-            )
-
-        self.boton_jugar = BotonEntity(
-            70, 
-            30,
-            'JUGAR',
             self.window
             )
         
@@ -265,7 +265,9 @@ class Game:
 
                 if isinstance(self.firu_entity, GatoEntity):
                     self.firu_entity.idle()
-
+                elif isinstance(self.firu_entity, PerroEntity):
+                    self.firu_entity.idle()
+                    
                 self.emote_entity.actualizar_animacion()
 
                 self.boton_limpiar.dibujar((0,0,0))

@@ -1,3 +1,5 @@
+# Aca dentro esta toda la logica para las interfaces graficas con Tkinter PREVIAS a entrar al juego,
+# dentro se evaluan y traen diferentes datos de la base de datos, dandote ademas diferentes funciones como usuario
 from tkinter import Button
 from tkinter import Label
 from tkinter import Entry
@@ -15,9 +17,14 @@ from src.controller.validations import Validacion
 # Ventana de Registro 
 # --------------------------------------------------
 class VentanaRegistro:
+    """
+    El código define una clase `VentanaRegistro` en Python que crea una ventana GUI para registrar
+    información de la mascota e iniciar un juego de mascota virtual.
+    """
     def __init__(self, root):
         self.root = root
         self.root.geometry('190x250')
+        self.root.resizable(False, False)
         self.root.title("")
         self.root.configure(bg="#c689e3")
         self.service = MascotaService()
@@ -72,6 +79,10 @@ class VentanaRegistro:
     # FUNCIONES
     # --------------------------------------------------
     def comenzar_partida(self):
+        '''
+        Crea una mascota en la 
+        base de datos y ejecuta la funcion run para correr el juego
+        '''
         try:
             nombre = self.var_nombre_mascota.get()
             duenio = self.var_nombre_duenio.get()
@@ -92,18 +103,34 @@ class VentanaRegistro:
             self.limpiar()
 
     def obtener_perro(self):
+        """
+        Esta función de Python establece el atributo 
+        "tipo" en perro y desactiva
+        el botón gato.
+        """
         self.tipo = self.boton_perro["text"]
         self.boton_gato["state"] = "disabled"
         
     def obtener_gato(self):
+        """
+        Esta función de Python establece el atributo 
+        "tipo" en gato y desactiva
+        el botón perro.
+        """
         self.tipo = self.boton_gato["text"]
         self.boton_perro["state"] = "disabled"
     
     def buscar_mascota(self):
+        '''
+        Ejecuta la ventana secundaria para administracion de mascotas
+        '''
         self.ventana_principal = VentanaPrincipal(Toplevel())
         self.ventana_principal.root.mainloop()
 
     def limpiar(self):
+        '''
+        Elimina el texto de los campos de nombre de mascota y nombre del dueño
+        '''
         self.var_nombre_mascota.set("")
         self.var_nombre_duenio.set("")
         self.boton_gato["state"] = "active"
@@ -113,11 +140,16 @@ class VentanaRegistro:
 # Ventana Principal 
 # --------------------------------------------------
 class VentanaPrincipal:
+    """
+    El código define una clase `VentanaPrincipal` en Python para administrar un sistema de registro de mascotas
+    con funciones para filtrar, jugar con, ver, seleccionar y eliminar registros de mascotas.
+    """
     def __init__(self, root):
         self.root = root
         self.service = MascotaService()
         self.validacion = Validacion()
-        self.root.geometry('780x450')
+        self.root.geometry('850x450')
+        self.root.resizable(False, False)
         self.root.title("Mascotas")
         self.root.configure(bg="#c689e3")
         self.var_nombre_mascota = StringVar()
@@ -192,7 +224,7 @@ class VentanaPrincipal:
         self.boton_perro.place(x=720, y=130)
 
         self.boton_gato = Button(self.root, text="Gato", command=lambda:self.obtener_gato(), width=6)
-        self.boton_gato.place(x=780, y=130)
+        self.boton_gato.place(x=790, y=130)
         
         self.boton_buscar = Button(self.root, text="Buscar", command=lambda:self.filtrar_mascota(), width=25)
         self.boton_buscar.place(x=660, y=160)
@@ -213,14 +245,28 @@ class VentanaPrincipal:
     # FUNCIONES
     # --------------------------------------------------
     def obtener_perro(self):
+        """
+        Esta función de Python establece el atributo 
+        "tipo" en función del texto de un botón y desactiva
+        el botón gato.
+        """
         self.tipo = self.boton_perro["text"].lower()
         self.boton_gato["state"] = "disabled"
         
     def obtener_gato(self):
+        """
+        Esta función de Python establece el atributo 
+        "tipo" en función del texto de un botón y desactiva
+        el botón perro.
+        """
         self.tipo = self.boton_gato["text"].lower()
         self.boton_perro["state"] = "disabled"
         
     def filtrar_mascota(self):
+        '''
+        Esta funcion se encarga de filtrar la mascota y traer todos los datos
+        que coincidan con el nombre y el dueño que hayas especificado
+        '''
         nombre = self.var_nombre_mascota.get()
         dueño = self.var_nombre_duenio.get()
 
@@ -248,6 +294,10 @@ class VentanaPrincipal:
             log(error)
 
     def jugar(self):
+        '''
+        Dentro de esta funcion, se crea un objeto de mascota previo a jugar, con los datos
+        de la mascota seleccionada y ejecuta el metodo run de game.py
+        '''
         self.valor = self.tree.focus()
         item = self.tree.item(self.valor)
         self.datos_mascota = item['values']
@@ -270,6 +320,10 @@ class VentanaPrincipal:
             log(error)
     
     def consulta(self):
+        '''
+        Metodo que se encarga de limpiar la tabla en la 
+        vista y traer todos los datos de todas las mascotas
+        '''
         self.limpiar_vista()
         try:
             datos = self.service.obtener_todas_las_mascotas()
@@ -280,6 +334,9 @@ class VentanaPrincipal:
             log(e)
     
     def seleccionar(self):
+        '''
+        Metodo que se encarga de seleccionar un elemento de la tabla
+        '''
         self.valor = self.tree.selection()
         item = self.tree.item(self.valor)
         self.datos_mascota = item['values']
@@ -291,6 +348,10 @@ class VentanaPrincipal:
         self.boton_eliminar["state"] = "active"
 
     def eliminar(self):
+        '''
+        Metodo que se encarga de eliminar una mascota seleccionada
+        en la tabla
+        '''
         if askyesno("Atención", f"¿Desea confirmar la eliminación de la mascota: {self.datos_mascota[0]}?"):
             try:
                 mensaje = self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1])
@@ -304,6 +365,9 @@ class VentanaPrincipal:
             showinfo("", "No se han efectuado cambios")
     
     def limpiar_vista(self):
+        '''
+        Metodo que se encarga de limpiar los datos de la tabla de datos
+        '''
         records = self.tree.get_children()
         for element in records:
             self.tree.delete(element)
@@ -317,7 +381,7 @@ class VentanaPrincipal:
     
     def limpiar_vista_eliminar(self):
         """
-        Es para la limpiar la vista después de usar la función eliminar.
+        Método para la limpiar la vista después de usar la función eliminar.
         """
         self.boton_gato["state"] = "active"
         self.boton_perro["state"] = "active"

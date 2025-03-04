@@ -20,11 +20,11 @@ class Config:
     '''
     Dataclass Config construida para almacenar constantes sobre el juego
     '''
-    WINDOW_HEIGHT = 700
-    WINDOW_WIDTH = 1300
+    WINDOW_HEIGHT = 600
+    WINDOW_WIDTH = 1200
 
-    PERRO_SCALE = 2.0
-    GATO_SCALE = 2.0
+    PERRO_SCALE = 1.5
+    GATO_SCALE = 1.5
 
     _dog_img = pygame.image.load(f'{ASSETS_UTL}//mascotas//perro//perroidle//perro1.png')
     DOG_IMG = scale_img(_dog_img, PERRO_SCALE)
@@ -42,43 +42,43 @@ class Config:
     JUGAR_EMOTE = []
 
     for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//durmiendo//petenergy{i+1}.png'), 1.8)
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//durmiendo//petenergy{i+1}.png'), 1.0)
             DORMIR_EMOTE.append(new_img)
 
     for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//felicidad//pethapp{i+1}.png'), 1.8)
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//felicidad//pethapp{i+1}.png'), 1.0)
             FELIZ_EMOTE.append(new_img)
 
     for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//hambre//catfood{i+1}.png'), 1.8)
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//hambre//catfood{i+1}.png'), 1.0)
             HAMBRE_EMOTE.append(new_img)
 
     for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//limpiar//petbath{i+1}.png'), 1.8)
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//limpiar//petbath{i+1}.png'), 1.0)
             LIMPIAR_EMOTE.append(new_img)
     
     for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//jugar//catsocial{i+1}.png'), 1.8)
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//jugar//catsocial{i+1}.png'), 1.0)
             JUGAR_EMOTE.append(new_img)
 
     for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//durmiendo//petenergy{i+1}.png'), 1.8)
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//durmiendo//petenergy{i+1}.png'), 1.0)
             DORMIR_EMOTE.append(new_img)
 
     for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//felicidad//pethapp{i+1}.png'), 1.8)
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//felicidad//pethapp{i+1}.png'), 1.0)
             FELIZ_EMOTE.append(new_img)
 
     for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//hambre//dogfood{i+1}.png'), 1.8)
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//hambre//dogfood{i+1}.png'), 1.0)
             HAMBRE_EMOTE.append(new_img)
 
     for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//limpiar//petbath{i+1}.png'), 1.8)
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//limpiar//petbath{i+1}.png'), 1.0)
             LIMPIAR_EMOTE.append(new_img)
     
     for i in range(2):
-            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//jugar//dogsocial{i+1}.png'), 1.8)
+            new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//emotes//jugar//dogsocial{i+1}.png'), 1.0)
             JUGAR_EMOTE.append(new_img)
 
     GATO_IDLE = []
@@ -113,6 +113,10 @@ class Config:
         new_img = scale_img(pygame.image.load(f'{ASSETS_UTL}//mascotas//perro//perrodead//perrodead{i+1}.png'), PERRO_SCALE)
         PERRO_DEAD.append(new_img)
 
-    
     BTN_WIDTH = 150
     BTN_HEIGHT = 50
+
+    COORDENADA_Y = 30
+    CANTIDAD_BOTONES = 4 #botones limpiar, jugar, dormir y
+    ESPACIO = (WINDOW_WIDTH - BTN_WIDTH) - (2 * COORDENADA_Y) 
+    SEPARACION = ESPACIO // (CANTIDAD_BOTONES - 1) #el -1 es por la cantidad de espacios entre botones, sin contar los margenes
