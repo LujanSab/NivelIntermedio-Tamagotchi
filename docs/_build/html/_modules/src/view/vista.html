@@ -1,0 +1,539 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.view.vista &mdash; documentación de Tamagochi - 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=36c4ab74"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Tamagochi
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../config.html">config module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src.html">src package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Tamagochi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Código de módulo</a></li>
+      <li class="breadcrumb-item active">src.view.vista</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fuente para src.view.vista</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Aca dentro esta toda la logica para las interfaces graficas con Tkinter PREVIAS a entrar al juego,</span>
+<span class="c1"># dentro se evaluan y traen diferentes datos de la base de datos, dandote ademas diferentes funciones como usuario</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">Button</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">Label</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entry</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringVar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">W</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tkinter.ttk</span><span class="w"> </span><span class="kn">import</span> <span class="n">Treeview</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tkinter.messagebox</span><span class="w"> </span><span class="kn">import</span> <span class="n">askyesno</span><span class="p">,</span> <span class="n">showinfo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src.models.mascotas.mascotaService</span><span class="w"> </span><span class="kn">import</span> <span class="n">MascotaService</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src.view.game</span><span class="w"> </span><span class="kn">import</span> <span class="n">Game</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">Toplevel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src.controller.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">log</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src.controller.validations</span><span class="w"> </span><span class="kn">import</span> <span class="n">Validacion</span>
+
+<span class="c1"># --------------------------------------------------</span>
+<span class="c1"># Ventana de Registro </span>
+<span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="VentanaRegistro">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaRegistro">[documentos]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">VentanaRegistro</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    El código define una clase `VentanaRegistro` en Python que crea una ventana GUI para registrar</span>
+<span class="sd">    información de la mascota e iniciar un juego de mascota virtual.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s1">&#39;190x250&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#c689e3&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">service</span> <span class="o">=</span> <span class="n">MascotaService</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validacion</span> <span class="o">=</span> <span class="n">Validacion</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_mascota</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_duenio</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tipo</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="c1"># LABELS </span>
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">titulo_2</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Datos Mascota&quot;</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#790f9b&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">titulo_2</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_nom_mascota</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Nombre&quot;</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#c689e3&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_nom_mascota</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_nom_duenio</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Dueño&quot;</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#c689e3&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_nom_duenio</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_tipo</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Tipo&quot;</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#c689e3&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_tipo</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_existente</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;¿Ya tienes una mascota?&quot;</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#c689e3&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_existente</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">160</span><span class="p">)</span>
+
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="c1"># ENTRYS </span>
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_nom_mascota</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_mascota</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">19</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_nom_mascota</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">65</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_nom_duenio</span><span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_duenio</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">19</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_nom_duenio</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">65</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="c1"># BUTTONS</span>
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_perro</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Perro&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">obtener_perro</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_perro</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">65</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_gato</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Gato&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">obtener_gato</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_gato</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_comenzar</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Comenzar partida&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">comenzar_partida</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_comenzar</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_existente</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Buscar&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">buscar_mascota</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_existente</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># FUNCIONES</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="VentanaRegistro.comenzar_partida">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaRegistro.comenzar_partida">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">comenzar_partida</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Crea una mascota en la </span>
+<span class="sd">        base de datos y ejecuta la funcion run para correr el juego</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">nombre</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_mascota</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">duenio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_duenio</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validacion</span><span class="o">.</span><span class="n">validar_campos_str</span><span class="p">(</span><span class="n">nombre</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">validacion</span><span class="o">.</span><span class="n">validar_campos_str</span><span class="p">(</span><span class="n">duenio</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">crear_mascota</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">duenio</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tipo</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">mascota</span><span class="p">:</span>
+                    <span class="n">game</span> <span class="o">=</span> <span class="n">Game</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">mascota</span><span class="p">)</span>
+                    <span class="n">game</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;No se creó su mascota virtual. Intente de nuevo.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Los datos ingresados contienen carácteres inválidos. Intente de nuevo.&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">limpiar</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Los campos no deben estar en blanco.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">limpiar</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="VentanaRegistro.obtener_perro">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaRegistro.obtener_perro">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">obtener_perro</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función de Python establece el atributo </span>
+<span class="sd">        &quot;tipo&quot; en perro y desactiva</span>
+<span class="sd">        otro botón.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tipo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">boton_perro</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_gato</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span></div>
+
+        
+<div class="viewcode-block" id="VentanaRegistro.obtener_gato">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaRegistro.obtener_gato">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">obtener_gato</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función de Python establece el atributo </span>
+<span class="sd">        &quot;tipo&quot; en gato y desactiva</span>
+<span class="sd">        otro botón.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tipo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">boton_gato</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_perro</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span></div>
+
+    
+<div class="viewcode-block" id="VentanaRegistro.buscar_mascota">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaRegistro.buscar_mascota">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">buscar_mascota</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Ejecuta la ventana secundaria para administracion de mascotas</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ventana_principal</span> <span class="o">=</span> <span class="n">VentanaPrincipal</span><span class="p">(</span><span class="n">Toplevel</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ventana_principal</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="VentanaRegistro.limpiar">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaRegistro.limpiar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">limpiar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Elimina el texto de los campos de nombre de mascota y nombre del dueño</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_mascota</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_duenio</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_gato</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_perro</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span></div>
+</div>
+
+
+<span class="c1"># --------------------------------------------------</span>
+<span class="c1"># Ventana Principal </span>
+<span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="VentanaPrincipal">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaPrincipal">[documentos]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">VentanaPrincipal</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    El código define una clase `VentanaPrincipal` en Python para administrar un sistema de registro de mascotas</span>
+<span class="sd">    con funciones para filtrar, jugar con, ver, seleccionar y eliminar registros de mascotas.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">service</span> <span class="o">=</span> <span class="n">MascotaService</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validacion</span> <span class="o">=</span> <span class="n">Validacion</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s1">&#39;780x450&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Mascotas&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#c689e3&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_mascota</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_duenio</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tipo</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valor</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="c1"># LABELS </span>
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">titulo_1</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Registro Mascotas&quot;</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#c689e3&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">titulo_1</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">titulo_1</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;bold&quot;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">titulo_2</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Datos Mascota&quot;</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#790f9b&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">titulo_2</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">590</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_nom_mascota</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Nombre&quot;</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#c689e3&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_nom_mascota</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">590</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_nom_duenio</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Dueño&quot;</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#c689e3&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_nom_duenio</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">590</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_tipo</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Tipo&quot;</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#c689e3&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lab_tipo</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">590</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">130</span><span class="p">)</span>
+
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="c1"># ENTRYS </span>
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_nom_mascota</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_mascota</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">19</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_nom_mascota</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">650</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_nom_duenio</span><span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_duenio</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">19</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_nom_duenio</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">650</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="c1"># TREEVIEW </span>
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="n">Treeview</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+
+        <span class="c1"># --- COLUMNS</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">[</span><span class="s2">&quot;columns&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Nombre&quot;</span><span class="p">,</span> <span class="s2">&quot;Dueño&quot;</span><span class="p">,</span> <span class="s2">&quot;Tipo&quot;</span><span class="p">,</span> <span class="s2">&quot;Energia&quot;</span><span class="p">,</span> <span class="s2">&quot;Limpieza&quot;</span><span class="p">,</span> <span class="s2">&quot;Hambre&quot;</span><span class="p">,</span> <span class="s2">&quot;Felicidad&quot;</span><span class="p">,</span> <span class="s2">&quot;Estado&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">&quot;#0&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">minwidth</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">&quot;Nombre&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">minwidth</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">&quot;Dueño&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">minwidth</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">&quot;Tipo&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">minwidth</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">&quot;Energia&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">minwidth</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">&quot;Limpieza&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">minwidth</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">&quot;Hambre&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">minwidth</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">&quot;Felicidad&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">minwidth</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">&quot;Estado&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">minwidth</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+
+        <span class="c1"># --- HEADERS</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;#0&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Nombre&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Nombre&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Dueño&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Dueño&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Tipo&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Tipo&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Energia&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Energia&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Limpieza&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Limpieza&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Hambre&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hambre&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Felicidad&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Felicidad&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Estado&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Estado&quot;</span><span class="p">)</span>
+
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="c1"># BUTTONS</span>
+        <span class="c1"># --------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_perro</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Perro&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">obtener_perro</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_perro</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">650</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">130</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_gato</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Gato&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">obtener_gato</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_gato</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">720</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">130</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_buscar</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Buscar&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">filtrar_mascota</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_buscar</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">590</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">160</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_jugar</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Jugar&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">jugar</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_jugar</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">590</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">195</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_consulta</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Ver todas las mascotas&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">consulta</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_consulta</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">590</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_seleccionar</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Seleccionar&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">seleccionar</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_seleccionar</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">590</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">290</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_eliminar</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Eliminar&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">eliminar</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_eliminar</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">590</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">330</span><span class="p">)</span>
+    
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># FUNCIONES</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="VentanaPrincipal.obtener_perro">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaPrincipal.obtener_perro">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">obtener_perro</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función de Python establece el atributo </span>
+<span class="sd">        &quot;tipo&quot; en función del texto de un botón y desactiva</span>
+<span class="sd">        otro botón.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tipo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">boton_perro</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_gato</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span></div>
+
+        
+<div class="viewcode-block" id="VentanaPrincipal.obtener_gato">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaPrincipal.obtener_gato">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">obtener_gato</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función de Python establece el atributo </span>
+<span class="sd">        &quot;tipo&quot; en función del texto de un botón y desactiva</span>
+<span class="sd">        otro botón.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tipo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">boton_gato</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_perro</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span></div>
+
+        
+<div class="viewcode-block" id="VentanaPrincipal.filtrar_mascota">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaPrincipal.filtrar_mascota">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filtrar_mascota</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Esta funcion se encarga de filtrar la mascota y traer todos los datos</span>
+<span class="sd">        que coincidan con el nombre y el dueño que hayas especificado</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">nombre</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_mascota</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">dueño</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_duenio</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+          <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validacion</span><span class="o">.</span><span class="n">validar_campos_str</span><span class="p">(</span><span class="n">nombre</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">validacion</span><span class="o">.</span><span class="n">validar_campos_str</span><span class="p">(</span><span class="n">dueño</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">obtener_datos_mascota</span><span class="p">(</span><span class="n">nombre</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> 
+                                <span class="n">text</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> 
+                                <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;nombre_mascota&quot;</span><span class="p">],</span> 
+                                        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;nombre_dueño&quot;</span><span class="p">],</span> 
+                                        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;tipo&quot;</span><span class="p">],</span> 
+                                        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;energia&quot;</span><span class="p">],</span>
+                                        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;limpieza&quot;</span><span class="p">],</span>  
+                                        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;hambre&quot;</span><span class="p">],</span> 
+                                        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;felicidad&quot;</span><span class="p">],</span>
+                                        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;estado&quot;</span><span class="p">]))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">boton_jugar</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;No existe la mascota llamada:</span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s2">. Intente con otro nombre.&quot;</span><span class="p">)</span>
+          <span class="k">else</span><span class="p">:</span>
+            <span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Los datos ingresados contienen carácteres inválidos. Intente de nuevo.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VentanaPrincipal.jugar">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaPrincipal.jugar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">jugar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Dentro de esta funcion, se crea un objeto de mascota previo a jugar, con los datos</span>
+<span class="sd">        de la mascota seleccionada y ejecuta el metodo run de game.py</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valor</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">crear_objeto_mascota</span><span class="p">(</span><span class="n">nombre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> 
+                                            <span class="n">duenio</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+                                            <span class="n">tipo</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                                            <span class="n">energia</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                                            <span class="n">limpieza</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+                                            <span class="n">hambre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+                                            <span class="n">felicidad</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+                                            <span class="n">estado</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">mascota</span><span class="p">:</span>
+                <span class="n">game</span> <span class="o">=</span> <span class="n">Game</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">mascota</span><span class="p">)</span>
+                <span class="n">game</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">limpiar_vista</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;No se creó su mascota virtual. Intente de nuevo.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="VentanaPrincipal.consulta">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaPrincipal.consulta">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">consulta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Metodo que se encarga de limpiar la tabla en la </span>
+<span class="sd">        vista y traer todos los datos de todas las mascotas</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">limpiar_vista</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">datos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">obtener_todas_las_mascotas</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">datos</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">fila</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="n">fila</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fila</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">fila</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">fila</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">fila</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">fila</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">fila</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>  <span class="n">fila</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">boton_seleccionar</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="VentanaPrincipal.seleccionar">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaPrincipal.seleccionar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">seleccionar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Metodo que se encarga de seleccionar un elemento de la tabla</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">selection</span><span class="p">()</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valor</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_mascota</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_duenio</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_gato</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_perro</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_jugar</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_eliminar</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span></div>
+
+
+<div class="viewcode-block" id="VentanaPrincipal.eliminar">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaPrincipal.eliminar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eliminar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Metodo que se encarga de eliminar una mascota seleccionada</span>
+<span class="sd">        en la tabla</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">askyesno</span><span class="p">(</span><span class="s2">&quot;Atención&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;¿Desea confirmar la eliminación de la mascota: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">?&quot;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">eliminar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">datos_mascota</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valor</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">valor</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Se ha eliminado la mascota correctamente. &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">limpiar_vista_eliminar</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                <span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;No se han efectuado cambios&quot;</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="VentanaPrincipal.limpiar_vista">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaPrincipal.limpiar_vista">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">limpiar_vista</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Metodo que se encarga de limpiar los datos de la tabla de datos</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_children</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_duenio</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_mascota</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_gato</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_perro</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_eliminar</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_jugar</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_seleccionar</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span></div>
+
+    
+<div class="viewcode-block" id="VentanaPrincipal.limpiar_vista_eliminar">
+<a class="viewcode-back" href="../../../src.view.html#src.view.vista.VentanaPrincipal.limpiar_vista_eliminar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">limpiar_vista_eliminar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Es para la limpiar la vista después de usar la función eliminar.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_gato</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_perro</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_eliminar</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_jugar</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_duenio</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_nombre_mascota</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+</div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Lujan, Laura, Emilio.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
