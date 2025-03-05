@@ -14,9 +14,18 @@ class BotonEntity:
     """
     def __init__(self, x, y, texto, ventana):
         self.ventana = ventana
-        self.forma = pygame.Rect(x, y, Config.BTN_WIDTH, Config.BTN_HEIGHT)
+        self.forma = pygame.Rect(
+            x, 
+            y, 
+            Config.BTN_WIDTH, 
+            Config.BTN_HEIGHT
+        )
         self.texto_fuente = pygame.font.Font(None, 30)
-        self.texto = self.texto_fuente.render(texto, True, (255,255,255))
+        self.texto = self.texto_fuente.render(
+            texto, 
+            True, 
+            (255,255,255)
+        )
     
     def dibujar(self, color: tuple):
         pygame.draw.rect(self.ventana, color, self.forma)
