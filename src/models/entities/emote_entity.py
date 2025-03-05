@@ -14,7 +14,11 @@ class EmoteEntity:
     """
     def __init__(self, animaciones, window):
         self.window = window
-        self.forma = pygame.Rect((Config.WINDOW_WIDTH/2)-(Config.MASCOTA_WIDTH/2), (Config.WINDOW_HEIGHT/2) - (Config.MASCOTA_HEIGHT/2), 29, 30)
+        self.forma = pygame.Rect(
+            (Config.WINDOW_WIDTH/2),
+            (Config.WINDOW_HEIGHT/2) - (Config.MASCOTA_HEIGHT-20), 
+            29, 
+            30)
         self.imagen: pygame.Surface = None
         self.animaciones = animaciones
         self.animation_index = 0
@@ -55,6 +59,8 @@ class EmoteEntity:
             animacion = self.animaciones[2]
         elif self.tipo_animacion == "limpiar":
             animacion = self.animaciones[3]
+        elif self.tipo_animacion == "jugar":
+            animacion = self.animaciones[4]
         else:
             return
         

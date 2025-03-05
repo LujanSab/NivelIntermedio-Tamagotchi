@@ -33,8 +33,13 @@ class MascotaEntity:
         - setters: encargados de enviar informacion a la clase Mascota para almacenarla en la base de datos
     """
     def __init__(self, x, y, imagen, animaciones):
-        self.forma = pygame.Rect(0, 0, Config.MASCOTA_WIDTH, Config.MASCOTA_HEIGHT)
-        self.forma.center = (x,y)
+        self.forma = pygame.Rect(
+            0, 
+            0, 
+            Config.MASCOTA_WIDTH, 
+            Config.MASCOTA_HEIGHT
+        )
+        self.forma.center = (x, y)
         self.imagen = imagen
         self.animaciones = animaciones
         self.actualizar_tiempo = pygame.time.get_ticks()
@@ -57,6 +62,7 @@ class MascotaEntity:
         window.blit(self.imagen, self.forma)
         # pygame.draw.rect(window, (255,255,255), self.forma, width=1)
     
+
     def idle(self):
         cooldown_animation = 80
 
@@ -68,22 +74,8 @@ class MascotaEntity:
         if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
             self.idle_frame_index += 1
             self.actualizar_tiempo = pygame.time.get_ticks()
-
-    def limpiar(self):
-        '''
-        logica de animacion de limpieza
-        '''
-        cooldown_animation = 50
-
-        if self.comer_frame_index >= len(self.animaciones[2]):
-            self.comer_frame_index = 0
-        
-        self.imagen = self.animaciones[1][self.comer_frame_index]
-        
-        if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
-            self.comer_frame_index += 1
-            self.actualizar_tiempo = pygame.time.get_ticks()
     
+
     def comer(self):
         '''
         logica de animacion de comer
@@ -99,16 +91,49 @@ class MascotaEntity:
             self.comer_frame_index += 1
             self.actualizar_tiempo = pygame.time.get_ticks()
     
-    def dormir(self):
+
+    def limpiar(self):
         '''
-        logica de animacion de dormir
+        logica de animacion de limpieza
         '''
         cooldown_animation = 50
 
         if self.comer_frame_index >= len(self.animaciones[2]):
             self.comer_frame_index = 0
         
+        self.imagen = self.animaciones[2][self.comer_frame_index]
+        
+        if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
+            self.comer_frame_index += 1
+            self.actualizar_tiempo = pygame.time.get_ticks()
+    
+
+    def dormir(self):
+        '''
+        logica de animacion de dormir
+        '''
+        cooldown_animation = 50
+
+        if self.comer_frame_index >= len(self.animaciones[3]):
+            self.comer_frame_index = 0
+        
         self.imagen = self.animaciones[3][self.comer_frame_index]
+        
+        if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
+            self.comer_frame_index += 1
+            self.actualizar_tiempo = pygame.time.get_ticks()
+    
+
+    def jugar(self):
+        '''
+        logica de animacion de dormir
+        '''
+        cooldown_animation = 50
+
+        if self.comer_frame_index >= len(self.animaciones[4]):
+            self.comer_frame_index = 0
+        
+        self.imagen = self.animaciones[4][self.comer_frame_index]
         
         if pygame.time.get_ticks() - self.actualizar_tiempo >= cooldown_animation:
             self.comer_frame_index += 1
