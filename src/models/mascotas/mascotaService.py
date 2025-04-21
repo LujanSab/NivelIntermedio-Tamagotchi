@@ -23,6 +23,7 @@ class MascotaService:
     def __init__(self, mascota: Mascota=None):
         self._mascota = mascota
 
+    @log
     def crear_mascota(self, nombre, duenio, tipo):
         try:
             if tipo == "Perro":
@@ -32,7 +33,6 @@ class MascotaService:
                 self._mascota = Gato(nombre, duenio)
                 self.crear()
         except Exception as e:
-            log(e)
             print(e)
 
     def crear(self):

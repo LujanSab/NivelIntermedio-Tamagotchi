@@ -1,6 +1,7 @@
 import logging
 import os
 from config import BASE_DIR
+from functools import wraps
 
 log_directory = os.path.join(BASE_DIR, 'logs')
 
@@ -24,4 +25,12 @@ def log(event):
         desea registrar mediante el método `logging.info`. Esta función es útil para registrar información durante
         la ejecución de un programa
     """
-    logging.info(event)
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            logging.info(f"{event} - Ejecutando función: {func.__name__}")
+            resultado = func(*args, **kwargs)
+            logging.info(f"{event} - Finalizó función: {func.__name__}")
+            return resultado
+        return wrapper
+    return decorator

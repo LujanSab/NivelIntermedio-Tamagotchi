@@ -78,6 +78,7 @@ class VentanaRegistro:
     # --------------------------------------------------
     # FUNCIONES
     # --------------------------------------------------
+    @log
     def comenzar_partida(self):
         '''
         Crea una mascota en la 
@@ -97,7 +98,6 @@ class VentanaRegistro:
                 showinfo("", "Los datos ingresados contienen carácteres inválidos. Intente de nuevo.")
                 self.limpiar()
         except Exception as error:
-            log(error)
             print(error)
             showinfo("", "Los campos no deben estar en blanco.")
             self.limpiar()
@@ -262,6 +262,7 @@ class VentanaPrincipal:
         self.tipo = self.boton_gato["text"].lower()
         self.boton_perro["state"] = "disabled"
         
+    @log
     def filtrar_mascota(self):
         '''
         Esta funcion se encarga de filtrar la mascota y traer todos los datos
@@ -270,8 +271,7 @@ class VentanaPrincipal:
         nombre = self.var_nombre_mascota.get()
         dueño = self.var_nombre_duenio.get()
 
-        try:
-          if self.validacion.validar_campos_str(nombre) and self.validacion.validar_campos_str(dueño):
+        if self.validacion.validar_campos_str(nombre) and self.validacion.validar_campos_str(dueño):
             data = self.service.obtener_datos_mascota(nombre)
             if data:
                 self.tree.insert("", 0, 
@@ -288,11 +288,10 @@ class VentanaPrincipal:
                 self.boton_jugar["state"] = "active"
             else:
                 showinfo("", f"No existe la mascota llamada:{nombre}. Intente con otro nombre.")
-          else:
+        else:
             showinfo("", "Los datos ingresados contienen carácteres inválidos. Intente de nuevo.")
-        except Exception as error:
-            log(error)
-
+        
+    @log
     def jugar(self):
         '''
         Dentro de esta funcion, se crea un objeto de mascota previo a jugar, con los datos
@@ -301,38 +300,33 @@ class VentanaPrincipal:
         self.valor = self.tree.focus()
         item = self.tree.item(self.valor)
         self.datos_mascota = item['values']
-        try:
-            self.service.crear_objeto_mascota(nombre=self.datos_mascota[0], 
-                                            duenio=self.datos_mascota[1], 
-                                            tipo=self.datos_mascota[2],
-                                            energia=self.datos_mascota[3],
-                                            limpieza=self.datos_mascota[4],
-                                            hambre=self.datos_mascota[5],
-                                            felicidad=self.datos_mascota[6],
-                                            social=self.datos_mascota[7])
-            if self.service.mascota:
-                game = Game(self.service.mascota)
-                game.run()
-                self.limpiar_vista()
-            else:
-                showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
-        except Exception as error:
-            log(error)
-    
+        self.service.crear_objeto_mascota(nombre=self.datos_mascota[0], 
+                                        duenio=self.datos_mascota[1], 
+                                        tipo=self.datos_mascota[2],
+                                        energia=self.datos_mascota[3],
+                                        limpieza=self.datos_mascota[4],
+                                        hambre=self.datos_mascota[5],
+                                        felicidad=self.datos_mascota[6],
+                                        social=self.datos_mascota[7])
+        if self.service.mascota:
+            game = Game(self.service.mascota)
+            game.run()
+            self.limpiar_vista()
+        else:
+            showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
+
+    @log
     def consulta(self):
         '''
         Metodo que se encarga de limpiar la tabla en la 
         vista y traer todos los datos de todas las mascotas
         '''
         self.limpiar_vista()
-        try:
-            datos = self.service.obtener_todas_las_mascotas()
-            for fila in datos:
-                self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8], fila[9]))
-                self.boton_seleccionar["state"] = "active"
-        except Exception as e:
-            log(e)
-    
+        datos = self.service.obtener_todas_las_mascotas()
+        for fila in datos:
+            self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8], fila[9]))
+            self.boton_seleccionar["state"] = "active"
+
     def seleccionar(self):
         '''
         Metodo que se encarga de seleccionar un elemento de la tabla
@@ -347,20 +341,18 @@ class VentanaPrincipal:
         self.boton_jugar["state"] = "active"
         self.boton_eliminar["state"] = "active"
 
+    @log
     def eliminar(self):
         '''
         Metodo que se encarga de eliminar una mascota seleccionada
         en la tabla
         '''
         if askyesno("Atención", f"¿Desea confirmar la eliminación de la mascota: {self.datos_mascota[0]}?"):
-            try:
-                mensaje = self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1])
-                self.tree.delete(self.valor)
-                self.valor = 0
-                showinfo("", mensaje)
-                self.limpiar_vista_eliminar()
-            except Exception as error:
-                log(error)
+            mensaje = self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1])
+            self.tree.delete(self.valor)
+            self.valor = 0
+            showinfo("", mensaje)
+            self.limpiar_vista_eliminar()
         else:
             showinfo("", "No se han efectuado cambios")
     
