@@ -92,15 +92,19 @@ class VentanaRegistro:
                 if self.service.mascota:
                     game = Game(self.service.mascota)
                     game.run()
+                    return "Comenzó la partida."
                 else:
                     showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
+                    return "No se creó su mascota virtual."
             else:
                 showinfo("", "Los datos ingresados contienen carácteres inválidos. Intente de nuevo.")
                 self.limpiar()
+                return "Los datos ingresados contienen carácteres inválidos."
         except Exception as error:
-            print("LINEA 101", error)
-            showinfo("", "Los campos no deben estar en blanco.")
+            print(error)
             self.limpiar()
+            showinfo("", "Los campos no deben estar en blanco.")
+            return "Los campos no deben estar en blanco."
 
     def obtener_perro(self):
         """
@@ -316,7 +320,7 @@ class VentanaPrincipal:
             else:
                 showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
         except Exception as error:
-            print("LINEA 319", error)
+            print(error)
 
     @log
     def consulta(self):

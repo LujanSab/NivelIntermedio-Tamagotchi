@@ -30,6 +30,7 @@ def log(func):
     def wrapper(*args, **kwargs):
         logging.info(f"Ejecutando función: {func.__name__}")
         resultado = func(*args, **kwargs)
+        logging.info(f"Evento: {resultado}")
         logging.info(f"Finalizó función: {func.__name__}")
         return resultado
     return wrapper
