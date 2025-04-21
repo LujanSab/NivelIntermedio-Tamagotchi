@@ -34,7 +34,7 @@ class MascotaService:
                 self.crear()
         except Exception as e:
             print(e)
-
+    @log
     def crear(self):
         try:
             zona_horaria_argentina = pytz.timezone('America/Argentina/Buenos_Aires')
@@ -55,7 +55,7 @@ class MascotaService:
 
             mascota.save()
         except (Exception, IntegrityError) as e:
-            log(e)
+            print(e)
 
     def crear_objeto_mascota(
             self, nombre, 
@@ -73,7 +73,7 @@ class MascotaService:
         self._mascota._hambre = hambre 
         self._mascota._felicidad = felicidad
         self._mascota._social = social
-
+    @log
     def actualizar(
         self, 
         nombre: str,
@@ -114,9 +114,9 @@ class MascotaService:
                 log('No hay datos para actualizar')
 
         except Exception as e:
-            log(e)
+            print(e)
     
-
+    @log
     def eliminar(self, nombre: str, dueño: str):
         if not nombre and not dueño:
             log("Los campos no deben estar en blanco. Intente nuevamente. ")
@@ -124,9 +124,9 @@ class MascotaService:
             try:
                 Mascotas.delete().where(Mascotas.nombre == nombre).execute()
             except Exception as e:
-                log(e)
+                print(e)
 
-
+    @log
     def obtener_datos_mascota(self, nombre):
         try:
             datos_mascota = Mascotas.get(Mascotas.nombre == nombre)
@@ -147,7 +147,7 @@ class MascotaService:
                 return data
             return None
         except (Exception, DoesNotExist) as error:
-            log(error)
+            print(error)
         
     def obtener_todas_las_mascotas(self):
         query = Mascotas.select()
@@ -164,6 +164,7 @@ class MascotaService:
         else:
             log('No se encontro ninguna mascota')
 
+    @log
     def actualizar_estado_mascota(self, nombre_mascota, obj_mascota, dict_mascota, diferencia_tiempo):
             PRIMER_CAMBIO_SEGUNDOS = 15 #cambios cada 15 segundos
             DIA_LIMITE = 5 #dia de moricion 
@@ -217,7 +218,7 @@ class MascotaService:
                     obj_mascota.social -= (CAMBIO_VALORES_SEGUNDOS["social"]*intervalo_segundos)
 
             except Exception as error:
-                log(error)
+                print(error)
 
     @property
     def mascota(self):
