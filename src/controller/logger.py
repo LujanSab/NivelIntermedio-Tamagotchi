@@ -16,7 +16,7 @@ logging.basicConfig(
     format="%(asctime)s - %(message)s",
 )
 
-def log(event):
+def log(func):
     """
     La función `log` registra un evento mediante el módulo `logging` en Python.
 
@@ -25,12 +25,14 @@ def log(event):
         desea registrar mediante el método `logging.info`. Esta función es útil para registrar información durante
         la ejecución de un programa
     """
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            logging.info(f"{event} - Ejecutando función: {func.__name__}")
-            resultado = func(*args, **kwargs)
-            logging.info(f"{event} - Finalizó función: {func.__name__}")
-            return resultado
-        return wrapper
-    return decorator
+    
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        event = func(*args, **kwargs)
+        
+        logging.info(f"{event} - Ejecutando función: {func.__name__}")
+        resultado = func(*args, **kwargs)
+        logging.info(f"{event} - Finalizó función: {func.__name__}")
+        return resultado
+        
+    return wrapper
