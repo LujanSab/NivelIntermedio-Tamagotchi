@@ -34,7 +34,7 @@ class Mascota:
     
     @nombre_mascota.setter
     def nombre_mascota(self, nombre_mascota):
-        self.nombre = nombre_mascota
+        self._nombre = nombre_mascota
     
     @property
     def tipo_de_mascota(self):

@@ -98,7 +98,7 @@ class VentanaRegistro:
                 showinfo("", "Los datos ingresados contienen carácteres inválidos. Intente de nuevo.")
                 self.limpiar()
         except Exception as error:
-            print(error)
+            print("LINEA 101", error)
             showinfo("", "Los campos no deben estar en blanco.")
             self.limpiar()
 
@@ -297,23 +297,26 @@ class VentanaPrincipal:
         Dentro de esta funcion, se crea un objeto de mascota previo a jugar, con los datos
         de la mascota seleccionada y ejecuta el metodo run de game.py
         '''
-        self.valor = self.tree.focus()
-        item = self.tree.item(self.valor)
-        self.datos_mascota = item['values']
-        self.service.crear_objeto_mascota(nombre=self.datos_mascota[0], 
-                                        duenio=self.datos_mascota[1], 
-                                        tipo=self.datos_mascota[2],
-                                        energia=self.datos_mascota[3],
-                                        limpieza=self.datos_mascota[4],
-                                        hambre=self.datos_mascota[5],
-                                        felicidad=self.datos_mascota[6],
-                                        social=self.datos_mascota[7])
-        if self.service.mascota:
-            game = Game(self.service.mascota)
-            game.run()
-            self.limpiar_vista()
-        else:
-            showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
+        try:
+            self.valor = self.tree.focus()
+            item = self.tree.item(self.valor)
+            self.datos_mascota = item['values']
+            self.service.crear_objeto_mascota(nombre=self.datos_mascota[0], 
+                                            duenio=self.datos_mascota[1], 
+                                            tipo=self.datos_mascota[2],
+                                            energia=self.datos_mascota[3],
+                                            limpieza=self.datos_mascota[4],
+                                            hambre=self.datos_mascota[5],
+                                            felicidad=self.datos_mascota[6],
+                                            social=self.datos_mascota[7])
+            if self.service.mascota:
+                game = Game(self.service.mascota)
+                game.run()
+                self.limpiar_vista()
+            else:
+                showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
+        except Exception as error:
+            print("LINEA 319", error)
 
     @log
     def consulta(self):

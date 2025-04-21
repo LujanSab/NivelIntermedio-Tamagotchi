@@ -73,6 +73,7 @@ class MascotaService:
         self._mascota._hambre = hambre 
         self._mascota._felicidad = felicidad
         self._mascota._social = social
+    
     @log
     def actualizar(
         self, 
@@ -149,6 +150,7 @@ class MascotaService:
         except (Exception, DoesNotExist) as error:
             print(error)
         
+    @log    
     def obtener_todas_las_mascotas(self):
         query = Mascotas.select()
         
@@ -162,7 +164,7 @@ class MascotaService:
         if mascotas:
             return mascotas
         else:
-            log('No se encontro ninguna mascota')
+            print('No se encontro ninguna mascota')
 
     @log
     def actualizar_estado_mascota(self, nombre_mascota, obj_mascota, dict_mascota, diferencia_tiempo):

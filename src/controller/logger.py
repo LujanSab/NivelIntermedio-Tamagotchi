@@ -28,11 +28,8 @@ def log(func):
     
     @wraps(func)
     def wrapper(*args, **kwargs):
-        event = func(*args, **kwargs)
-        
-        logging.info(f"{event} - Ejecutando función: {func.__name__}")
+        logging.info(f"Ejecutando función: {func.__name__}")
         resultado = func(*args, **kwargs)
-        logging.info(f"{event} - Finalizó función: {func.__name__}")
+        logging.info(f"Finalizó función: {func.__name__}")
         return resultado
-        
     return wrapper
