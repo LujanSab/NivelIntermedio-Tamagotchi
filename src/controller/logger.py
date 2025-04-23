@@ -20,12 +20,14 @@ def log(func):
     """
     La función `log` registra un evento mediante el módulo `logging` en Python.
 
-    parametros: 
-        - event: La función `log` toma un parámetro `event`, que es un mensaje o evento que
+    Parámetros: 
+        - func: La función `log` toma un parámetro `func`, que es una función que
         desea registrar mediante el método `logging.info`. Esta función es útil para registrar información durante
-        la ejecución de un programa
-    """
+        la ejecución de un programa.
     
+    Funcionamiento:
+        resultado = func(*args, **kwargs) ejecuta la función original con todos sus argumentos posicionales y con nombre.
+    """
     @wraps(func)
     def wrapper(*args, **kwargs):
         logging.info(f"Ejecutando función: {func.__name__}")
