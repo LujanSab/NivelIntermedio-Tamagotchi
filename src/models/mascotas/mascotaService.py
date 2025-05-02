@@ -1,12 +1,13 @@
 from src.models.mascotas.mascotas import Mascota, Perro, Gato
 from src.controller.logger import log
 from src.models.models import Mascotas
+from src.controller.observador import Sujeto
 from peewee import IntegrityError, DoesNotExist
 from datetime import datetime, timedelta
 import pytz
 
 
-class MascotaService:
+class MascotaService(Sujeto):
     """
     La clase `MascotaService` en Python proporciona métodos para crear, actualizar, eliminar y
     recuperar información sobre mascotas, así como para administrar sus estados y propiedades.
@@ -56,6 +57,7 @@ class MascotaService:
                 ultima_actualizacion = now
             )
             mascota.save()
+            self.notificar("Guardar mascota", self._mascota)
             return f"Se registró la mascota {self._mascota.nombre_mascota}."
         except (Exception, IntegrityError) as error:
             return error
@@ -115,6 +117,7 @@ class MascotaService:
                         .update(**actualizar)
                         .where(Mascotas.nombre == nombre)
                         .execute())
+                self.notificar("Se actualizó a:", nombre, actualizar)
                 return query > 0
             else:
                 return "No hay datos para actualizar. "
@@ -129,6 +132,7 @@ class MascotaService:
         else:
             try:
                 Mascotas.delete().where(Mascotas.nombre == nombre).execute()
+                self.notificar("Se eliminó a: ", nombre)
             except Exception as error:
                 return error
 

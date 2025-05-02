@@ -105,6 +105,7 @@ class VentanaRegistro:
             showinfo("", "Los campos no deben estar en blanco.")
             return error, "Los campos no deben estar en blanco."
         finally:
+            self.limpiar()
             return "Terminó la partida."
 
     def obtener_perro(self):
@@ -289,7 +290,7 @@ class VentanaPrincipal:
                                         data["hambre"], 
                                         data["felicidad"],
                                         data["social"],
-                                        data["ultima_vez_actualizado"]))
+                                        data["ultima_actualizacion"]))
                 self.boton_jugar["state"] = "active"
                 return f"Se filtró a: Mascota: {nombre}. Dueño: {dueño}"
             else:
