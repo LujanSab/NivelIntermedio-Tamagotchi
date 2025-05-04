@@ -12,6 +12,7 @@ from src.view.game import Game
 from tkinter import Toplevel
 from src.controller.logger import log
 from src.controller.validations import Validacion
+from src.view.control_server import ControlServer
 
 # --------------------------------------------------
 # Ventana de Registro 
@@ -32,7 +33,8 @@ class VentanaRegistro:
         self.var_nombre_mascota = StringVar()
         self.var_nombre_duenio = StringVar()
         self.tipo = None
-
+        self.server = ControlServer()
+        self.server.try_connection()
         # --------------------------------------------------
         # LABELS 
         # --------------------------------------------------
@@ -106,6 +108,7 @@ class VentanaRegistro:
             return error, "Los campos no deben estar en blanco."
         finally:
             self.limpiar()
+            self.server.stop_server()
             return "Terminó la partida."
 
     def obtener_perro(self):
@@ -141,6 +144,8 @@ class VentanaRegistro:
         self.var_nombre_duenio.set("")
         self.boton_gato["state"] = "active"
         self.boton_perro["state"] = "active"
+
+
 
 # --------------------------------------------------
 # Ventana Principal 
@@ -402,3 +407,6 @@ class VentanaPrincipal:
         self.var_nombre_duenio.set("")
         self.var_nombre_mascota.set("")
 
+    
+
+ 

@@ -57,7 +57,7 @@ class MascotaService(Sujeto):
                 ultima_actualizacion = now
             )
             mascota.save()
-            self.notificar("Guardar mascota", self._mascota)
+            self.notificar("Guardar mascota", self._mascota.nombre_mascota)
             return f"Se registró la mascota {self._mascota.nombre_mascota}."
         except (Exception, IntegrityError) as error:
             return error
