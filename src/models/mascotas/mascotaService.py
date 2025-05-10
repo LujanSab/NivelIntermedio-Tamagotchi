@@ -1,28 +1,31 @@
 from src.models.mascotas.mascotas import Mascota, Perro, Gato
 from src.controller.logger import log
 from src.models.models import Mascotas
+from src.controller.observador import Sujeto
 from peewee import IntegrityError, DoesNotExist
 from datetime import datetime, timedelta
 import pytz
 
-
-class MascotaService:
+class MascotaService(Sujeto):
     """
     La clase `MascotaService` en Python proporciona métodos para crear, actualizar, eliminar y
     recuperar información sobre mascotas, así como para administrar sus estados y propiedades.
 
-    :param nombre: El parámetro "nombre" hace referencia al nombre de la mascota o mascota. Se utiliza para
+    - Nombre: El parámetro `nombre` hace referencia al nombre de la mascota o mascota. Se utiliza para
     identificar la mascota específica al realizar operaciones como crear, actualizar o eliminar
-    datos de mascotas en la clase MascotaService
-    :param duenio: El parámetro `duenio` en la clase `MascotaService` hace referencia al dueño o
+    datos de mascotas en la clase MascotaService.
+    - Duenio: El parámetro `duenio` en la clase `MascotaService` hace referencia al dueño o
     tutor de la mascota (mascota). Se utiliza para identificar a la persona responsable del cuidado y
-    bienestar de la mascota
-    :param tipo: El parámetro `tipo` en el método `crear_mascota` y el método `crear_objeto_mascota` hace referencia al tipo de mascota que se está creando. Puede ser "Perro" o "Gato". Este parámetro se utiliza para determinar qué clase
+    bienestar de la mascota.
+    - Tipo: El parámetro `tipo` en el método `crear_mascota` y el método `crear_objeto_mascota` hace 
+    referencia al tipo de mascota que se está creando. Puede ser "Perro" o "Gato". Este parámetro se 
+    utiliza para determinar de qué clase proviene.
     """
     
     def __init__(self, mascota: Mascota=None):
         self._mascota = mascota
 
+    @log
     def crear_mascota(self, nombre, duenio, tipo):
         try:
             if tipo == "Perro":
@@ -31,10 +34,10 @@ class MascotaService:
             elif tipo == "Gato":
                 self._mascota = Gato(nombre, duenio)
                 self.crear()
-        except Exception as e:
-            log(e)
-            print(e)
-
+        except Exception as error:
+            return error
+    
+    @log
     def crear(self):
         try:
             zona_horaria_argentina = pytz.timezone('America/Argentina/Buenos_Aires')
@@ -52,10 +55,10 @@ class MascotaService:
                 estado = self._mascota.estado,
                 ultima_actualizacion = now
             )
-
             mascota.save()
-        except (Exception, IntegrityError) as e:
-            log(e)
+            self.notificar("Guardar mascota", self._mascota.nombre_mascota)
+        except (Exception, IntegrityError) as error:
+            return error
 
     def crear_objeto_mascota(
             self, nombre, 
@@ -73,7 +76,8 @@ class MascotaService:
         self._mascota._hambre = hambre 
         self._mascota._felicidad = felicidad
         self._mascota._social = social
-
+    
+    @log
     def actualizar(
         self, 
         nombre: str,
@@ -109,24 +113,25 @@ class MascotaService:
                         .update(**actualizar)
                         .where(Mascotas.nombre == nombre)
                         .execute())
+                self.notificar("Se actualizó a:", nombre, actualizar)
                 return query > 0
             else:
-                log('No hay datos para actualizar')
-
-        except Exception as e:
-            log(e)
+                return "No hay datos para actualizar. "
+        except Exception as error:
+            return error
     
-
+    @log
     def eliminar(self, nombre: str, dueño: str):
         if not nombre and not dueño:
-            log("Los campos no deben estar en blanco. Intente nuevamente. ")
+            return "Los campos no deben estar en blanco. "
         else:
             try:
                 Mascotas.delete().where(Mascotas.nombre == nombre).execute()
-            except Exception as e:
-                log(e)
+                self.notificar("Se eliminó a: ", nombre)
+            except Exception as error:
+                return error
 
-
+    @log
     def obtener_datos_mascota(self, nombre):
         try:
             datos_mascota = Mascotas.get(Mascotas.nombre == nombre)
@@ -147,8 +152,9 @@ class MascotaService:
                 return data
             return None
         except (Exception, DoesNotExist) as error:
-            log(error)
+            return error
         
+    @log    
     def obtener_todas_las_mascotas(self):
         query = Mascotas.select()
         
@@ -162,7 +168,7 @@ class MascotaService:
         if mascotas:
             return mascotas
         else:
-            log('No se encontro ninguna mascota')
+            return "No se encontró ninguna mascota."
 
     def actualizar_estado_mascota(self, nombre_mascota, obj_mascota, dict_mascota, diferencia_tiempo):
             PRIMER_CAMBIO_SEGUNDOS = 15 #cambios cada 15 segundos
@@ -215,9 +221,8 @@ class MascotaService:
                     obj_mascota.hambre += (CAMBIO_VALORES_SEGUNDOS["hambre"]*intervalo_segundos)
                     obj_mascota.felicidad -= (CAMBIO_VALORES_SEGUNDOS["felicidad"]*intervalo_segundos)
                     obj_mascota.social -= (CAMBIO_VALORES_SEGUNDOS["social"]*intervalo_segundos)
-
             except Exception as error:
-                log(error)
+                return error
 
     @property
     def mascota(self):

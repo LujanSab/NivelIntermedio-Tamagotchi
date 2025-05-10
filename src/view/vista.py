@@ -12,6 +12,8 @@ from src.view.game import Game
 from tkinter import Toplevel
 from src.controller.logger import log
 from src.controller.validations import Validacion
+from src.controller.control_server import ControlServer
+from src.controller.cliente import enviar_datos_sv
 
 # --------------------------------------------------
 # Ventana de Registro 
@@ -32,6 +34,9 @@ class VentanaRegistro:
         self.var_nombre_mascota = StringVar()
         self.var_nombre_duenio = StringVar()
         self.tipo = None
+        self.server = ControlServer()
+        self.server.try_connection()
+        self.root.protocol("WM_DELETE_WINDOW", self.cerrar_aplicacion)  #Línea agregada para que pueda cerrar el servidor
 
         # --------------------------------------------------
         # LABELS 
@@ -78,6 +83,7 @@ class VentanaRegistro:
     # --------------------------------------------------
     # FUNCIONES
     # --------------------------------------------------
+    @log
     def comenzar_partida(self):
         '''
         Crea una mascota en la 
@@ -91,16 +97,21 @@ class VentanaRegistro:
                 if self.service.mascota:
                     game = Game(self.service.mascota)
                     game.run()
+                    enviar_datos_sv(f"Se registró a la mascota {nombre} del dueño: {duenio}. Comienzo de partida.")
                 else:
                     showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
+                    enviar_datos_sv("No se creó su mascota virtual.")
             else:
                 showinfo("", "Los datos ingresados contienen carácteres inválidos. Intente de nuevo.")
                 self.limpiar()
+                return "Los datos ingresados contienen carácteres inválidos."
         except Exception as error:
-            log(error)
-            print(error)
-            showinfo("", "Los campos no deben estar en blanco.")
             self.limpiar()
+            showinfo("", "Los campos no deben estar en blanco.")
+            return error, "Los campos no deben estar en blanco."
+        finally:
+            self.limpiar()
+            enviar_datos_sv("Terminó la partida.")
 
     def obtener_perro(self):
         """
@@ -135,6 +146,14 @@ class VentanaRegistro:
         self.var_nombre_duenio.set("")
         self.boton_gato["state"] = "active"
         self.boton_perro["state"] = "active"
+
+    def cerrar_aplicacion(self):
+        """
+        Detiene el servidor y cierra la ventana principal de forma segura.
+        """
+        self.server.stop_server()
+        self.root.destroy()
+
 
 # --------------------------------------------------
 # Ventana Principal 
@@ -262,6 +281,7 @@ class VentanaPrincipal:
         self.tipo = self.boton_gato["text"].lower()
         self.boton_perro["state"] = "disabled"
         
+    @log
     def filtrar_mascota(self):
         '''
         Esta funcion se encarga de filtrar la mascota y traer todos los datos
@@ -270,8 +290,7 @@ class VentanaPrincipal:
         nombre = self.var_nombre_mascota.get()
         dueño = self.var_nombre_duenio.get()
 
-        try:
-          if self.validacion.validar_campos_str(nombre) and self.validacion.validar_campos_str(dueño):
+        if self.validacion.validar_campos_str(nombre) and self.validacion.validar_campos_str(dueño):
             data = self.service.obtener_datos_mascota(nombre)
             if data:
                 self.tree.insert("", 0, 
@@ -284,24 +303,26 @@ class VentanaPrincipal:
                                         data["hambre"], 
                                         data["felicidad"],
                                         data["social"],
-                                        data["ultima_vez_actualizado"]))
+                                        data["ultima_actualizacion"]))
                 self.boton_jugar["state"] = "active"
+                enviar_datos_sv(f"Se filtró a: Mascota: {nombre}. Dueño: {dueño}")
             else:
                 showinfo("", f"No existe la mascota llamada:{nombre}. Intente con otro nombre.")
-          else:
+                return f"No existe la mascota llamada:{nombre}. Intente con otro nombre."
+        else:
             showinfo("", "Los datos ingresados contienen carácteres inválidos. Intente de nuevo.")
-        except Exception as error:
-            log(error)
-
+            return "Los datos ingresados contienen carácteres inválidos. Intente de nuevo."
+    
+    @log
     def jugar(self):
         '''
         Dentro de esta funcion, se crea un objeto de mascota previo a jugar, con los datos
         de la mascota seleccionada y ejecuta el metodo run de game.py
         '''
-        self.valor = self.tree.focus()
-        item = self.tree.item(self.valor)
-        self.datos_mascota = item['values']
         try:
+            self.valor = self.tree.focus()
+            item = self.tree.item(self.valor)
+            self.datos_mascota = item['values']
             self.service.crear_objeto_mascota(nombre=self.datos_mascota[0], 
                                             duenio=self.datos_mascota[1], 
                                             tipo=self.datos_mascota[2],
@@ -311,28 +332,29 @@ class VentanaPrincipal:
                                             felicidad=self.datos_mascota[6],
                                             social=self.datos_mascota[7])
             if self.service.mascota:
+                enviar_datos_sv(f"Comenzó la partida con la mascota {self.datos_mascota[0]}")
                 game = Game(self.service.mascota)
                 game.run()
                 self.limpiar_vista()
             else:
                 showinfo("", "No se creó su mascota virtual. Intente de nuevo.")
+                return "No se creó su mascota virtual."
         except Exception as error:
-            log(error)
-    
+            return error
+
     def consulta(self):
         '''
         Metodo que se encarga de limpiar la tabla en la 
         vista y traer todos los datos de todas las mascotas
         '''
         self.limpiar_vista()
-        try:
-            datos = self.service.obtener_todas_las_mascotas()
-            for fila in datos:
-                self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8], fila[9]))
-                self.boton_seleccionar["state"] = "active"
-        except Exception as e:
-            log(e)
+        datos = self.service.obtener_todas_las_mascotas()
+        for fila in datos:
+            self.tree.insert("", 0, text=fila[0], values=(fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8], fila[9]))
+            self.boton_seleccionar["state"] = "active"
+        enviar_datos_sv("Se insertaron a todas las mascotas.")
     
+    @log
     def seleccionar(self):
         '''
         Metodo que se encarga de seleccionar un elemento de la tabla
@@ -346,23 +368,24 @@ class VentanaPrincipal:
         self.boton_perro["state"] = "disabled"
         self.boton_jugar["state"] = "active"
         self.boton_eliminar["state"] = "active"
+        enviar_datos_sv(f"Se seleccionó a la mascota f{self.datos_mascota[0]}")
 
+    @log
     def eliminar(self):
         '''
         Metodo que se encarga de eliminar una mascota seleccionada
         en la tabla
         '''
         if askyesno("Atención", f"¿Desea confirmar la eliminación de la mascota: {self.datos_mascota[0]}?"):
-            try:
-                mensaje = self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1])
-                self.tree.delete(self.valor)
-                self.valor = 0
-                showinfo("", mensaje)
-                self.limpiar_vista_eliminar()
-            except Exception as error:
-                log(error)
+            mensaje = self.service.eliminar(self.datos_mascota[0], self.datos_mascota[1])
+            self.tree.delete(self.valor)
+            self.valor = 0
+            showinfo("", mensaje)
+            self.limpiar_vista_eliminar()
+            enviar_datos_sv(mensaje)
         else:
             showinfo("", "No se han efectuado cambios")
+            return "No se han efectuados cambios."
     
     def limpiar_vista(self):
         '''
@@ -390,3 +413,6 @@ class VentanaPrincipal:
         self.var_nombre_duenio.set("")
         self.var_nombre_mascota.set("")
 
+    
+
+ 

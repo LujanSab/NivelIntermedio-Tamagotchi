@@ -3,11 +3,23 @@
 # módulo `tkinter`.
 from src.view.vista import VentanaRegistro
 from tkinter import Tk
+from src.controller import observador
+
+class Controller:
+    """
+    Está es la clase principal
+    """
+    def __init__(self, root):
+        self.root_controler = root
+        self.objeto_vista = VentanaRegistro(self.root_controler)
+        self.el_observador = observador.ConcreteObserverA(self.objeto_vista.service)
+
 
 if __name__ == "__main__":
     '''
     Aca dentro se llama a la vista de tkinter, lo que desencadena
     la ejecucion de toda la app
     '''
-    vista = VentanaRegistro(Tk())
-    vista.root.mainloop()
+
+    application = Controller(Tk())
+    application.root_controler.mainloop()
