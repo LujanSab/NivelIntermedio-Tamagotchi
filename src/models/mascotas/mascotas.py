@@ -17,7 +17,7 @@ class Mascota:
         self._felicidad = 50
         self._social = 50
         self._estado = estado
-        self._ultima_actualizacion: str = ''
+        self._ultima_actualizacion: str = ""
         self._block_atributo = False
 
     @property
@@ -176,7 +176,7 @@ class Perro(Mascota):
     Clase que hereda de mascota, con la diferencia que esta es de tipo perro,
     y por lo tanto, tendra sus caracteristicas cuando se llame en otros modulos
     '''
-    def __init__(self, nombre_dueño, nombre_mascota, tipo='perro', estado='sano'):
+    def __init__(self, nombre_dueño, nombre_mascota, tipo="perro", estado="sano"):
         super().__init__(nombre_dueño, nombre_mascota, tipo, estado)
 
     
@@ -185,5 +185,5 @@ class Gato(Mascota):
     Clase que hereda de mascota, con la diferencia que esta es de tipo gato,
     y por lo tanto, tendra sus caracteristicas cuando se llame en otros modulos
     '''
-    def __init__(self, nombre_dueño, nombre_mascota, tipo='gato', estado='sano'):
+    def __init__(self, nombre_dueño, nombre_mascota, tipo="gato", estado="sano"):
         super().__init__(nombre_dueño, nombre_mascota, tipo, estado)

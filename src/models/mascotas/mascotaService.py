@@ -6,7 +6,6 @@ from peewee import IntegrityError, DoesNotExist
 from datetime import datetime, timedelta
 import pytz
 
-
 class MascotaService(Sujeto):
     """
     La clase `MascotaService` en Python proporciona métodos para crear, actualizar, eliminar y
@@ -58,11 +57,9 @@ class MascotaService(Sujeto):
             )
             mascota.save()
             self.notificar("Guardar mascota", self._mascota.nombre_mascota)
-            return f"Se registró la mascota {self._mascota.nombre_mascota}."
         except (Exception, IntegrityError) as error:
             return error
 
-    @log
     def crear_objeto_mascota(
             self, nombre, 
             duenio, tipo, 
@@ -79,7 +76,6 @@ class MascotaService(Sujeto):
         self._mascota._hambre = hambre 
         self._mascota._felicidad = felicidad
         self._mascota._social = social
-        return f"Se creó el objeto mascota: {nombre}"
     
     @log
     def actualizar(
@@ -121,7 +117,6 @@ class MascotaService(Sujeto):
                 return query > 0
             else:
                 return "No hay datos para actualizar. "
-
         except Exception as error:
             return error
     
@@ -175,7 +170,6 @@ class MascotaService(Sujeto):
         else:
             return "No se encontró ninguna mascota."
 
-    @log
     def actualizar_estado_mascota(self, nombre_mascota, obj_mascota, dict_mascota, diferencia_tiempo):
             PRIMER_CAMBIO_SEGUNDOS = 15 #cambios cada 15 segundos
             DIA_LIMITE = 5 #dia de moricion 
@@ -227,7 +221,6 @@ class MascotaService(Sujeto):
                     obj_mascota.hambre += (CAMBIO_VALORES_SEGUNDOS["hambre"]*intervalo_segundos)
                     obj_mascota.felicidad -= (CAMBIO_VALORES_SEGUNDOS["felicidad"]*intervalo_segundos)
                     obj_mascota.social -= (CAMBIO_VALORES_SEGUNDOS["social"]*intervalo_segundos)
-                    return "Se ha modificado el estado de la mascota. "
             except Exception as error:
                 return error
 
