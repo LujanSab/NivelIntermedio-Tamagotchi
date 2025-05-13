@@ -109,8 +109,13 @@
 <span class="sd">        - setters: encargados de enviar informacion a la clase Mascota para almacenarla en la base de datos</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">imagen</span><span class="p">,</span> <span class="n">animaciones</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">forma</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Config</span><span class="o">.</span><span class="n">MASCOTA_WIDTH</span><span class="p">,</span> <span class="n">Config</span><span class="o">.</span><span class="n">MASCOTA_HEIGHT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">forma</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">forma</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+            <span class="mi">0</span><span class="p">,</span> 
+            <span class="mi">0</span><span class="p">,</span> 
+            <span class="n">Config</span><span class="o">.</span><span class="n">MASCOTA_WIDTH</span><span class="p">,</span> 
+            <span class="n">Config</span><span class="o">.</span><span class="n">MASCOTA_HEIGHT</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">forma</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">imagen</span> <span class="o">=</span> <span class="n">imagen</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">animaciones</span> <span class="o">=</span> <span class="n">animaciones</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_tiempo</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span>
@@ -136,6 +141,7 @@
 
         <span class="c1"># pygame.draw.rect(window, (255,255,255), self.forma, width=1)</span>
     
+
 <div class="viewcode-block" id="MascotaEntity.idle">
 <a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.mascotas_entity.MascotaEntity.idle">[documentos]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">idle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -150,25 +156,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">idle_frame_index</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_tiempo</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span></div>
 
-
-<div class="viewcode-block" id="MascotaEntity.limpiar">
-<a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.mascotas_entity.MascotaEntity.limpiar">[documentos]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">limpiar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        logica de animacion de limpieza</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">cooldown_animation</span> <span class="o">=</span> <span class="mi">50</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">animaciones</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">=</span> <span class="mi">0</span>
-        
-        <span class="bp">self</span><span class="o">.</span><span class="n">imagen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">animaciones</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span><span class="p">]</span>
-        
-        <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_tiempo</span> <span class="o">&gt;=</span> <span class="n">cooldown_animation</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_tiempo</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span></div>
-
     
+
 <div class="viewcode-block" id="MascotaEntity.comer">
 <a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.mascotas_entity.MascotaEntity.comer">[documentos]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">comer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -187,6 +176,26 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_tiempo</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span></div>
 
     
+
+<div class="viewcode-block" id="MascotaEntity.limpiar">
+<a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.mascotas_entity.MascotaEntity.limpiar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">limpiar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        logica de animacion de limpieza</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">cooldown_animation</span> <span class="o">=</span> <span class="mi">50</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">animaciones</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">imagen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">animaciones</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_tiempo</span> <span class="o">&gt;=</span> <span class="n">cooldown_animation</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_tiempo</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span></div>
+
+    
+
 <div class="viewcode-block" id="MascotaEntity.dormir">
 <a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.mascotas_entity.MascotaEntity.dormir">[documentos]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">dormir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -195,10 +204,29 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">cooldown_animation</span> <span class="o">=</span> <span class="mi">50</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">animaciones</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">animaciones</span><span class="p">[</span><span class="mi">3</span><span class="p">]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">=</span> <span class="mi">0</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">imagen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">animaciones</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_tiempo</span> <span class="o">&gt;=</span> <span class="n">cooldown_animation</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_tiempo</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span></div>
+
+    
+
+<div class="viewcode-block" id="MascotaEntity.jugar">
+<a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.mascotas_entity.MascotaEntity.jugar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">jugar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        logica de animacion de dormir</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">cooldown_animation</span> <span class="o">=</span> <span class="mi">50</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">animaciones</span><span class="p">[</span><span class="mi">4</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">imagen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">animaciones</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span><span class="p">]</span>
         
         <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_tiempo</span> <span class="o">&gt;=</span> <span class="n">cooldown_animation</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">comer_frame_index</span> <span class="o">+=</span> <span class="mi">1</span>

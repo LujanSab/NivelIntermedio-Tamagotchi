@@ -101,23 +101,23 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="src.models.mascotas.mascotaService.MascotaService">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.models.mascotas.mascotaService.</span></span><span class="sig-name descname"><span class="pre">MascotaService</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mascota</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.models.mascotas.mascotas.Mascota" title="src.models.mascotas.mascotas.Mascota"><span class="pre">Mascota</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/mascotas/mascotaService.html#MascotaService"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.models.mascotas.mascotaService.MascotaService" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Sujeto</span></code></p>
 <p>La clase <cite>MascotaService</cite> en Python proporciona métodos para crear, actualizar, eliminar y
 recuperar información sobre mascotas, así como para administrar sus estados y propiedades.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>nombre</strong> – El parámetro «nombre» hace referencia al nombre de la mascota o mascota. Se utiliza para</p>
-</dd>
-</dl>
+<ul class="simple">
+<li><p>Nombre: El parámetro <cite>nombre</cite> hace referencia al nombre de la mascota o mascota. Se utiliza para</p></li>
+</ul>
 <p>identificar la mascota específica al realizar operaciones como crear, actualizar o eliminar
-datos de mascotas en la clase MascotaService
-:param duenio: El parámetro <cite>duenio</cite> en la clase <cite>MascotaService</cite> hace referencia al dueño o
+datos de mascotas en la clase MascotaService.
+- Duenio: El parámetro <cite>duenio</cite> en la clase <cite>MascotaService</cite> hace referencia al dueño o
 tutor de la mascota (mascota). Se utiliza para identificar a la persona responsable del cuidado y
-bienestar de la mascota
-:param tipo: El parámetro <cite>tipo</cite> en el método <cite>crear_mascota</cite> y el método <cite>crear_objeto_mascota</cite> hace referencia al tipo de mascota que se está creando. Puede ser «Perro» o «Gato». Este parámetro se utiliza para determinar qué clase</p>
+bienestar de la mascota.
+- Tipo: El parámetro <cite>tipo</cite> en el método <cite>crear_mascota</cite> y el método <cite>crear_objeto_mascota</cite> hace 
+referencia al tipo de mascota que se está creando. Puede ser «Perro» o «Gato». Este parámetro se 
+utiliza para determinar de qué clase proviene.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.mascotas.mascotaService.MascotaService.actualizar">
-<span class="sig-name descname"><span class="pre">actualizar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nombre</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energia</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limpieza</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hambre</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">felicidad</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estado</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/mascotas/mascotaService.html#MascotaService.actualizar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.models.mascotas.mascotaService.MascotaService.actualizar" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">actualizar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nombre</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energia</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limpieza</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hambre</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">felicidad</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">social</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estado</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/mascotas/mascotaService.html#MascotaService.actualizar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.models.mascotas.mascotaService.MascotaService.actualizar" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -137,7 +137,7 @@ bienestar de la mascota
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.mascotas.mascotaService.MascotaService.crear_objeto_mascota">
-<span class="sig-name descname"><span class="pre">crear_objeto_mascota</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nombre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duenio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energia</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limpieza</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hambre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">felicidad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estado</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/mascotas/mascotaService.html#MascotaService.crear_objeto_mascota"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.models.mascotas.mascotaService.MascotaService.crear_objeto_mascota" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">crear_objeto_mascota</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nombre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duenio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energia</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limpieza</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hambre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">felicidad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">social</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/mascotas/mascotaService.html#MascotaService.crear_objeto_mascota"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.models.mascotas.mascotaService.MascotaService.crear_objeto_mascota" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -180,6 +180,16 @@ y por lo tanto, tendra sus caracteristicas cuando se llame en otros modulos</p>
 <p>La clase <cite>Mascota</cite> en Python define atributos y métodos 
 para gestionar las características de una mascota, 
 como energía, limpieza, hambre, felicidad y estado.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.mascotas.mascotas.Mascota.alimentar">
+<span class="sig-name descname"><span class="pre">alimentar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/mascotas/mascotas.html#Mascota.alimentar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.models.mascotas.mascotas.Mascota.alimentar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.mascotas.mascotas.Mascota.dormir">
+<span class="sig-name descname"><span class="pre">dormir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/mascotas/mascotas.html#Mascota.dormir"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.models.mascotas.mascotas.Mascota.dormir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="src.models.mascotas.mascotas.Mascota.energia">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">energia</span></span><a class="headerlink" href="#src.models.mascotas.mascotas.Mascota.energia" title="Link to this definition"></a></dt>
@@ -200,6 +210,16 @@ como energía, limpieza, hambre, felicidad y estado.</p>
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hambre</span></span><a class="headerlink" href="#src.models.mascotas.mascotas.Mascota.hambre" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.mascotas.mascotas.Mascota.jugar">
+<span class="sig-name descname"><span class="pre">jugar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/mascotas/mascotas.html#Mascota.jugar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.models.mascotas.mascotas.Mascota.jugar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.mascotas.mascotas.Mascota.limpiar">
+<span class="sig-name descname"><span class="pre">limpiar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/mascotas/mascotas.html#Mascota.limpiar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.models.mascotas.mascotas.Mascota.limpiar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="src.models.mascotas.mascotas.Mascota.limpieza">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">limpieza</span></span><a class="headerlink" href="#src.models.mascotas.mascotas.Mascota.limpieza" title="Link to this definition"></a></dt>
@@ -213,6 +233,11 @@ como energía, limpieza, hambre, felicidad y estado.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="src.models.mascotas.mascotas.Mascota.nombre_mascota">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nombre_mascota</span></span><a class="headerlink" href="#src.models.mascotas.mascotas.Mascota.nombre_mascota" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="src.models.mascotas.mascotas.Mascota.social">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">social</span></span><a class="headerlink" href="#src.models.mascotas.mascotas.Mascota.social" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">

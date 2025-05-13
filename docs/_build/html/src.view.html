@@ -102,8 +102,13 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>El código Python dado define un juego en el que el 
 jugador puede interactuar con una mascota virtual
-alimentándola, limpiándola y poniéndola 
+alimentándola, limpiándola, jugando con ella y poniéndola 
 a dormir, mientras monitorea sus diversas estadísticas y emociones.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.view.game.Game.check_status_mascota">
+<span class="sig-name descname"><span class="pre">check_status_mascota</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">null</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/view/game.html#Game.check_status_mascota"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.view.game.Game.check_status_mascota" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="src.view.game.Game.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/view/game.html#Game.run"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.view.game.Game.run" title="Link to this definition"></a></dt>
@@ -159,7 +164,7 @@ de la mascota seleccionada y ejecuta el metodo run de game.py</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.view.vista.VentanaPrincipal.limpiar_vista_eliminar">
 <span class="sig-name descname"><span class="pre">limpiar_vista_eliminar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/view/vista.html#VentanaPrincipal.limpiar_vista_eliminar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.view.vista.VentanaPrincipal.limpiar_vista_eliminar" title="Link to this definition"></a></dt>
-<dd><p>Es para la limpiar la vista después de usar la función eliminar.</p>
+<dd><p>Método para la limpiar la vista después de usar la función eliminar.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -167,7 +172,7 @@ de la mascota seleccionada y ejecuta el metodo run de game.py</p>
 <span class="sig-name descname"><span class="pre">obtener_gato</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/view/vista.html#VentanaPrincipal.obtener_gato"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.view.vista.VentanaPrincipal.obtener_gato" title="Link to this definition"></a></dt>
 <dd><p>Esta función de Python establece el atributo 
 «tipo» en función del texto de un botón y desactiva
-otro botón.</p>
+el botón perro.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -175,7 +180,7 @@ otro botón.</p>
 <span class="sig-name descname"><span class="pre">obtener_perro</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/view/vista.html#VentanaPrincipal.obtener_perro"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.view.vista.VentanaPrincipal.obtener_perro" title="Link to this definition"></a></dt>
 <dd><p>Esta función de Python establece el atributo 
 «tipo» en función del texto de un botón y desactiva
-otro botón.</p>
+el botón gato.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -199,6 +204,12 @@ información de la mascota e iniciar un juego de mascota virtual.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="src.view.vista.VentanaRegistro.cerrar_aplicacion">
+<span class="sig-name descname"><span class="pre">cerrar_aplicacion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/view/vista.html#VentanaRegistro.cerrar_aplicacion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.view.vista.VentanaRegistro.cerrar_aplicacion" title="Link to this definition"></a></dt>
+<dd><p>Detiene el servidor y cierra la ventana principal de forma segura.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="src.view.vista.VentanaRegistro.comenzar_partida">
 <span class="sig-name descname"><span class="pre">comenzar_partida</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/view/vista.html#VentanaRegistro.comenzar_partida"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.view.vista.VentanaRegistro.comenzar_partida" title="Link to this definition"></a></dt>
 <dd><p>Crea una mascota en la 
@@ -216,7 +227,7 @@ base de datos y ejecuta la funcion run para correr el juego</p>
 <span class="sig-name descname"><span class="pre">obtener_gato</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/view/vista.html#VentanaRegistro.obtener_gato"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.view.vista.VentanaRegistro.obtener_gato" title="Link to this definition"></a></dt>
 <dd><p>Esta función de Python establece el atributo 
 «tipo» en gato y desactiva
-otro botón.</p>
+el botón perro.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -224,7 +235,7 @@ otro botón.</p>
 <span class="sig-name descname"><span class="pre">obtener_perro</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/view/vista.html#VentanaRegistro.obtener_perro"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.view.vista.VentanaRegistro.obtener_perro" title="Link to this definition"></a></dt>
 <dd><p>Esta función de Python establece el atributo 
 «tipo» en perro y desactiva
-otro botón.</p>
+el botón gato.</p>
 </dd></dl>
 
 </dd></dl>

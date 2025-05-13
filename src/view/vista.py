@@ -1,5 +1,5 @@
-# Aca dentro esta toda la logica para las interfaces graficas con Tkinter PREVIAS a entrar al juego,
-# dentro se evaluan y traen diferentes datos de la base de datos, dandote ademas diferentes funciones como usuario
+# Aca dentro está toda la lógica para las interfaces graficas con Tkinter PREVIAS a entrar al juego,
+# se evaluan y se extrae información de la base de datos, que se pueden manipular como usuario
 from tkinter import Button
 from tkinter import Label
 from tkinter import Entry

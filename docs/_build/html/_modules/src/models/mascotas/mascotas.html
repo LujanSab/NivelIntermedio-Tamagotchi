@@ -91,8 +91,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_limpieza</span> <span class="o">=</span> <span class="mi">50</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_hambre</span> <span class="o">=</span> <span class="mi">50</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_felicidad</span> <span class="o">=</span> <span class="mi">50</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_social</span> <span class="o">=</span> <span class="mi">50</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_estado</span> <span class="o">=</span> <span class="n">estado</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ultima_actualizacion</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ultima_actualizacion</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block_atributo</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">nombre_dueño</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -108,7 +110,7 @@
     
     <span class="nd">@nombre_mascota</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">nombre_mascota</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre_mascota</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nombre</span> <span class="o">=</span> <span class="n">nombre_mascota</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nombre</span> <span class="o">=</span> <span class="n">nombre_mascota</span>
     
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">tipo_de_mascota</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -126,13 +128,6 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">energia</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valor</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_energia</span> <span class="o">=</span> <span class="n">valor</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">energia</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">+=</span> <span class="mi">25</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">energia</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">-=</span> <span class="mi">25</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">energia</span> <span class="o">==</span> <span class="mi">100</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">=</span> <span class="mi">100</span>
-
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">energia</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_energia</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">energia</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
@@ -146,11 +141,6 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">limpieza</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valor</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_limpieza</span> <span class="o">=</span> <span class="n">valor</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">-=</span> <span class="mi">25</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">+=</span> <span class="mi">25</span>
-
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_limpieza</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
@@ -163,11 +153,6 @@
     <span class="nd">@hambre</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">hambre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valor</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_hambre</span> <span class="o">=</span> <span class="n">valor</span>
-        
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hambre</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">-=</span> <span class="mi">25</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">hambre</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">+=</span> <span class="mi">25</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hambre</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_hambre</span> <span class="o">=</span> <span class="mi">0</span>
@@ -186,6 +171,19 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_felicidad</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_felicidad</span> <span class="o">=</span> <span class="mi">100</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">social</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_social</span>
+
+    <span class="nd">@social</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">social</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valor</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_social</span> <span class="o">=</span> <span class="n">valor</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">social</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_social</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">social</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_social</span> <span class="o">=</span> <span class="mi">100</span>
     
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">estado</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -201,8 +199,65 @@
     
     <span class="nd">@ultima_actualizacion</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">ultima_actualizacion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ultima_actualizacion</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ultima_actualizacion</span> <span class="o">=</span> <span class="n">ultima_actualizacion</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ultima_actualizacion</span> <span class="o">=</span> <span class="n">ultima_actualizacion</span>
 
+<div class="viewcode-block" id="Mascota.jugar">
+<a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.jugar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">jugar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">social</span> <span class="o">+=</span> <span class="mi">12</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">social</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">social</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">+=</span> <span class="mi">7</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">-=</span> <span class="mi">14</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hambre</span> <span class="o">-=</span> <span class="mi">11</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">energia</span> <span class="o">-=</span> <span class="mi">16</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">social</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">+=</span> <span class="mi">9</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">-=</span> <span class="mi">21</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hambre</span> <span class="o">-=</span> <span class="mi">16</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">energia</span> <span class="o">-=</span> <span class="mi">18</span></div>
+
+
+<div class="viewcode-block" id="Mascota.alimentar">
+<a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.alimentar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">alimentar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hambre</span> <span class="o">+=</span> <span class="mi">13</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">social</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hambre</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">+=</span> <span class="mi">2</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">-=</span> <span class="mi">15</span> 
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">hambre</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">+=</span> <span class="mi">7</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">-=</span> <span class="mi">11</span></div>
+
+
+<div class="viewcode-block" id="Mascota.limpiar">
+<a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.limpiar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">limpiar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">+=</span> <span class="mi">14</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">&lt;=</span> <span class="mi">50</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">-=</span> <span class="mi">13</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">social</span> <span class="o">-=</span> <span class="mi">17</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">-=</span> <span class="mi">8</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">social</span> <span class="o">-=</span> <span class="mi">18</span></div>
+
+
+<div class="viewcode-block" id="Mascota.dormir">
+<a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.dormir">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dormir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">energia</span> <span class="o">+=</span> <span class="mi">11</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">energia</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">energia</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">+=</span> <span class="mi">7</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">social</span> <span class="o">-=</span> <span class="mi">11</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hambre</span> <span class="o">-=</span> <span class="mi">7</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">energia</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">+=</span> <span class="mi">12</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">social</span> <span class="o">-=</span> <span class="mi">14</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hambre</span> <span class="o">-=</span> <span class="mi">11</span></div>
+</div>
 
 
 <div class="viewcode-block" id="Perro">
@@ -212,7 +267,7 @@
 <span class="sd">    Clase que hereda de mascota, con la diferencia que esta es de tipo perro,</span>
 <span class="sd">    y por lo tanto, tendra sus caracteristicas cuando se llame en otros modulos</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre_dueño</span><span class="p">,</span> <span class="n">nombre_mascota</span><span class="p">,</span> <span class="n">tipo</span><span class="o">=</span><span class="s1">&#39;perro&#39;</span><span class="p">,</span> <span class="n">estado</span><span class="o">=</span><span class="s1">&#39;sano&#39;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre_dueño</span><span class="p">,</span> <span class="n">nombre_mascota</span><span class="p">,</span> <span class="n">tipo</span><span class="o">=</span><span class="s2">&quot;perro&quot;</span><span class="p">,</span> <span class="n">estado</span><span class="o">=</span><span class="s2">&quot;sano&quot;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">nombre_dueño</span><span class="p">,</span> <span class="n">nombre_mascota</span><span class="p">,</span> <span class="n">tipo</span><span class="p">,</span> <span class="n">estado</span><span class="p">)</span></div>
 
 
@@ -224,7 +279,7 @@
 <span class="sd">    Clase que hereda de mascota, con la diferencia que esta es de tipo gato,</span>
 <span class="sd">    y por lo tanto, tendra sus caracteristicas cuando se llame en otros modulos</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre_dueño</span><span class="p">,</span> <span class="n">nombre_mascota</span><span class="p">,</span> <span class="n">tipo</span><span class="o">=</span><span class="s1">&#39;gato&#39;</span><span class="p">,</span> <span class="n">estado</span><span class="o">=</span><span class="s1">&#39;sano&#39;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre_dueño</span><span class="p">,</span> <span class="n">nombre_mascota</span><span class="p">,</span> <span class="n">tipo</span><span class="o">=</span><span class="s2">&quot;gato&quot;</span><span class="p">,</span> <span class="n">estado</span><span class="o">=</span><span class="s2">&quot;sano&quot;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">nombre_dueño</span><span class="p">,</span> <span class="n">nombre_mascota</span><span class="p">,</span> <span class="n">tipo</span><span class="p">,</span> <span class="n">estado</span><span class="p">)</span></div>
 
 </pre></div>

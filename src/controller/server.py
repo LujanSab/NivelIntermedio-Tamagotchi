@@ -1,9 +1,17 @@
 import socketserver
 
-# global HOST
 global PORT
 
 class MyUDPHandler(socketserver.BaseRequestHandler):
+    """
+    Esta clase maneja las solicitudes entrantes al servidor UDP.
+
+    Cada vez que se recibe un mensaje desde un cliente, el método `handle` se ejecuta.
+    Este método decodifica el mensaje recibido (en bytes) utilizando UTF-8, lo limpia 
+    de espacios innecesarios y lo guarda en un archivo de texto llamado 'registro_servidor.txt'.
+
+    El objetivo es registrar en ese archivo cada mensaje recibido por el servidor.
+    """
     def handle(self):
         data = self.request[0].strip()
         socket = self.request[1]

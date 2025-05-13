@@ -90,9 +90,18 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">texto</span><span class="p">,</span> <span class="n">ventana</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span> <span class="o">=</span> <span class="n">ventana</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">forma</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Config</span><span class="o">.</span><span class="n">BTN_WIDTH</span><span class="p">,</span> <span class="n">Config</span><span class="o">.</span><span class="n">BTN_HEIGHT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">forma</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span> 
+            <span class="n">y</span><span class="p">,</span> 
+            <span class="n">Config</span><span class="o">.</span><span class="n">BTN_WIDTH</span><span class="p">,</span> 
+            <span class="n">Config</span><span class="o">.</span><span class="n">BTN_HEIGHT</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">texto_fuente</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">Font</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">texto</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">texto_fuente</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">texto</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">texto</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">texto_fuente</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
+            <span class="n">texto</span><span class="p">,</span> 
+            <span class="kc">True</span><span class="p">,</span> 
+            <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
+        <span class="p">)</span>
     
 <div class="viewcode-block" id="BotonEntity.dibujar">
 <a class="viewcode-back" href="../../../../src.models.entities.html#src.models.entities.boton_entity.BotonEntity.dibujar">[documentos]</a>

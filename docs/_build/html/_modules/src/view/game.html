@@ -97,7 +97,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    El código Python dado define un juego en el que el </span>
 <span class="sd">    jugador puede interactuar con una mascota virtual</span>
-<span class="sd">    alimentándola, limpiándola y poniéndola </span>
+<span class="sd">    alimentándola, limpiándola, jugando con ella y poniéndola </span>
 <span class="sd">    a dormir, mientras monitorea sus diversas estadísticas y emociones.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -109,30 +109,37 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">200</span><span class="p">))</span>
 
         <span class="c1"># BOTONES</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_jugar</span> <span class="o">=</span> <span class="n">BotonEntity</span><span class="p">(</span>
+            <span class="mi">30</span><span class="p">,</span> 
+            <span class="n">Config</span><span class="o">.</span><span class="n">COORDENADA_Y</span><span class="p">,</span>
+            <span class="s1">&#39;JUGAR&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span>
+            <span class="p">)</span>
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_limpiar</span> <span class="o">=</span> <span class="n">BotonEntity</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">WINDOW_WIDTH</span> <span class="o">-</span> <span class="n">Config</span><span class="o">.</span><span class="n">BTN_WIDTH</span><span class="p">)</span> <span class="o">-</span> <span class="mi">30</span><span class="p">,</span>
-            <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">WINDOW_HEIGHT</span> <span class="o">-</span> <span class="n">Config</span><span class="o">.</span><span class="n">BTN_HEIGHT</span><span class="p">)</span> <span class="o">-</span> <span class="mi">30</span><span class="p">,</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">COORDENADA_Y</span> <span class="o">+</span> <span class="n">Config</span><span class="o">.</span><span class="n">SEPARACION</span><span class="p">,</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">COORDENADA_Y</span><span class="p">,</span>
             <span class="s1">&#39;LIMPIAR&#39;</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">window</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">boton_alimentar</span> <span class="o">=</span> <span class="n">BotonEntity</span><span class="p">(</span>
-            <span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">WINDOW_WIDTH</span> <span class="o">-</span> <span class="n">Config</span><span class="o">.</span><span class="n">BTN_WIDTH</span><span class="p">)</span> <span class="o">-</span> <span class="mi">30</span><span class="p">,</span>
-            <span class="n">y</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
-            <span class="n">texto</span><span class="o">=</span><span class="s1">&#39;ALIMENTAR&#39;</span><span class="p">,</span>
-            <span class="n">ventana</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span>
-            <span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_dormir</span> <span class="o">=</span> <span class="n">BotonEntity</span><span class="p">(</span>
-            <span class="mi">30</span><span class="p">,</span> 
-            <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">WINDOW_HEIGHT</span> <span class="o">-</span> <span class="n">Config</span><span class="o">.</span><span class="n">BTN_HEIGHT</span><span class="p">)</span> <span class="o">-</span> <span class="mi">30</span><span class="p">,</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">COORDENADA_Y</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">Config</span><span class="o">.</span><span class="n">SEPARACION</span><span class="p">,</span> 
+            <span class="n">Config</span><span class="o">.</span><span class="n">COORDENADA_Y</span><span class="p">,</span>
             <span class="s1">&#39;DORMIR&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span>
+            <span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton_alimentar</span> <span class="o">=</span> <span class="n">BotonEntity</span><span class="p">(</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">COORDENADA_Y</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">Config</span><span class="o">.</span><span class="n">SEPARACION</span><span class="p">,</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">COORDENADA_Y</span><span class="p">,</span>
+            <span class="s1">&#39;ALIMENTAR&#39;</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">window</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_salir</span> <span class="o">=</span> <span class="n">BotonEntity</span><span class="p">(</span>
             <span class="mi">30</span><span class="p">,</span> 
-            <span class="mi">30</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">WINDOW_HEIGHT</span> <span class="o">-</span> <span class="n">Config</span><span class="o">.</span><span class="n">BTN_HEIGHT</span><span class="p">)</span> <span class="o">-</span> <span class="mi">20</span><span class="p">,</span>
             <span class="s1">&#39;SALIR&#39;</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">window</span>
             <span class="p">)</span>
@@ -157,17 +164,17 @@
             <span class="n">Config</span><span class="o">.</span><span class="n">DORMIR_EMOTE</span><span class="p">,</span>
             <span class="n">Config</span><span class="o">.</span><span class="n">FELIZ_EMOTE</span><span class="p">,</span>
             <span class="n">Config</span><span class="o">.</span><span class="n">HAMBRE_EMOTE</span><span class="p">,</span>
-            <span class="n">Config</span><span class="o">.</span><span class="n">LIMPIAR_EMOTE</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">LIMPIAR_EMOTE</span><span class="p">,</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">JUGAR_EMOTE</span>
         <span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">dog_image</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">DOG_IMAGE</span>
-
+        
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">tipo_de_mascota</span> <span class="o">==</span> <span class="s1">&#39;perro&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dog_image</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">PERRO_IDLE</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">firu_entity</span> <span class="o">=</span> <span class="n">PerroEntity</span><span class="p">(</span>
                             <span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">WINDOW_WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> 
                             <span class="n">y</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">WINDOW_HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> 
-                            <span class="n">imagen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dog_image</span><span class="p">,</span> 
+                            <span class="n">imagen</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">DOG_IMG</span><span class="p">,</span> 
                             <span class="n">animaciones</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="p">,</span> 
                         <span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">tipo_de_mascota</span> <span class="o">==</span> <span class="s1">&#39;gato&#39;</span><span class="p">:</span>
@@ -175,7 +182,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">firu_entity</span> <span class="o">=</span> <span class="n">GatoEntity</span><span class="p">(</span>
                             <span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">WINDOW_WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> 
                             <span class="n">y</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">WINDOW_HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> 
-                            <span class="n">imagen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dog_image</span><span class="p">,</span> 
+                            <span class="n">imagen</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">CAT_IMG</span><span class="p">,</span>
                             <span class="n">animaciones</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="p">,</span> 
                         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">emote_entity</span> <span class="o">=</span> <span class="n">EmoteEntity</span><span class="p">(</span>
@@ -185,6 +192,34 @@
         
         <span class="bp">self</span><span class="o">.</span><span class="n">firu_servicio</span> <span class="o">=</span> <span class="n">MascotaService</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">firu_servicio</span><span class="o">.</span><span class="n">mascota</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">firu</span>
+
+<div class="viewcode-block" id="Game.check_status_mascota">
+<a class="viewcode-back" href="../../../src.view.html#src.view.game.Game.check_status_mascota">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_status_mascota</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">null</span><span class="p">):</span>
+        <span class="n">atributos</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">energia</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">hambre</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">felicidad</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">social</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">limpieza</span>
+        <span class="p">]</span>
+
+        <span class="n">atributo_bajo</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">atributo_cero</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">atributo</span> <span class="ow">in</span> <span class="n">atributos</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">atributo</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">):</span>
+                <span class="n">atributo_bajo</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">atributo</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">atributo_cero</span> <span class="o">+=</span> <span class="mi">1</span> 
+        
+        <span class="k">if</span> <span class="p">(</span><span class="n">atributo_bajo</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">atributo_cero</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="s1">&#39;Enfermo&#39;</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">atributo_cero</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="s1">&#39;Morido&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="s1">&#39;Sano&#39;</span></div>
+
+
         
 <div class="viewcode-block" id="Game.run">
 <a class="viewcode-back" href="../../../src.view.html#src.view.game.Game.run">[documentos]</a>
@@ -208,6 +243,8 @@
             <span class="n">diferencia_tiempo</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">fecha_ultima_actualizacion</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">firu_servicio</span><span class="o">.</span><span class="n">actualizar_estado_mascota</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">nombre_mascota</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">firu_dict</span><span class="p">,</span> <span class="n">diferencia_tiempo</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">check_status_mascota</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">porcentaje_hambre</span> <span class="o">=</span> <span class="n">BotonEntity</span><span class="p">(</span>
                 <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">WINDOW_WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">MASCOTA_WIDTH</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span>
@@ -237,9 +274,16 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">window</span>
             <span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">boton_estado</span> <span class="o">=</span> <span class="n">BotonEntity</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">porcentaje_social</span> <span class="o">=</span> <span class="n">BotonEntity</span><span class="p">(</span>
                 <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">WINDOW_WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">MASCOTA_WIDTH</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span>
                 <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">BTN_HEIGHT</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span> <span class="o">+</span> <span class="mi">70</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;Social </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">firu_dict</span><span class="p">[</span><span class="s1">&#39;social&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">window</span>
+            <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">boton_estado</span> <span class="o">=</span> <span class="n">BotonEntity</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">WINDOW_WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">MASCOTA_WIDTH</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">BTN_HEIGHT</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span> <span class="o">+</span> <span class="mi">80</span><span class="p">,</span>
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">firu_dict</span><span class="p">[</span><span class="s1">&#39;estado&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">window</span>
             <span class="p">)</span>
@@ -248,25 +292,53 @@
                 <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
                     <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
                         <span class="n">run</span> <span class="o">=</span> <span class="kc">False</span>
-                    
+
                     <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">accion</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                        
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">boton_limpiar</span><span class="o">.</span><span class="n">forma</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()):</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">+=</span> <span class="mi">25</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">firu_servicio</span><span class="o">.</span><span class="n">actualizar</span><span class="p">(</span><span class="n">limpieza</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">limpieza</span><span class="p">,</span> <span class="n">felicidad</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">felicidad</span><span class="p">,</span> <span class="n">nombre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">nombre_mascota</span><span class="p">)</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">emote_entity</span><span class="o">.</span><span class="n">iniciar_animacion</span><span class="p">(</span><span class="s1">&#39;limpiar&#39;</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">limpiar</span><span class="p">()</span>
+                            <span class="n">accion</span> <span class="o">=</span> <span class="s1">&#39;limpiar&#39;</span>
 
                         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">boton_alimentar</span><span class="o">.</span><span class="n">forma</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()):</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">hambre</span> <span class="o">-=</span> <span class="mi">25</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">firu_servicio</span><span class="o">.</span><span class="n">actualizar</span><span class="p">(</span><span class="n">hambre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">hambre</span><span class="p">,</span> <span class="n">felicidad</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">felicidad</span><span class="p">,</span> <span class="n">nombre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">nombre_mascota</span><span class="p">)</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">emote_entity</span><span class="o">.</span><span class="n">iniciar_animacion</span><span class="p">(</span><span class="s1">&#39;hambre&#39;</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">alimentar</span><span class="p">()</span>
+                            <span class="n">accion</span> <span class="o">=</span> <span class="s1">&#39;hambre&#39;</span>
 
                         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">boton_dormir</span><span class="o">.</span><span class="n">forma</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()):</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">energia</span> <span class="o">+=</span> <span class="mi">25</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">firu_servicio</span><span class="o">.</span><span class="n">actualizar</span><span class="p">(</span><span class="n">energia</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">energia</span><span class="p">,</span> <span class="n">felicidad</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">felicidad</span><span class="p">,</span> <span class="n">nombre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">nombre_mascota</span><span class="p">)</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">emote_entity</span><span class="o">.</span><span class="n">iniciar_animacion</span><span class="p">(</span><span class="s1">&#39;dormir&#39;</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">dormir</span><span class="p">()</span>
+                            <span class="n">accion</span> <span class="o">=</span> <span class="s1">&#39;dormir&#39;</span>
+
+                        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">boton_jugar</span><span class="o">.</span><span class="n">forma</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()):</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">jugar</span><span class="p">()</span>
+                            <span class="n">accion</span> <span class="o">=</span> <span class="s1">&#39;jugar&#39;</span>
                         
                         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">boton_salir</span><span class="o">.</span><span class="n">forma</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()):</span>
                             <span class="n">run</span> <span class="o">=</span> <span class="kc">False</span>
+
+                        <span class="k">if</span><span class="p">(</span><span class="n">accion</span><span class="p">):</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">firu_servicio</span><span class="o">.</span><span class="n">actualizar</span><span class="p">(</span><span class="n">energia</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">energia</span><span class="p">,</span> <span class="n">felicidad</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">felicidad</span><span class="p">,</span> <span class="n">hambre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">hambre</span><span class="p">,</span> <span class="n">social</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">social</span><span class="p">,</span> <span class="n">limpieza</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">limpieza</span><span class="p">,</span> <span class="n">nombre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">nombre_mascota</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">emote_entity</span><span class="o">.</span><span class="n">iniciar_animacion</span><span class="p">(</span><span class="n">accion</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">estado</span> <span class="o">==</span> <span class="s1">&#39;Sano&#39;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">tipo_de_mascota</span> <span class="o">==</span> <span class="s1">&#39;gato&#39;</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">GATO_IDLE</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">PERRO_IDLE</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">estado</span> <span class="o">==</span> <span class="s1">&#39;Enfermo&#39;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">tipo_de_mascota</span> <span class="o">==</span> <span class="s1">&#39;gato&#39;</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">GATO_SICK</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">PERRO_SICK</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">estado</span> <span class="o">==</span> <span class="s1">&#39;Morido&#39;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firu</span><span class="o">.</span><span class="n">tipo_de_mascota</span> <span class="o">==</span> <span class="s1">&#39;gato&#39;</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">GATO_DEAD</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">animaciones_mascotas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">PERRO_DEAD</span><span class="p">)</span>
+                
+
                 
                 <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
                 
@@ -274,13 +346,16 @@
 
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firu_entity</span><span class="p">,</span> <span class="n">GatoEntity</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">firu_entity</span><span class="o">.</span><span class="n">idle</span><span class="p">()</span>
-
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firu_entity</span><span class="p">,</span> <span class="n">PerroEntity</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">firu_entity</span><span class="o">.</span><span class="n">idle</span><span class="p">()</span>
+                    
                 <span class="bp">self</span><span class="o">.</span><span class="n">emote_entity</span><span class="o">.</span><span class="n">actualizar_animacion</span><span class="p">()</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">boton_limpiar</span><span class="o">.</span><span class="n">dibujar</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">boton_salir</span><span class="o">.</span><span class="n">dibujar</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">boton_dormir</span><span class="o">.</span><span class="n">dibujar</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">boton_alimentar</span><span class="o">.</span><span class="n">dibujar</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">boton_jugar</span><span class="o">.</span><span class="n">dibujar</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">boton_estado</span><span class="o">.</span><span class="n">dibujar</span><span class="p">((</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">boton_nombre</span><span class="o">.</span><span class="n">dibujar</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
@@ -289,6 +364,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">porcentaje_hambre</span><span class="o">.</span><span class="n">dibujar</span><span class="p">((</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">porcentaje_felicidad</span><span class="o">.</span><span class="n">dibujar</span><span class="p">((</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">porcentaje_limpieza</span><span class="o">.</span><span class="n">dibujar</span><span class="p">((</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">porcentaje_social</span><span class="o">.</span><span class="n">dibujar</span><span class="p">((</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">))</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">boton_nombre_duenio</span><span class="o">.</span><span class="n">dibujar</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
 

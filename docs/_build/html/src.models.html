@@ -121,6 +121,7 @@
 <li class="toctree-l4"><a class="reference internal" href="src.models.entities.html#src.models.entities.mascotas_entity.MascotaEntity.dibujar"><code class="docutils literal notranslate"><span class="pre">MascotaEntity.dibujar()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.models.entities.html#src.models.entities.mascotas_entity.MascotaEntity.dormir"><code class="docutils literal notranslate"><span class="pre">MascotaEntity.dormir()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.models.entities.html#src.models.entities.mascotas_entity.MascotaEntity.idle"><code class="docutils literal notranslate"><span class="pre">MascotaEntity.idle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.models.entities.html#src.models.entities.mascotas_entity.MascotaEntity.jugar"><code class="docutils literal notranslate"><span class="pre">MascotaEntity.jugar()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.models.entities.html#src.models.entities.mascotas_entity.MascotaEntity.limpiar"><code class="docutils literal notranslate"><span class="pre">MascotaEntity.limpiar()</span></code></a></li>
 </ul>
 </li>
@@ -150,13 +151,18 @@
 <li class="toctree-l2"><a class="reference internal" href="src.models.mascotas.html#module-src.models.mascotas.mascotas">src.models.mascotas.mascotas module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Gato"><code class="docutils literal notranslate"><span class="pre">Gato</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota"><code class="docutils literal notranslate"><span class="pre">Mascota</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.alimentar"><code class="docutils literal notranslate"><span class="pre">Mascota.alimentar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.dormir"><code class="docutils literal notranslate"><span class="pre">Mascota.dormir()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.energia"><code class="docutils literal notranslate"><span class="pre">Mascota.energia</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.estado"><code class="docutils literal notranslate"><span class="pre">Mascota.estado</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.felicidad"><code class="docutils literal notranslate"><span class="pre">Mascota.felicidad</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.hambre"><code class="docutils literal notranslate"><span class="pre">Mascota.hambre</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.jugar"><code class="docutils literal notranslate"><span class="pre">Mascota.jugar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.limpiar"><code class="docutils literal notranslate"><span class="pre">Mascota.limpiar()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.limpieza"><code class="docutils literal notranslate"><span class="pre">Mascota.limpieza</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.nombre_dueno"><code class="docutils literal notranslate"><span class="pre">Mascota.nombre_dueño</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.nombre_mascota"><code class="docutils literal notranslate"><span class="pre">Mascota.nombre_mascota</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.social"><code class="docutils literal notranslate"><span class="pre">Mascota.social</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.tipo_de_mascota"><code class="docutils literal notranslate"><span class="pre">Mascota.tipo_de_mascota</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.models.mascotas.html#src.models.mascotas.mascotas.Mascota.ultima_actualizacion"><code class="docutils literal notranslate"><span class="pre">Mascota.ultima_actualizacion</span></code></a></li>
 </ul>
@@ -227,6 +233,11 @@ que contiene los valores de los atributos de la instancia del modelo. El formato
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.models.models.Mascotas.nombre">
 <span class="sig-name descname"><span class="pre">nombre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;CharField:</span> <span class="pre">Mascotas.nombre&gt;</span></em><a class="headerlink" href="#src.models.models.Mascotas.nombre" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.models.models.Mascotas.social">
+<span class="sig-name descname"><span class="pre">social</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;IntegerField:</span> <span class="pre">Mascotas.social&gt;</span></em><a class="headerlink" href="#src.models.models.Mascotas.social" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">

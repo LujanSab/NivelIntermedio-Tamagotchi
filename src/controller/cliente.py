@@ -3,8 +3,6 @@ import socket
 HOST, PORT = "localhost", 8080
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-# ################################################333
-# ===== ENVIO Y RECEPCIÓN DE DATOS =================
 
 def enviar_datos_sv(mensaje):
     """

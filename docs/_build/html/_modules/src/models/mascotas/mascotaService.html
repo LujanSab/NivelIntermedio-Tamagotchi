@@ -75,25 +75,27 @@
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">src.models.mascotas.mascotas</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mascota</span><span class="p">,</span> <span class="n">Perro</span><span class="p">,</span> <span class="n">Gato</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">src.controller.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">log</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">src.models.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mascotas</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src.controller.observador</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sujeto</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">peewee</span><span class="w"> </span><span class="kn">import</span> <span class="n">IntegrityError</span><span class="p">,</span> <span class="n">DoesNotExist</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pytz</span>
 
-
 <div class="viewcode-block" id="MascotaService">
 <a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotaService.MascotaService">[documentos]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">MascotaService</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MascotaService</span><span class="p">(</span><span class="n">Sujeto</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    La clase `MascotaService` en Python proporciona métodos para crear, actualizar, eliminar y</span>
 <span class="sd">    recuperar información sobre mascotas, así como para administrar sus estados y propiedades.</span>
 
-<span class="sd">    :param nombre: El parámetro &quot;nombre&quot; hace referencia al nombre de la mascota o mascota. Se utiliza para</span>
+<span class="sd">    - Nombre: El parámetro `nombre` hace referencia al nombre de la mascota o mascota. Se utiliza para</span>
 <span class="sd">    identificar la mascota específica al realizar operaciones como crear, actualizar o eliminar</span>
-<span class="sd">    datos de mascotas en la clase MascotaService</span>
-<span class="sd">    :param duenio: El parámetro `duenio` en la clase `MascotaService` hace referencia al dueño o</span>
+<span class="sd">    datos de mascotas en la clase MascotaService.</span>
+<span class="sd">    - Duenio: El parámetro `duenio` en la clase `MascotaService` hace referencia al dueño o</span>
 <span class="sd">    tutor de la mascota (mascota). Se utiliza para identificar a la persona responsable del cuidado y</span>
-<span class="sd">    bienestar de la mascota</span>
-<span class="sd">    :param tipo: El parámetro `tipo` en el método `crear_mascota` y el método `crear_objeto_mascota` hace referencia al tipo de mascota que se está creando. Puede ser &quot;Perro&quot; o &quot;Gato&quot;. Este parámetro se utiliza para determinar qué clase</span>
+<span class="sd">    bienestar de la mascota.</span>
+<span class="sd">    - Tipo: El parámetro `tipo` en el método `crear_mascota` y el método `crear_objeto_mascota` hace </span>
+<span class="sd">    referencia al tipo de mascota que se está creando. Puede ser &quot;Perro&quot; o &quot;Gato&quot;. Este parámetro se </span>
+<span class="sd">    utiliza para determinar de qué clase proviene.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mascota</span><span class="p">:</span> <span class="n">Mascota</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -101,17 +103,22 @@
 
 <div class="viewcode-block" id="MascotaService.crear_mascota">
 <a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotaService.MascotaService.crear_mascota">[documentos]</a>
+    <span class="nd">@log</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">crear_mascota</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">duenio</span><span class="p">,</span> <span class="n">tipo</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tipo</span> <span class="o">==</span> <span class="s2">&quot;Perro&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span> <span class="o">=</span> <span class="n">Perro</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">duenio</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">crear</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="n">tipo</span> <span class="o">==</span> <span class="s2">&quot;Gato&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span> <span class="o">=</span> <span class="n">Gato</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">duenio</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">crear</span><span class="p">()</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tipo</span> <span class="o">==</span> <span class="s2">&quot;Perro&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span> <span class="o">=</span> <span class="n">Perro</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">duenio</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">crear</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">tipo</span> <span class="o">==</span> <span class="s2">&quot;Gato&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span> <span class="o">=</span> <span class="n">Gato</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">duenio</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">crear</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">error</span></div>
 
-
+    
 <div class="viewcode-block" id="MascotaService.crear">
 <a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotaService.MascotaService.crear">[documentos]</a>
+    <span class="nd">@log</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">crear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">zona_horaria_argentina</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;America/Argentina/Buenos_Aires&#39;</span><span class="p">)</span>
@@ -125,13 +132,14 @@
                 <span class="n">limpieza</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span><span class="o">.</span><span class="n">limpieza</span><span class="p">,</span>
                 <span class="n">hambre</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span><span class="o">.</span><span class="n">hambre</span><span class="p">,</span>
                 <span class="n">felicidad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span><span class="o">.</span><span class="n">felicidad</span><span class="p">,</span>
+                <span class="n">social</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span><span class="o">.</span><span class="n">social</span><span class="p">,</span>
                 <span class="n">estado</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span><span class="o">.</span><span class="n">estado</span><span class="p">,</span>
                 <span class="n">ultima_actualizacion</span> <span class="o">=</span> <span class="n">now</span>
             <span class="p">)</span>
-
             <span class="n">mascota</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-        <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,</span> <span class="n">IntegrityError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">log</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">notificar</span><span class="p">(</span><span class="s2">&quot;Guardar mascota&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span><span class="o">.</span><span class="n">nombre_mascota</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,</span> <span class="n">IntegrityError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">error</span></div>
 
 
 <div class="viewcode-block" id="MascotaService.crear_objeto_mascota">
@@ -140,8 +148,8 @@
             <span class="bp">self</span><span class="p">,</span> <span class="n">nombre</span><span class="p">,</span> 
             <span class="n">duenio</span><span class="p">,</span> <span class="n">tipo</span><span class="p">,</span> 
             <span class="n">energia</span><span class="p">,</span> <span class="n">limpieza</span><span class="p">,</span> 
-            <span class="n">hambre</span><span class="p">,</span> <span class="n">felicidad</span><span class="p">,</span>
-            <span class="n">estado</span>
+            <span class="n">hambre</span><span class="p">,</span> <span class="n">felicidad</span><span class="p">,</span> 
+            <span class="n">social</span>
             <span class="p">):</span>
         <span class="k">if</span> <span class="n">tipo</span> <span class="o">==</span> <span class="s2">&quot;perro&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span> <span class="o">=</span> <span class="n">Perro</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">duenio</span><span class="p">)</span>
@@ -151,11 +159,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span><span class="o">.</span><span class="n">_limpieza</span> <span class="o">=</span> <span class="n">limpieza</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span><span class="o">.</span><span class="n">_hambre</span> <span class="o">=</span> <span class="n">hambre</span> 
         <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span><span class="o">.</span><span class="n">_felicidad</span> <span class="o">=</span> <span class="n">felicidad</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span><span class="o">.</span><span class="n">_estado</span> <span class="o">=</span> <span class="n">estado</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mascota</span><span class="o">.</span><span class="n">_social</span> <span class="o">=</span> <span class="n">social</span></div>
 
-
+    
 <div class="viewcode-block" id="MascotaService.actualizar">
 <a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotaService.MascotaService.actualizar">[documentos]</a>
+    <span class="nd">@log</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">actualizar</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> 
         <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -163,6 +172,7 @@
         <span class="n">limpieza</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">hambre</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">felicidad</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">social</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">estado</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -174,13 +184,14 @@
                 <span class="s2">&quot;limpieza&quot;</span><span class="p">:</span> <span class="n">limpieza</span><span class="p">,</span>
                 <span class="s2">&quot;hambre&quot;</span><span class="p">:</span> <span class="n">hambre</span><span class="p">,</span>
                 <span class="s2">&quot;felicidad&quot;</span><span class="p">:</span> <span class="n">felicidad</span><span class="p">,</span>
+                <span class="s2">&quot;social&quot;</span><span class="p">:</span> <span class="n">social</span><span class="p">,</span>
                 <span class="s2">&quot;estado&quot;</span><span class="p">:</span> <span class="n">estado</span><span class="p">,</span>
                 <span class="s2">&quot;ultima_actualizacion&quot;</span><span class="p">:</span> <span class="n">ultima_actualizacion</span>
             <span class="p">}</span>
 
             <span class="n">actualizar</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">actualizar</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
 
-            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;energia&quot;</span><span class="p">,</span> <span class="s2">&quot;limpieza&quot;</span><span class="p">,</span> <span class="s2">&quot;hambre&quot;</span><span class="p">,</span> <span class="s2">&quot;felicidad&quot;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;energia&quot;</span><span class="p">,</span> <span class="s2">&quot;limpieza&quot;</span><span class="p">,</span> <span class="s2">&quot;hambre&quot;</span><span class="p">,</span> <span class="s2">&quot;felicidad&quot;</span><span class="p">,</span> <span class="s2">&quot;social&quot;</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">actualizar</span><span class="p">:</span>
                     <span class="n">actualizar</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">actualizar</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
 
@@ -189,30 +200,31 @@
                         <span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">actualizar</span><span class="p">)</span>
                         <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">Mascotas</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="n">nombre</span><span class="p">)</span>
                         <span class="o">.</span><span class="n">execute</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">notificar</span><span class="p">(</span><span class="s2">&quot;Se actualizó a:&quot;</span><span class="p">,</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">actualizar</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">query</span> <span class="o">&gt;</span> <span class="mi">0</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log</span><span class="p">(</span><span class="s1">&#39;No hay datos para actualizar&#39;</span><span class="p">)</span>
-
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">log</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+                <span class="k">return</span> <span class="s2">&quot;No hay datos para actualizar. &quot;</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">error</span></div>
 
     
-
 <div class="viewcode-block" id="MascotaService.eliminar">
 <a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotaService.MascotaService.eliminar">[documentos]</a>
+    <span class="nd">@log</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">eliminar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dueño</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">nombre</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">dueño</span><span class="p">:</span>
-            <span class="n">log</span><span class="p">(</span><span class="s2">&quot;Los campos no deben estar en blanco. Intente nuevamente. &quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;Los campos no deben estar en blanco. &quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">Mascotas</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">Mascotas</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="n">nombre</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">log</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
-
+                <span class="bp">self</span><span class="o">.</span><span class="n">notificar</span><span class="p">(</span><span class="s2">&quot;Se eliminó a: &quot;</span><span class="p">,</span> <span class="n">nombre</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">error</span></div>
 
 
 <div class="viewcode-block" id="MascotaService.obtener_datos_mascota">
 <a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotaService.MascotaService.obtener_datos_mascota">[documentos]</a>
+    <span class="nd">@log</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">obtener_datos_mascota</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">datos_mascota</span> <span class="o">=</span> <span class="n">Mascotas</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Mascotas</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="n">nombre</span><span class="p">)</span>
@@ -226,17 +238,19 @@
                     <span class="s2">&quot;limpieza&quot;</span> <span class="p">:</span> <span class="n">datos_mascota</span><span class="o">.</span><span class="n">limpieza</span><span class="p">,</span>
                     <span class="s2">&quot;hambre&quot;</span> <span class="p">:</span> <span class="n">datos_mascota</span><span class="o">.</span><span class="n">hambre</span><span class="p">,</span>
                     <span class="s2">&quot;felicidad&quot;</span> <span class="p">:</span> <span class="n">datos_mascota</span><span class="o">.</span><span class="n">felicidad</span><span class="p">,</span>
+                    <span class="s2">&quot;social&quot;</span> <span class="p">:</span> <span class="n">datos_mascota</span><span class="o">.</span><span class="n">social</span><span class="p">,</span>
                     <span class="s2">&quot;estado&quot;</span> <span class="p">:</span> <span class="n">datos_mascota</span><span class="o">.</span><span class="n">estado</span><span class="p">,</span>
                     <span class="s2">&quot;ultima_actualizacion&quot;</span><span class="p">:</span> <span class="n">datos_mascota</span><span class="o">.</span><span class="n">ultima_actualizacion</span>
                 <span class="p">}</span>
                 <span class="k">return</span> <span class="n">data</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,</span> <span class="n">DoesNotExist</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
-            <span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+            <span class="k">return</span> <span class="n">error</span></div>
 
         
 <div class="viewcode-block" id="MascotaService.obtener_todas_las_mascotas">
 <a class="viewcode-back" href="../../../../src.models.mascotas.html#src.models.mascotas.mascotaService.MascotaService.obtener_todas_las_mascotas">[documentos]</a>
+    <span class="nd">@log</span>    
     <span class="k">def</span><span class="w"> </span><span class="nf">obtener_todas_las_mascotas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">query</span> <span class="o">=</span> <span class="n">Mascotas</span><span class="o">.</span><span class="n">select</span><span class="p">()</span>
         
@@ -244,12 +258,13 @@
                      <span class="n">mascota</span><span class="o">.</span><span class="n">duenio</span><span class="p">,</span> <span class="n">mascota</span><span class="o">.</span><span class="n">tipo</span><span class="p">,</span> 
                      <span class="n">mascota</span><span class="o">.</span><span class="n">energia</span><span class="p">,</span> <span class="n">mascota</span><span class="o">.</span><span class="n">limpieza</span><span class="p">,</span> 
                      <span class="n">mascota</span><span class="o">.</span><span class="n">hambre</span><span class="p">,</span> <span class="n">mascota</span><span class="o">.</span><span class="n">felicidad</span><span class="p">,</span> 
-                     <span class="n">mascota</span><span class="o">.</span><span class="n">ultima_actualizacion</span><span class="p">,</span> <span class="n">mascota</span><span class="o">.</span><span class="n">estado</span><span class="p">)</span> <span class="k">for</span> <span class="n">mascota</span> <span class="ow">in</span> <span class="n">query</span><span class="p">]</span>
+                     <span class="n">mascota</span><span class="o">.</span><span class="n">social</span><span class="p">,</span> <span class="n">mascota</span><span class="o">.</span><span class="n">ultima_actualizacion</span><span class="p">,</span> 
+                     <span class="n">mascota</span><span class="o">.</span><span class="n">estado</span><span class="p">)</span> <span class="k">for</span> <span class="n">mascota</span> <span class="ow">in</span> <span class="n">query</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">mascotas</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">mascotas</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">log</span><span class="p">(</span><span class="s1">&#39;No se encontro ninguna mascota&#39;</span><span class="p">)</span></div>
+            <span class="k">return</span> <span class="s2">&quot;No se encontró ninguna mascota.&quot;</span></div>
 
 
 <div class="viewcode-block" id="MascotaService.actualizar_estado_mascota">
@@ -262,7 +277,8 @@
                 <span class="s2">&quot;energia&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span> 
                 <span class="s2">&quot;limpieza&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
                 <span class="s2">&quot;hambre&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-                <span class="s2">&quot;felicidad&quot;</span><span class="p">:</span> <span class="mi">1</span>   
+                <span class="s2">&quot;felicidad&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
+                <span class="s2">&quot;social&quot;</span><span class="p">:</span> <span class="mi">1</span>
             <span class="p">}</span>
 
             <span class="n">segundos_transcurridos</span> <span class="o">=</span> <span class="n">diferencia_tiempo</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
@@ -277,6 +293,7 @@
                         <span class="n">limpieza</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
                         <span class="n">hambre</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                         <span class="n">felicidad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                        <span class="n">social</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                         <span class="n">estado</span><span class="o">=</span><span class="s1">&#39;Morido&#39;</span>
                         <span class="p">)</span>
                     
@@ -284,6 +301,7 @@
                     <span class="n">obj_mascota</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">=</span> <span class="mi">0</span>
                     <span class="n">obj_mascota</span><span class="o">.</span><span class="n">hambre</span> <span class="o">=</span> <span class="mi">100</span>
                     <span class="n">obj_mascota</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">obj_mascota</span><span class="o">.</span><span class="n">social</span> <span class="o">=</span> <span class="mi">0</span>
                     <span class="n">obj_mascota</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="s1">&#39;Morido&#39;</span>
 
                 <span class="k">elif</span> <span class="n">diferencia_tiempo</span> <span class="o">&gt;=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">PRIMER_CAMBIO_SEGUNDOS</span><span class="p">):</span>
@@ -293,16 +311,17 @@
                         <span class="n">energia</span><span class="o">=</span><span class="n">dict_mascota</span><span class="p">[</span><span class="s2">&quot;energia&quot;</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">CAMBIO_VALORES_SEGUNDOS</span><span class="p">[</span><span class="s2">&quot;energia&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">intervalo_segundos</span><span class="p">),</span>
                         <span class="n">limpieza</span><span class="o">=</span><span class="n">dict_mascota</span><span class="p">[</span><span class="s2">&quot;limpieza&quot;</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">CAMBIO_VALORES_SEGUNDOS</span><span class="p">[</span><span class="s2">&quot;limpieza&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">intervalo_segundos</span><span class="p">),</span> 
                         <span class="n">hambre</span><span class="o">=</span><span class="n">dict_mascota</span><span class="p">[</span><span class="s2">&quot;hambre&quot;</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="n">CAMBIO_VALORES_SEGUNDOS</span><span class="p">[</span><span class="s2">&quot;hambre&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">intervalo_segundos</span><span class="p">),</span>
-                        <span class="n">felicidad</span><span class="o">=</span><span class="n">dict_mascota</span><span class="p">[</span><span class="s2">&quot;felicidad&quot;</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">CAMBIO_VALORES_SEGUNDOS</span><span class="p">[</span><span class="s2">&quot;felicidad&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">intervalo_segundos</span><span class="p">)</span>
+                        <span class="n">felicidad</span><span class="o">=</span><span class="n">dict_mascota</span><span class="p">[</span><span class="s2">&quot;felicidad&quot;</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">CAMBIO_VALORES_SEGUNDOS</span><span class="p">[</span><span class="s2">&quot;felicidad&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">intervalo_segundos</span><span class="p">),</span>
+                        <span class="n">social</span><span class="o">=</span><span class="n">dict_mascota</span><span class="p">[</span><span class="s2">&quot;social&quot;</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">CAMBIO_VALORES_SEGUNDOS</span><span class="p">[</span><span class="s2">&quot;social&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">intervalo_segundos</span><span class="p">)</span>
                         <span class="p">)</span>
                     
                     <span class="n">obj_mascota</span><span class="o">.</span><span class="n">energia</span> <span class="o">-=</span> <span class="p">(</span><span class="n">CAMBIO_VALORES_SEGUNDOS</span><span class="p">[</span><span class="s2">&quot;energia&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">intervalo_segundos</span><span class="p">)</span>
                     <span class="n">obj_mascota</span><span class="o">.</span><span class="n">limpieza</span> <span class="o">-=</span> <span class="p">(</span><span class="n">CAMBIO_VALORES_SEGUNDOS</span><span class="p">[</span><span class="s2">&quot;limpieza&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">intervalo_segundos</span><span class="p">)</span>
                     <span class="n">obj_mascota</span><span class="o">.</span><span class="n">hambre</span> <span class="o">+=</span> <span class="p">(</span><span class="n">CAMBIO_VALORES_SEGUNDOS</span><span class="p">[</span><span class="s2">&quot;hambre&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">intervalo_segundos</span><span class="p">)</span>
                     <span class="n">obj_mascota</span><span class="o">.</span><span class="n">felicidad</span> <span class="o">-=</span> <span class="p">(</span><span class="n">CAMBIO_VALORES_SEGUNDOS</span><span class="p">[</span><span class="s2">&quot;felicidad&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">intervalo_segundos</span><span class="p">)</span>
-
+                    <span class="n">obj_mascota</span><span class="o">.</span><span class="n">social</span> <span class="o">-=</span> <span class="p">(</span><span class="n">CAMBIO_VALORES_SEGUNDOS</span><span class="p">[</span><span class="s2">&quot;social&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">intervalo_segundos</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
-                <span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+                <span class="k">return</span> <span class="n">error</span></div>
 
 
     <span class="nd">@property</span>

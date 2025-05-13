@@ -100,14 +100,16 @@
 <span id="src-controller-logger-module"></span><h2>src.controller.logger module<a class="headerlink" href="#module-src.controller.logger" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.controller.logger.log">
-<span class="sig-prename descclassname"><span class="pre">src.controller.logger.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/controller/logger.html#log"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.controller.logger.log" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.controller.logger.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/controller/logger.html#log"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#src.controller.logger.log" title="Link to this definition"></a></dt>
 <dd><p>La función <cite>log</cite> registra un evento mediante el módulo <cite>logging</cite> en Python.</p>
 <dl>
-<dt>parametros: </dt><dd><ul class="simple">
-<li><p>event: La función <cite>log</cite> toma un parámetro <cite>event</cite>, que es un mensaje o evento que</p></li>
+<dt>Parámetros: </dt><dd><ul class="simple">
+<li><p>func: La función <cite>log</cite> toma un parámetro <cite>func</cite>, que es una función que</p></li>
 </ul>
 <p>desea registrar mediante el método <cite>logging.info</cite>. Esta función es útil para registrar información durante
-la ejecución de un programa</p>
+la ejecución de un programa.</p>
+</dd>
+<dt>Funcionamiento:</dt><dd><p>resultado = func(<a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs) ejecuta la función original con todos sus argumentos posicionales y con nombre.</p>
 </dd>
 </dl>
 </dd></dl>
